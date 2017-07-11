@@ -15,4 +15,8 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Views\SharedPage\_Layout.cshtml" />
+  </ItemGroup>
+
 </Project>
