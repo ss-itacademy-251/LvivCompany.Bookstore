@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LvivCompany.Bookstore.Entities\LvivCompany.Bookstore.Entities.csproj" />
+    <None Include="Views\SharedPage\_Layout.cshtml" />
   </ItemGroup>
 
 </Project>
