@@ -66,6 +66,13 @@ namespace LvivCompany.Bookstore.Web
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "About",
+                    template: "{controller=About}/{action=About}");
+            });
+
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("Hello World!");
