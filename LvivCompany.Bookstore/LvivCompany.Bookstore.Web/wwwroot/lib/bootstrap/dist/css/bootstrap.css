@@ -317,6 +317,7 @@ th {
   content: "\e002";
 }
 .glyphicon-search:before {
+    float:right;
   content: "\e003";
 }
 .glyphicon-heart:before {
