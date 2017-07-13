@@ -16,7 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="Views\SharedPage\_Layout.cshtml" />
+    <None Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LvivCompany.Bookstore.DataAccess\LvivCompany.Bookstore.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>
