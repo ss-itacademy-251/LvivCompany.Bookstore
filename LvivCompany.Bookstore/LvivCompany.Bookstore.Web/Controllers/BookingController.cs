@@ -4,18 +4,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LvivCompany.Bookstore.DataAccess.IRepo;
+using LvivCompany.Bookstore.Entities;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
-    public class SellerController : Controller
+    public class BookingController : Controller
     {
 
-        private IRepo<Book> db;
-        public SellerController()
+        private IBookingRepo<Book> db;
+        public BookingController(IBookingRepo<Book> db)
         {
-            db = new BookRepository();
+            this.db = db;
         }
         // GET: /<controller>/
         public IActionResult Index()

@@ -6,11 +6,8 @@ using System.Collections.Generic;
 
 namespace LvivCompany.Bookstore.Entities
 {
-    public class Book
+    public class Book : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
-
         public int SellerId { get; set; }
 
         public string Name { get; set; }
