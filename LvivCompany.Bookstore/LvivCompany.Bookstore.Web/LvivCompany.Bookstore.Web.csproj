@@ -3,14 +3,25 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+    <AssetTargetFallback>%3bnet461%3bportable-net45+win8</AssetTargetFallback>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0-preview2-final" />
+  </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
+  <ItemGroup>    
+    <None Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0-preview2-final" />
+    <ProjectReference Include="..\LvivCompany.Bookstore.Entities\LvivCompany.Bookstore.Entities.csproj" />
+    <ProjectReference Include="..\LvivCompany.Bookstore.DataAccess\LvivCompany.Bookstore.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>

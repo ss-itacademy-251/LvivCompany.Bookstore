@@ -18,6 +18,8 @@ namespace LvivCompany.Bookstore.Web
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -29,6 +31,7 @@ namespace LvivCompany.Bookstore.Web
         }
 
         public IConfiguration Configuration { get; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -46,7 +49,7 @@ namespace LvivCompany.Bookstore.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            //loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
             if (env.IsDevelopment())
@@ -61,12 +64,18 @@ namespace LvivCompany.Bookstore.Web
 
             app.UseStaticFiles();
 
-
-
             app.UseIdentity();
 
+            app.UseStaticFiles();
 
             app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            app.Run(async (context) =>
             {
                 routes.MapRoute(
                     name: "default",
