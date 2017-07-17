@@ -72,16 +72,8 @@ namespace LvivCompany.Bookstore.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
-
-           
-
-            app.Run(async (context) =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Account}/{action=Register}/{id?}");
+                    template: "{controller}/{action}/{id?}",
+                    defaults: new { controller = "Home", action = "Index" });
             });
         }
     }
