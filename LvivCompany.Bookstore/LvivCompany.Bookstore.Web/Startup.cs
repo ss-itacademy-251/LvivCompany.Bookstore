@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
 using LvivCompany.Bookstore.Entities;
+using LvivCompany.Bookstore.Entities.Models;
 
 namespace LvivCompany.Bookstore.Web
 {
@@ -28,15 +29,20 @@ namespace LvivCompany.Bookstore.Web
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
+
+        public IConfiguration Configuration { get; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            // uncoment this code when add IIdentity
-            //services.AddDbContext<ApplicationContext>(options =>
-            //    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionToIdentityDb")));
-            //services.AddIdentity<User, IdentityRole>()
-            //    .AddEntityFrameworkStores<ApplicationContext>();
+            services.AddDbContext<ApplicationContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddIdentity<User,AppRole>()
+               .AddEntityFrameworkStores<ApplicationContext>()
+               .AddDefaultTokenProviders();
+
             services.AddMvc();
         }
 
@@ -45,6 +51,7 @@ namespace LvivCompany.Bookstore.Web
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -56,9 +63,11 @@ namespace LvivCompany.Bookstore.Web
             }
 
             app.UseStaticFiles();
-#pragma warning disable CS0618 // Тип или член устарел
+
             app.UseIdentity();
-#pragma warning restore CS0618 // Тип или член устарел
+
+            app.UseStaticFiles();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -70,7 +79,9 @@ namespace LvivCompany.Bookstore.Web
 
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Account}/{action=Register}/{id?}");
             });
         }
     }
