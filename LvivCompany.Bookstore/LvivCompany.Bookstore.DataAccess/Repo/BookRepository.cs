@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using LvivCompany.Bookstore.Entities;
 
 namespace LvivCompany.Bookstore.DataAccess.IRepo
 {
-    public class BookRepository : IBookingRepo <Book>
+    public class BookRepository : IRepo <Book>
     {
         private BookStoreContext context;
 

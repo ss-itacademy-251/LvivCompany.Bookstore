@@ -4,11 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LvivCompany.Bookstore.Entities
 {
-    public class Category
+    public class Category : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
-
         public string Name { get; set; }
     }
 

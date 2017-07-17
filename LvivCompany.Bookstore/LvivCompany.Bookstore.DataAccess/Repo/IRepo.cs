@@ -5,7 +5,7 @@ using LvivCompany.Bookstore.Entities;
 
 namespace LvivCompany.Bookstore.DataAccess.IRepo
 {
-    public interface IBookingRepo<TEntity> where TEntity : BaseEntity
+    public interface IRepo<TEntity> where TEntity : BaseEntity
     {
         IEnumerable<TEntity> GetAll();
         TEntity Get(long id);

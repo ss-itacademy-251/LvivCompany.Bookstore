@@ -10,13 +10,13 @@ using LvivCompany.Bookstore.Entities;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
-    public class BookingController : Controller
+    public class AddBookController : Controller
     {
 
-        private IBookingRepo<Book> db;
-        public BookingController(IBookingRepo<Book> db)
+        private IRepo<Book> db;
+        public AddBookController(IRepo<Book> db)
         {
-            this.db = db;
+           this.db = db;
         }
         // GET: /<controller>/
         public IActionResult Index()

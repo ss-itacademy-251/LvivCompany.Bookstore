@@ -8,22 +8,22 @@ namespace LvivCompany.Bookstore.Entities
 {
     public class Book : BaseEntity
     {
-        public int SellerId { get; set; }
+        public long SellerId { get; set; }
 
         public string Name { get; set; }
 
-        public int Description { get; set; }
+        public string Description { get; set; }
 
         public DateTime Year { get; set; }
 
-        public int PublisherId { get; set; }
+        public long PublisherId { get; set; }
 
         [ForeignKey("PublisherId")]
         public Publisher Publisher { get; set; }
 
         public int NumberOfPages { get; set; }
 
-        public int CategoryId { get; set; }
+        public long CategoryId { get; set; }
 
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
@@ -35,6 +35,5 @@ namespace LvivCompany.Bookstore.Entities
         public decimal Price { get; set; }
 
         public List<BookAuthor> BookAuthors { get; set; }
-       
     }
 }
