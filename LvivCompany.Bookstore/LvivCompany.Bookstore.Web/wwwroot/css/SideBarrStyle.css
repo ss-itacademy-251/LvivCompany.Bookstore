@@ -148,7 +148,7 @@
         }
 
     .brand {
-        text-align: left !important;
+        text-align: right !important;
         font-size: 22px;
         padding-left: 20px;
         line-height: 50px !important;
@@ -172,4 +172,8 @@
     overflow:auto;    
 }
 
+
+.aboutinfo {
+    float:right !important;
 }
+
