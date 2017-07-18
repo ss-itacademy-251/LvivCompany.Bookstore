@@ -1,23 +1,22 @@
-﻿@{
+﻿@model LvivCompany.Bookstore.Web.ViewModels.BookViewModel
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
 
 <div class="container">
-
-    <div class="col-md-2">
+    <form class="form-horizontal" method="post" asp-action="Index" asp-controller="AddBook" enctype="multipart/form-data">
+            <div class="col-md-2">
         <image asp-for="Image" alt="Book image" class="img-responsive" src="" />
         <input asp-for="Image" type="file"
                placeholder="Photo" accept="image/*" required="" capture>
     </div>
-
-    <form class="form-horizontal" method="post">
-        <fieldset>
-
+        <div class="col-md-10">
             <!-- Text input-->
             <div class="form-group">
-                <label asp-for="Name" class="col-md-4 control-label"></label>
+                <label asp-for="" class="col-md-4 control-label"></label>
                 <div class="col-md-6">
                     <input asp-for="Name" class="form-control input-md" type="text" placeholder="e.g., C# 6.0 and the .NET 4.6 Framework">
                 </div>
@@ -84,6 +83,6 @@
                     <button class="btn btn-danger col-md-offset-4" type="button">Cancel</button>
                 </div>
             </div>
-        </fieldset>
-    </form>
+            </div>
+</form>
 </div>

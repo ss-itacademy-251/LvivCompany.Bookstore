@@ -19,6 +19,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
            this.db = db;
         }
         // GET: /<controller>/
+        [HttpPost]
         public IActionResult Index()
         {
 
