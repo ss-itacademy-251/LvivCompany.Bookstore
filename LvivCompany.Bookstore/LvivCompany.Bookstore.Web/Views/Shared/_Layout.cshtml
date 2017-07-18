@@ -1,4 +1,5 @@
-﻿
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
 <div class="main-content">
 @RenderBody()
     </div>
@@ -44,10 +45,10 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
 
-                    <li class="container-fluid"><a href="/Home/Index">Home</a></li>
+                    <li class="container-fluid"><a asp-controller="Home" asp-action="Index">Home</a></li>
                     <li class="container-fluid"><a href="#">Delivery</a></li>
                     <li class="container-fluid"><a href="#">Help</a></li>
-                    <li class="container-fluid"><a href="@Url.RouteUrl(new { controller = "About", action = "About" })">About us</a></li>
+                    <li class="container-fluid"><a asp-controller="About" asp-action="About">About us</a></li>
 
                 </ul>
 
