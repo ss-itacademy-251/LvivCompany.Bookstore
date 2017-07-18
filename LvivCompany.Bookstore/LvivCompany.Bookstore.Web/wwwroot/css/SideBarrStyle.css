@@ -14,13 +14,13 @@
 
 
 
-.nav-side-menu .brand {
-    background-color: #222222;
-    line-height: 50px;
-    display: block;
-    text-align: center;
-    font-size: 14px;
-}
+    .nav-side-menu .brand {
+        background-color: #222222;
+        line-height: 50px;
+        display: block;
+        text-align: center;
+        font-size: 14px;
+    }
 
     .nav-side-menu .toggle-btn {
         display: none;
@@ -33,8 +33,7 @@
         margin: 0px;
         line-height: 35px;
         cursor: pointer;
-            
-    /*.collapsed{
+        /*.collapsed{
        .arrow:before{
                  font-family: FontAwesome;
                  content: "\f053";
@@ -45,7 +44,6 @@
                  float:right;
             }
      }*/
-
     }
 
         .nav-side-menu ul :not(collapsed) .arrow:before,
@@ -148,12 +146,13 @@
         }
 
     .brand {
-        text-align: left !important;
+        text-align: right !important;
         font-size: 22px;
         padding-left: 20px;
         line-height: 50px !important;
     }
 }
+
 .downIcon {
     color: #9d9d9d;
     background-color: #222222;
@@ -163,4 +162,19 @@
     .nav-side-menu .menu-list .menu-content {
         display: block;
     }
+}
+
+.MainContent {
+    padding-top: 5%;
+    padding-left: 5%;
+    background-color: white;
+    overflow: auto;
+}
+
+.bottom-container {
+    margin-bottom:5%;
+}
+
+.aboutinfo {
+    float: right !important;
 }

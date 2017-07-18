@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿
+<div class="MainContent">
+    @RenderBody()
+</div>
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -12,6 +17,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/SideBarrStyle.css" rel="stylesheet" />
+    <link href="~/css/HomePageList.css" rel="stylesheet" />
 
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <!--<link href="../Content/bootstrap-theme.css" rel="stylesheet" />
@@ -19,7 +25,7 @@
     <link href="../Content/bootstrap.css" rel="stylesheet" />
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />-->
     <link href="../Style/IconDown.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../Style/Carouselstyle.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,700&subset=latin-ext" rel="stylesheet">
@@ -39,16 +45,17 @@
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
 
-                    <li class="container-fluid"><a href="#">Home</a></li>
+                    <li class="container-fluid"><a href="/Home/Index">Home</a></li>
                     <li class="container-fluid"><a href="#">Delivery</a></li>
                     <li class="container-fluid"><a href="#">Help</a></li>
-                    <li class="container-fluid"><a href="#">About us</a></li>
+                    <li class="container-fluid"><a href="@Url.RouteUrl(new { controller = "About", action = "About" })">About us</a></li>
 
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
-
-                    <li><a href=""><input style="width:400px;" /> <span class="glyphicon glyphicon-search"></span> </a></li>
+                    <li>
+                        <input style="width:400px; margin-top:12px" /> <a style="float:right" href=""><span class="glyphicon glyphicon-search"></span> </a>
+                    </li>
                     <li><a href="RegistryPage.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                     <li><a href="LogPage.html"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
                 </ul>
@@ -106,10 +113,9 @@
             </div>
         </div>
 
-        @RenderBody()
 
         <div class="navbar  navbar-inverse navbar-fixed-bottom">
-            <div class="container">                
+            <div class="container">
                 <div class="navbar-text pull=left">
                     <p> SoftServe IT academy 2017</p>
                 </div>
