@@ -28,7 +28,7 @@ namespace LvivCompany.Bookstore.Web
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
-        }
+        }       
 
         //public IConfiguration Configuration { get; }
 
@@ -64,9 +64,7 @@ namespace LvivCompany.Bookstore.Web
 
             app.UseStaticFiles();
 
-            app.UseIdentity();
-
-            app.UseStaticFiles();
+            app.UseIdentity();         
 
             app.UseMvc(routes =>
             {
