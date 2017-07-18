@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0-preview2-final" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0-preview2-final" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\LvivCompany.Bookstore.Entities\LvivCompany.Bookstore.Entities.csproj" />
     <ProjectReference Include="..\LvivCompany.Bookstore.DataAccess\LvivCompany.Bookstore.DataAccess.csproj" />
+    <ProjectReference Include="..\LvivCompany.Bookstore.Entities\LvivCompany.Bookstore.Entities.csproj" />
   </ItemGroup>
 
 </Project>
