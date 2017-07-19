@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using LvivCompany.Bookstore.DataAccess;
+using LvivCompany.Bookstore.DataAccess.IRepo;
+using LvivCompany.Bookstore.DataAccess.Repo.RepoTests;
+using LvivCompany.Bookstore.Entities;
+using LvivCompany.Bookstore.Entities.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using LvivCompany.Bookstore.DataAccess.IRepo;
-using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.DataAccess;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Identity;
-using LvivCompany.Bookstore.Entities.Models;
 
 namespace LvivCompany.Bookstore.Web
 {
@@ -32,7 +26,6 @@ namespace LvivCompany.Bookstore.Web
             Configuration = builder.Build();
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -47,7 +40,9 @@ namespace LvivCompany.Bookstore.Web
 
             services.AddMvc();
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddTransient<IRepo<Book>, BookRepository>();
+
+            // TODO: Remove when dabase will be ready
+            services.AddTransient<IRepo<Book>, BookTestRepository>();
             services.AddTransient<IRepo<Author>, AuthorRepository>();
             services.AddTransient<IRepo<Category>, CategoryRepository>();
             services.AddTransient<IRepo<Order>, OrderRepository>();
@@ -82,15 +77,10 @@ namespace LvivCompany.Bookstore.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=AddBook}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            app.Run(async (context) =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Account}/{action=Register}/{id?}");
-            });
+     
         }
     }
 }
