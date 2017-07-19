@@ -1,15 +1,12 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-<div class="main-content">
-@RenderBody()
-    </div>
-
 <!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Lviv Bookstore Company</title>
     <meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -78,52 +75,57 @@
                     <li data-toggle="collapse" data-target="#products" class="collapsed active">
                         <a href="#"><i class="fa fa-gift fa-lg"></i> Genres <span class="arrow"></span></a>
                     </li>
-                    <ul class="sub-menu collapse" id="products">
+                    <li>
+                        <ul class="sub-menu collapse" id="products">
 
-                        <li><a href="#">Detectives</a></li>
-                        <li><a href="#">Historical</a></li>
-                        <li><a href="#">Thriller</a></li>
-                        <li><a href="#">Grief</a></li>
+                            <li><a href="#">Detectives</a></li>
+                            <li><a href="#">Historical</a></li>
+                            <li><a href="#">Thriller</a></li>
+                            <li><a href="#">Grief</a></li>
 
-                    </ul>
-
+                        </ul>
+                    </li>
                     <li data-toggle="collapse" data-target="#service" class="collapsed">
                         <a href="#"><i class="fa fa-globe fa-lg"></i>Author <span class="arrow"></span></a>
                     </li>
-                    <ul class="sub-menu collapse" id="service">
-                        <li> A-E</li>
-                        <li> F-J</li>
-                        <li> K-O</li>
-                        <li> P-T</li>
-                        <li> U-Z</li>
-                    </ul>
+                    <li>
+                        <ul class="sub-menu collapse" id="service">
+                            <li> A-E</li>
+                            <li> F-J</li>
+                            <li> K-O</li>
+                            <li> P-T</li>
+                            <li> U-Z</li>
+                        </ul>
+                    </li>
 
                     <li data-toggle="collapse" data-target="#new" class="collapsed">
                         <a href="#"><i class="fa fa-car fa-lg"></i> Books <span class="arrow"></span></a>
                     </li>
-                    <ul class="sub-menu collapse" id="new">
-                        <li> A-E</li>
-                        <li> F-J</li>
-                        <li> K-O</li>
-                        <li> P-T</li>
-                        <li> U-Z</li>
-                    </ul>
+                    <li>
+                        <ul class="sub-menu collapse" id="new">
+                            <li> A-E</li>
+                            <li> F-J</li>
+                            <li> K-O</li>
+                            <li> P-T</li>
+                            <li> U-Z</li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
-        
+    </nav>
+   
+    <div style="margin-top:5%; margin-bottom:5%; margin-left:25%;">
+        @RenderBody()
+    </div>
 
-        <div class="navbar  navbar-inverse navbar-fixed-bottom">
-            <div class="container">                
-                <div class="navbar-text pull=left">
-                    <p> SoftServe IT academy 2017</p>
-                </div>
-
+    <div class="navbar  navbar-inverse navbar-fixed-bottom">
+        <div class="container">                
+            <div class="navbar-text pull=left">
+                <p> SoftServe IT academy 2017</p>
             </div>
         </div>
-
-    </nav>
-    
+    </div>
 
 </body>
 </html>
