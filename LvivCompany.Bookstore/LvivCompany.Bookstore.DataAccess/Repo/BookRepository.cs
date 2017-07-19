@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
 using LvivCompany.Bookstore.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace LvivCompany.Bookstore.DataAccess.IRepo
 {
@@ -14,7 +14,7 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
         }
 
         public IEnumerable<Book> GetAll()
-        {
+        {     
             return context.Books;
         }
 

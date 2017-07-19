@@ -3,5 +3,96 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<p>Home contoller Index method</p>
 
+@Model listbook
+    <form asp-controller="Home" asp-action="HomePageListView">
+        <div class="container">
+            <div class="row">
+                <!-- BEGIN PRODUCTS -->
+                @foreach (var std in @Model)
+                {
+
+                <div class="col-md-3 col-sm-6">
+                    <span class="thumbnail">
+                        <img src="http://placehold.it/500x600" alt="...">
+                        <h4>@std.Name</h4>
+                        <hr class="line">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <p>@std.Price</p>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <button class="btn btn-success right"> BUY</button>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                }
+               
+        <div class="container bottom-container">
+            <div class="row">
+                <!-- BEGIN PRODUCTS -->
+                <div class="col-md-3 col-sm-6">
+                    <span class="thumbnail">
+                        <img src="http://placehold.it/500x600" alt="...">
+                        <h4>Product Tittle</h4>
+                        <hr class="line">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <p class="price">$29,90</p>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <button class="btn btn-success right"> BUY</button>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <span class="thumbnail">
+                        <img src="http://placehold.it/500x600" alt="...">
+                        <h4>Product Tittle</h4>
+                        <hr class="line">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <p class="price">$29,90</p>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <button class="btn btn-success right"> BUY</button>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <span class="thumbnail">
+                        <img src="http://placehold.it/500x600" alt="...">
+                        <h4>Product Tittle</h4>
+                        <hr class="line">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <p class="price">$29,90</p>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <button class="btn btn-success right"> BUY</button>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <span class="thumbnail">
+                        <img src="http://placehold.it/500x600" alt="...">
+                        <h4>Product Tittle</h4>
+                        <hr class="line">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6">
+                                <p class="price">$29,90</p>
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                <button class="btn btn-success right"> BUY</button>
+                            </div>
+                        </div>
+                    </span>
+                </div>
+                <!-- END PRODUCTS -->
+            </div>
+        </div>
+    </form>
