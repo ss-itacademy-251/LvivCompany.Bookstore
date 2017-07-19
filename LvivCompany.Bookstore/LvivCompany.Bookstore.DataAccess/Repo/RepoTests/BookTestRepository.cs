@@ -79,7 +79,8 @@ namespace LvivCompany.Bookstore.DataAccess.Repo.RepoTests
                     Category =category[6].Name,
                     Amount = 9,
                     Price = 10,
-                    Author="Mark Tven"
+                    Author="Mark Tven",
+                    Image="image/c1.jpg"
                 },
                  new BookTest
                 {
@@ -93,7 +94,8 @@ namespace LvivCompany.Bookstore.DataAccess.Repo.RepoTests
                     Category =category[7].Name,
                     Amount = 9,
                     Price = 10,
-                    Author="Joanna Rowling"
+                    Author="Joanna Rowling",
+                     Image="image/c2.jpg"
                 },
 
                   new BookTest
@@ -108,7 +110,8 @@ namespace LvivCompany.Bookstore.DataAccess.Repo.RepoTests
                     Category =category[0].Name,
                     Amount = 9,
                     Price = 10,
-                    Author="Steaven King"
+                    Author="Steaven King",
+                    Image="image/c3.jpg"
                 },
 
             };
@@ -118,7 +121,29 @@ namespace LvivCompany.Bookstore.DataAccess.Repo.RepoTests
 
         public BookTest Get(long id)
         {
-            return context.BookTests.Find(id);
+            BookTest b = new BookTest
+            {
+
+                SellerName = "Vitalik Dosiak",
+                Name = "The Shining",
+                Description = "The Shining centers on the life of Jack Torrance, " +
+                "an aspiring writer and recovering alcoholic who accepts a position " +
+                "as the off-season caretaker of the historic Overlook Hotel in the" +
+                " Colorado Rockies. His family accompanies him on this job, including " +
+                "his young son Danny Torrance, who possesses the shining, an array of" +
+                " psychic abilities that allow Danny to see the hotel's horrific past. " +
+                "Soon, after a winter storm leaves them snowbound, the supernatural forces " +
+                "inhabiting the hotel influence Jack's sanity, leaving his wife and son in incredible danger.",
+                Year = new DateTime(2008, 5, 1, 8, 30, 52),
+                Publisher = "FamilyClub",
+                NumberOfPages = 320,
+                Category = "horror",
+                Amount = 9,
+                Price = 10,
+                Author = "Steaven King",
+                Image = "image/c3.jpg"
+            };
+            return b;
         }
 
         public void Create(BookTest book)

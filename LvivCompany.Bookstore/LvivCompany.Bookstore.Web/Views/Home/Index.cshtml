@@ -4,7 +4,7 @@
 }
 
 
-@Model listbook
+
     <form asp-controller="Home" asp-action="HomePageListView">
         <div class="container">
             <div class="row">
@@ -14,12 +14,12 @@
 
                 <div class="col-md-3 col-sm-6">
                     <span class="thumbnail">
-                        <img src="http://placehold.it/500x600" alt="...">
+                        <img src="@std.Image" alt="...">
                         <h4>@std.Name</h4>
                         <hr class="line">
                         <div class="row">
                             <div class="col-md-6 col-sm-6">
-                                <p>@std.Category</p>
+                                <p>@std.Price</p>
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <button class="btn btn-success right"> BUY</button>

@@ -1,0 +1,79 @@
+﻿@{
+    //ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+    <form asp-controller="BookDetail" asp-action="BookDetailListView">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-4 item-photo">
+                    <img style="max-width:100%;" src="@Model.Image" />
+                </div>
+                <div class="col-xs-5" style="border:0px solid gray">
+                    <!-- Name -->
+                    <h2><b>@Model.Name </b></h2>
+
+                    <!-- Author -->
+                    <h6 class="title-price"><small>Author</small></h6>
+                    <h3 style="margin-top:0px;">@Model.Author</h3>
+
+                    <!-- Category -->
+                    <h6 class="title-price"><small>Category</small></h6>
+                    <h3 style="margin-top:0px;">@Model.Category</h3>
+
+                    <!-- NumberOfPages -->
+                    <h6 class="title-price"><small>Number Of Pages</small></h6>
+                    <h3 style="margin-top:0px;">@Model.NumberOfPages</h3>
+
+                    <!-- PUBLISHER -->
+                    <h6 class="title-price"><small>Publisher</small></h6>
+                    <h3 style="margin-top:0px;">@Model.Publisher</h3>
+
+                    <!-- Year -->
+                    <h6 class="title-price"><small>Year</small></h6>
+                    <h3 style="margin-top:0px;">@Model.Year</h3>
+
+                    <!-- Seller -->
+                    <h6 class="title-price"><small>Seller</small></h6>
+                    <h3 style="margin-top:0px;">@Model.SellerName</h3>
+
+                    <!-- Amount -->
+                    <h6 class="title-price"><small>Amount</small></h6>
+                    <h3 style="margin-top:0px;">@Model.Amount</h3>
+
+                    <!-- Price -->
+                    <h6 class="title-price"><small>Price</small></h6>
+                    <h3 style="margin-top:0px;">@Model.Price</h3>
+
+                    <!-- Amount to buy-->
+                    <div class="section" style="padding-bottom:20px;">
+                        <h6 class="title-attr"><small>Amount To Order</small></h6>
+                        <div>
+                            <div class="btn-minus"><span class="glyphicon glyphicon-minus"></span></div>
+                            <input value="1" />
+                            <div class="btn-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                        </div>
+                    </div>
+
+                    <!-- Add to Order -->
+                    <div class="section" style="padding-bottom:20px;">
+                        <button class="btn btn-success"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Order </button>
+                    </div>
+                </div>
+
+                <div class="col-xs-9">
+                    <h3>Description</h3>
+                    <div style="width:100%;border-top:1px solid silver">
+                        <p style="padding:15px;">
+                            <small>
+                               @Model.Description
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+
