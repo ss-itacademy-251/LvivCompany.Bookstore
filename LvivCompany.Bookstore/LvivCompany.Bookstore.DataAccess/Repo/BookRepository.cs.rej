@@ -1,0 +1,10 @@
+diff a/LvivCompany.Bookstore/LvivCompany.Bookstore.DataAccess/Repo/BookRepository.cs b/LvivCompany.Bookstore/LvivCompany.Bookstore.DataAccess/Repo/BookRepository.cs	(rejected hunks)
+@@ -14,7 +14,7 @@
+         }
+ 
+         public IEnumerable<Book> GetAll()
+-        {
++        {     
+             return context.Books;
+         }
+ 

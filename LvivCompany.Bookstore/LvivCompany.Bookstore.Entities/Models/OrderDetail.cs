@@ -5,19 +5,16 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LvivCompany.Bookstore.Entities
 {
-    public class OrderDetail
+    public class OrderDetail : BaseEntity
     {
-        [Key]
-        public int Id { get; set; }
-
         public int Amount { get; set; }
 
-        public int BookId { get; set; }
+        public long BookId { get; set; }
 
         [ForeignKey("BookId")]
         public Book Book { get; set; }
 
-        public int OrderId { get; set; }
+        public long OrderId { get; set; }
 
         [ForeignKey("OrderId")]
         public Order Order { get; set; }

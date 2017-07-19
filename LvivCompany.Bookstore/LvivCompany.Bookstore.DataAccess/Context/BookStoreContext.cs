@@ -10,7 +10,7 @@ namespace LvivCompany.Bookstore.DataAccess
     public class BookStoreContext : DbContext
     {
 
-      
+
 
         public BookStoreContext(DbContextOptions<BookStoreContext> options) : base(options)
         { }
@@ -48,13 +48,11 @@ namespace LvivCompany.Bookstore.DataAccess
 
     public class BloggingContextFactory : IDesignTimeDbContextFactory<BookStoreContext>
     {
-        public BookStoreContext CreateDbContext(string []args)
+        public BookStoreContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<BookStoreContext>();
             builder.UseSqlServer(@"Server=DESKTOP-ANNA\SQLEXPRESS;Database=bookstoredb;Trusted_Connection=True;");
             return new BookStoreContext(builder.Options);
         }
-
-    
     }
-    }
+}
