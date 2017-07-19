@@ -17,7 +17,7 @@ namespace LvivCompany.Bookstore.DataAccess.Repo.RepoTests
 
         public IEnumerable<Book> GetAll()
         {
-            Category cat = new Category("history");
+           // Category cat = new Category("history");
            var books = new List<Book>
             {
                 new Book
@@ -29,7 +29,7 @@ namespace LvivCompany.Bookstore.DataAccess.Repo.RepoTests
                     Year = new DateTime(2008, 5, 1, 8, 30, 52),
                     PublisherId = 1,
                     NumberOfPages = 280,
-                    CategoryId =cat ,
+                   // CategoryId =cat ,
                     Amount = 9,
                     Price = 10
                 },
