@@ -77,7 +77,7 @@ namespace LvivCompany.Bookstore.DataAccess.Repo.RepoTests
                     Publisher = "Ranok",
                     NumberOfPages = 380,
                     Category =category[6].Name,
-                    Amount = 9,
+                    Amount = 3,
                     Price = 10,
                     Author="Mark Tven",
                     Image="image/c1.jpg"
@@ -92,8 +92,8 @@ namespace LvivCompany.Bookstore.DataAccess.Repo.RepoTests
                     Publisher = "Ababagalamaga",
                     NumberOfPages = 290,
                     Category =category[7].Name,
-                    Amount = 9,
-                    Price = 10,
+                    Amount = 4,
+                    Price = 8,
                     Author="Joanna Rowling",
                      Image="image/c2.jpg"
                 },
@@ -109,7 +109,7 @@ namespace LvivCompany.Bookstore.DataAccess.Repo.RepoTests
                     NumberOfPages = 320,
                     Category =category[0].Name,
                     Amount = 9,
-                    Price = 10,
+                    Price = 6,
                     Author="Steaven King",
                     Image="image/c3.jpg"
                 },
@@ -139,7 +139,7 @@ namespace LvivCompany.Bookstore.DataAccess.Repo.RepoTests
                 NumberOfPages = 320,
                 Category = "horror",
                 Amount = 9,
-                Price = 10,
+                Price = 7,
                 Author = "Steaven King",
                 Image = "image/c3.jpg"
             };

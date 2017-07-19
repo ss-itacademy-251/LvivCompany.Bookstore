@@ -78,7 +78,7 @@ namespace LvivCompany.Bookstore.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=BookDetail}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
 
 
