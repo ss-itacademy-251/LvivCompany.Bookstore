@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using LvivCompany.Bookstore.Entities;
+using LvivCompany.Bookstore.Entities.Models.ClassTest;
 
 namespace LvivCompany.Bookstore.DataAccess.IRepo
 {

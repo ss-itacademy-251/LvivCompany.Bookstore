@@ -3,6 +3,7 @@ using LvivCompany.Bookstore.DataAccess.IRepo;
 using LvivCompany.Bookstore.DataAccess.Repo.RepoTests;
 using LvivCompany.Bookstore.Entities;
 using LvivCompany.Bookstore.Entities.Models;
+using LvivCompany.Bookstore.Entities.Models.ClassTest;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -44,7 +45,7 @@ namespace LvivCompany.Bookstore.Web
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // TODO: Remove when dabase will be ready
-            services.AddTransient<IRepo<Book>, BookTestRepository>();
+            services.AddTransient<IRepo<BookTest>, BookTestRepository>();
             services.AddTransient<IRepo<Author>, AuthorRepository>();
             services.AddTransient<IRepo<Category>, CategoryRepository>();
             services.AddTransient<IRepo<Order>, OrderRepository>();

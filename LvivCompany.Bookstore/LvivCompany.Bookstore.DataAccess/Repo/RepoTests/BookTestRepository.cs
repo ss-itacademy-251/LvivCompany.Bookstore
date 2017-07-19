@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using LvivCompany.Bookstore.DataAccess.IRepo;
 using LvivCompany.Bookstore.Entities;
 using Microsoft.EntityFrameworkCore;
+using LvivCompany.Bookstore.DataAccess.Repo.RepoTests;
+using LvivCompany.Bookstore.Entities.Models.ClassTest;
 
 namespace LvivCompany.Bookstore.DataAccess.Repo.RepoTests
 {
-    public class BookTestRepository : IRepo<Book>
+    public class BookTestRepository : IRepo<BookTest>
     {
         private BookStoreContext context;
 
@@ -14,79 +16,129 @@ namespace LvivCompany.Bookstore.DataAccess.Repo.RepoTests
         {
             this.context = context;
         }
+        
 
-        public IEnumerable<Book> GetAll()
+        public IEnumerable<BookTest> GetAll()
         {
-           // Category cat = new Category("history");
-           var books = new List<Book>
+            var category = new List<Category>
             {
-                new Book
-                {
+              new Category
+              {
+                 Id=1,
+                 Name="history"
+              },
+              new Category
+              {
+                 Id=2,
+                 Name="thriller"
+              },
+              new Category
+              {
+                 Id=3,
+                 Name="horror"
+              },
+              new Category
+              {
+                 Id=4,
+                 Name="detective"
+              },
+              new Category
+              {
+                 Id=5,
+                 Name="comedy"
+              },
+              new Category
+              {
+                 Id=6,
+                 Name="drama"
+              },
+               new Category
+              {
+                 Id=7,
+                 Name="adventure"
+              },
+                new Category
+              {
+                 Id=8,
+                 Name="fantasy"
+              },
+            };
+         
 
-                    SellerId = 1,
-                    Name = "Harry Potter",
-                    Description = "dfbgnermgftthdsgs",
+            var books = new List<BookTest>
+            {
+                new BookTest
+                {
+                    
+                    SellerName = "Anna Avramenko",
+                    Name = "Tom Sawyer",
+                    Description = "story about adventure",
                     Year = new DateTime(2008, 5, 1, 8, 30, 52),
-                    PublisherId = 1,
-                    NumberOfPages = 280,
-                   // CategoryId =cat ,
+                    Publisher = "Ranok",
+                    NumberOfPages = 380,
+                    Category =category[6].Name,
                     Amount = 9,
-                    Price = 10
+                    Price = 10,
+                    Author="Mark Tven"
                 },
-                  new Book
+                 new BookTest
                 {
-                    SellerId = 1,
-                    Name = "LoR",
-                    Description = "fklky;",
-                    Year = new DateTime(1998, 5, 1, 8, 30, 52),
-                    PublisherId = 1,
-                    NumberOfPages = 980,
-                    CategoryId = 1,
-                    Amount = 7,
-                    Price = 15
+
+                    SellerName = "Mark Spilnyk",
+                    Name = "Harry Potter",
+                    Description = "story about boy who alive",
+                    Year = new DateTime(2008, 5, 1, 8, 30, 52),
+                    Publisher = "Ababagalamaga",
+                    NumberOfPages = 290,
+                    Category =category[7].Name,
+                    Amount = 9,
+                    Price = 10,
+                    Author="Joanna Rowling"
                 },
 
-                  new Book
+                  new BookTest
                 {
-                    SellerId = 1,
-                    Name = "Narnia",
-                    Description = "skuhdftdhkr",
-                    Year =  new DateTime(1978, 5, 1, 8, 30, 52),
-                    PublisherId = 1,
-                    NumberOfPages = 268,
-                    CategoryId = 1,
-                    Amount = 7,
-                    Price = 20
-                }
+
+                    SellerName = "Vitalik Dosiak",
+                    Name = "The Shining",
+                    Description = "story about adventure",
+                    Year = new DateTime(2008, 5, 1, 8, 30, 52),
+                    Publisher = "FamilyClub",
+                    NumberOfPages = 320,
+                    Category =category[0].Name,
+                    Amount = 9,
+                    Price = 10,
+                    Author="Steaven King"
+                },
 
             };
 
             return books;
         }
 
-        public Book Get(long id)
+        public BookTest Get(long id)
         {
-            return context.Books.Find(id);
+            return context.BookTests.Find(id);
         }
 
-        public void Create(Book book)
+        public void Create(BookTest book)
         {
-            context.Books.Add(book);
+            context.BookTests.Add(book);
         }
 
-        public void Update(Book book)
+        public void Update(BookTest book)
         {
             context.Entry(book).State = EntityState.Modified;
         }
 
         public void Delete(long id)
         {
-            Book book = context.Books.Find(id);
+            BookTest book = context.BookTests.Find(id);
             if (book != null)
-                context.Books.Remove(book);
+                context.BookTests.Remove(book);
         }
 
-        public void Delete(Book book)
+        public void Delete(BookTest book)
         {
             context.Entry(book).State = EntityState.Deleted;
         }

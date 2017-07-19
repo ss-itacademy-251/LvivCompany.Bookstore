@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Design;
 using LvivCompany.Bookstore.Entities;
+using LvivCompany.Bookstore.Entities.Models.ClassTest;
 
 namespace LvivCompany.Bookstore.DataAccess
 {
@@ -24,10 +25,13 @@ namespace LvivCompany.Bookstore.DataAccess
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Status> Statuses { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-ANNA\SQLEXPRESS;Database=bookstoredb;Trusted_Connection=True;");
-        }
+        //TODO:delete
+        public DbSet<BookTest> BookTests { get; set; }
+
+        /* protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+         {
+             optionsBuilder.UseSqlServer(@"Server=DESKTOP-ANNA\SQLEXPRESS;Database=bookstoredb;Trusted_Connection=True;");
+         }*/
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
