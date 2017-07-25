@@ -46,6 +46,7 @@ namespace LvivCompany.Bookstore.Web
 
             // TODO: Remove when dabase will be ready
             services.AddTransient<IRepo<BookTest>, BookTestRepository>();
+            services.AddTransient<IRepo<Book>, BookRepository>();
             services.AddTransient<IRepo<Author>, AuthorRepository>();
             services.AddTransient<IRepo<Category>, CategoryRepository>();
             services.AddTransient<IRepo<Order>, OrderRepository>();
@@ -78,12 +79,9 @@ namespace LvivCompany.Bookstore.Web
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller}/{action}/{id?}",
+                    defaults: new { controller = "Home", action = "Index" });
             });
-
-
-
-
         }
     }
 }

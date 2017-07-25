@@ -148,7 +148,7 @@
         }
 
     .brand {
-        text-align: left !important;
+        text-align: right !important;
         font-size: 22px;
         padding-left: 20px;
         line-height: 50px !important;
@@ -164,3 +164,16 @@
         display: block;
     }
 }
+
+.main-content {
+  padding-top:10%;
+  padding-left:40%;
+    background-color:white;
+    overflow:auto;    
+}
+
+
+.aboutinfo {
+    float:right !important;
+}
+
