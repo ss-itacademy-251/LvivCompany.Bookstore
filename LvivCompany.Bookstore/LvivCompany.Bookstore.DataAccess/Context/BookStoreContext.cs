@@ -1,9 +1,11 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
+using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Design;
 using LvivCompany.Bookstore.Entities;
+using LvivCompany.Bookstore.DataAccess.Repo;
+using System.Collections.Generic;
 
 namespace LvivCompany.Bookstore.DataAccess
 {
@@ -26,7 +28,7 @@ namespace LvivCompany.Bookstore.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-ANNA\SQLEXPRESS;Database=bookstoredb;Trusted_Connection=True;");
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -43,16 +45,7 @@ namespace LvivCompany.Bookstore.DataAccess
                 .HasOne(bc => bc.Author)
                 .WithMany(c => c.BookAuthors)
                 .HasForeignKey(bc => bc.AuthorId);
-        }
-    }
-
-    public class BloggingContextFactory : IDesignTimeDbContextFactory<BookStoreContext>
-    {
-        public BookStoreContext CreateDbContext(string[] args)
-        {
-            var builder = new DbContextOptionsBuilder<BookStoreContext>();
-            builder.UseSqlServer(@"Server=DESKTOP-ANNA\SQLEXPRESS;Database=bookstoredb;Trusted_Connection=True;");
-            return new BookStoreContext(builder.Options);
+            
         }
     }
 }

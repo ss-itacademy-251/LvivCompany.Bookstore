@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using LvivCompany.Bookstore.Entities;
 
-namespace LvivCompany.Bookstore.DataAccess.IRepo
+namespace LvivCompany.Bookstore.DataAccess.Repo
 {
     public class AuthorRepository : IRepo<Author>
     {

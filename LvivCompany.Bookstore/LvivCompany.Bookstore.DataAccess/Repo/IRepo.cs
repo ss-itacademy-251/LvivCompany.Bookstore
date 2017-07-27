@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using LvivCompany.Bookstore.Entities;
 
-namespace LvivCompany.Bookstore.DataAccess.IRepo
+namespace LvivCompany.Bookstore.DataAccess.Repo
 {
     public interface IRepo<TEntity> where TEntity : BaseEntity
     {
@@ -13,6 +13,6 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
         void Update(TEntity item);
         void Delete(long id);
         void Delete(TEntity item);
-
+        void Save();
     }
 }
