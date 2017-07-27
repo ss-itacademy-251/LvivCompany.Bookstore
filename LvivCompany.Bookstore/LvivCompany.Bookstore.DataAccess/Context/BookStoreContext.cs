@@ -8,7 +8,7 @@ using LvivCompany.Bookstore.Entities.Models.ClassTest;
 
 namespace LvivCompany.Bookstore.DataAccess
 {
-    public class BookStoreContext : DbContext
+    public class  BookStoreContext : DbContext
     {
 
 
@@ -28,10 +28,7 @@ namespace LvivCompany.Bookstore.DataAccess
         //TODO:delete
         public DbSet<BookTest> BookTests { get; set; }
 
-        /* protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-         {
-             optionsBuilder.UseSqlServer(@"Server=DESKTOP-ANNA\SQLEXPRESS;Database=bookstoredb;Trusted_Connection=True;");
-         }*/
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

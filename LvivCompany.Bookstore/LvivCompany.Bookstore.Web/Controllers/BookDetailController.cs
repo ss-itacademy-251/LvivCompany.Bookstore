@@ -5,21 +5,22 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LvivCompany.Bookstore.DataAccess.IRepo;
 using LvivCompany.Bookstore.Entities.Models.ClassTest;
+using LvivCompany.Bookstore.Entities;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
     public class BookDetailController : Controller
     {
-        private IRepo<BookTest> _bookRepo;
+        private IRepo<Book> _bookRepo;
 
-        public BookDetailController(IRepo<BookTest> bookRepo)
+        public BookDetailController(IRepo<Book> bookRepo)
         {
             _bookRepo = bookRepo;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var book = _bookRepo.Get(1);
+            var book = await _bookRepo.GetAsync(8);
 
             return View(book);
           

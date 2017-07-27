@@ -5,10 +5,11 @@ using LvivCompany.Bookstore.Entities;
 using Microsoft.EntityFrameworkCore;
 using LvivCompany.Bookstore.DataAccess.Repo.RepoTests;
 using LvivCompany.Bookstore.Entities.Models.ClassTest;
+using System.Threading.Tasks;
 
 namespace LvivCompany.Bookstore.DataAccess.Repo.RepoTests
 {
-    public class BookTestRepository : IRepo<BookTest>
+   public class BookTestRepository : IRepo<BookTest>
     {
         private BookStoreContext context;
 
@@ -16,7 +17,17 @@ namespace LvivCompany.Bookstore.DataAccess.Repo.RepoTests
         {
             this.context = context;
         }
-        
+
+        public async Task<BookTest> GetAsync(long id)
+        {
+            return new BookTest();
+        }
+
+        public async Task<IEnumerable<BookTest>> GetAllAsync()
+        {
+            return await context.BookTests
+                    .ToListAsync();
+        }
 
         public IEnumerable<BookTest> GetAll()
         {
@@ -173,5 +184,6 @@ namespace LvivCompany.Bookstore.DataAccess.Repo.RepoTests
             context.SaveChanges();
         }
     }
+    
 }
 

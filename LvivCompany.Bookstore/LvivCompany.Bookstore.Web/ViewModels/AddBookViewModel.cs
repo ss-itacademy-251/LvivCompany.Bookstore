@@ -10,7 +10,7 @@ namespace LvivCompany.Bookstore.Web.ViewModels
     {
       
         [Display(Name = "Name")]
-        public string Nam { get; set; }
+        public string Name { get; set; }
 
 
 

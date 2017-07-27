@@ -9,6 +9,6 @@ namespace LvivCompany.Bookstore.Entities
     {
         [Key]
         public long Id { get; set; }
-        public DateTime AddedDate { get; set; }
+        public DateTime? AddedDate { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using LvivCompany.Bookstore.Entities;
+using System.Threading.Tasks;
 
 namespace LvivCompany.Bookstore.DataAccess.IRepo
 {
@@ -18,9 +19,22 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
             return context.Orders;
         }
 
+        public async Task<IEnumerable<Order>> GetAllAsync()
+        {
+            return await context.Orders
+                    .Include(x => x.Status)
+                    .ToListAsync();
+        }
+
         public Order Get(long id)
         {
             return context.Orders.Find(id);
+        }
+
+        public async Task<Order> GetAsync(long id)
+        {
+            return await context.Orders
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public void Create(Order order)
