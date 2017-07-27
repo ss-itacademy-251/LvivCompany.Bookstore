@@ -36,10 +36,10 @@
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="container-fluid"><a href="#">Home</a></li>
+                    <li class="container-fluid"><a asp-controller="Home" asp-action="Index">Home</a></li>
                     <li class="container-fluid"><a href="#">Delivery</a></li>
                     <li class="container-fluid"><a href="#">Help</a></li>
-                    <li class="container-fluid"><a href="#">About us</a></li>
+                    <li class="container-fluid"><a asp-controller="About" asp-action="About">About us</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href=""><input style="width:400px;" /> <span class="glyphicon glyphicon-search"></span> </a></li>
@@ -100,11 +100,10 @@
     <div style="margin-top:5%; margin-bottom:5%; margin-left:25%;">
         @RenderBody()
     </div>
-        <div class="navbar  navbar-inverse navbar-fixed-bottom">
-            <div class="container">                
-                <div class="navbar-text pull=left">
-                    <p> SoftServe IT academy 2017</p>
-                </div>
+    <div class="navbar  navbar-inverse navbar-fixed-bottom">
+        <div class="container">                
+            <div class="navbar-text pull=left">
+                <p> SoftServe IT academy 2017</p>
             </div>
         </div>
     @RenderSection("scripts", required: false)
