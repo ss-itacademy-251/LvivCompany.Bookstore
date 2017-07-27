@@ -1,5 +1,9 @@
 ﻿@using LvivCompany.Bookstore.Web
+<<<<<<< HEAD
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+=======
 @using LvivCompany.Bookstore.Web.ViewModels;
 @using Microsoft.AspNetCore.Identity;
 
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers 
+>>>>>>> develop
