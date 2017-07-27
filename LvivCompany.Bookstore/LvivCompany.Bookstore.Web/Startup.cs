@@ -14,7 +14,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
-using LvivCompany.Bookstore.Entities.Models;
 
 namespace LvivCompany.Bookstore.Web
 {
@@ -39,9 +38,19 @@ namespace LvivCompany.Bookstore.Web
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User,AppRole>()
+
+            services.AddIdentity<User, IdentityRole<long>>(o =>
+            {
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequiredLength = 6;
+                o.Password.RequireUppercase = false;
+            })
                .AddEntityFrameworkStores<ApplicationContext>()
                .AddDefaultTokenProviders();
+
+            services.AddScoped<RoleManager<IdentityRole<long>>, RoleManager<IdentityRole<long>>>();
+
+          
 
             services.AddMvc();
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -72,7 +81,7 @@ namespace LvivCompany.Bookstore.Web
 
             app.UseStaticFiles();
 
-            app.UseIdentity();         
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {

@@ -27,12 +27,12 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,700&subset=latin-ext" rel="stylesheet">
 </head>
-<body style="font-family:'Century Gothic';">
+<body style="font-family:Consolas;">
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="glyphicon glyphicon-th-large" \ style="color:lightgray"></span>
+                    <span class="glyphicon glyphicon-th-large"  style="color:lightgray"></span>
 
 
                 </button>
@@ -48,13 +48,18 @@
                     <li class="container-fluid"><a asp-controller="About" asp-action="About">About us</a></li>
 
                 </ul>
+              
+                    <ul class="nav navbar-nav navbar-right ">
 
-                <ul class="nav navbar-nav navbar-right">
+                        <li><a href=""><input style="width:400px;" /> <span class="glyphicon glyphicon-search"></span> </a></li>
+                        <li style="margin-top:10px;"> <form class="form-inline" asp-controller="Account" asp-action="LogOff" method="post">@await Html.PartialAsync("_PartialLogin") </form></li>
+                    </ul>  
+              
+                        
+                
+                    
 
-                    <li><a href=""><input style="width:400px;" /> <span class="glyphicon glyphicon-search"></span> </a></li>
-                    <li><a href="RegistryPage.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="LogPage.html"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
-                </ul>
+               
             </div>
         </div>
 
