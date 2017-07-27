@@ -14,13 +14,14 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
         TEntity Get(long id);
         Task<TEntity> GetAsync(long id);
         void Create(TEntity item);
-        //Task CreateAsync(TEntity item);
+        Task CreateAsync(TEntity item);
         void Update(TEntity item);
-        //Task UpdateAsync(TEntity item);
+       // Task UpdateAsync(TEntity item);
         void Delete(long id);
         //Task DeleteAsync(long id);
         void Delete(TEntity item);
         //Task DeleteAsync(TEntity item);
-
+        void Save();
+        Task SaveAsync();
     }
 }

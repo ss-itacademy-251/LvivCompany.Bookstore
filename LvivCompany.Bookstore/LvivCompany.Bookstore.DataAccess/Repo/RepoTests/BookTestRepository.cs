@@ -162,6 +162,11 @@ namespace LvivCompany.Bookstore.DataAccess.Repo.RepoTests
             context.BookTests.Add(book);
         }
 
+        public async Task CreateAsync(BookTest book)
+        {
+            await context.BookTests.AddAsync(book);
+        }
+
         public void Update(BookTest book)
         {
             context.Entry(book).State = EntityState.Modified;
@@ -182,6 +187,11 @@ namespace LvivCompany.Bookstore.DataAccess.Repo.RepoTests
         public void Save()
         {
             context.SaveChanges();
+        }
+        
+        public async Task SaveAsync()
+        {
+            await context.SaveChangesAsync();
         }
     }
     

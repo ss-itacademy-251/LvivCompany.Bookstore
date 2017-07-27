@@ -42,6 +42,11 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
             context.Authors.Add(author);
         }
 
+        public async Task CreateAsync(Author author)
+        {
+            await context.Authors.AddAsync(author);
+        }
+
         public void Update(Author author)
         {
             context.Entry(author).State = EntityState.Modified;
@@ -62,6 +67,11 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
         public void Save()
         {
             context.SaveChanges();
+        }
+
+        public async Task SaveAsync()
+        {
+            await context.SaveChangesAsync();
         }
     }
 }

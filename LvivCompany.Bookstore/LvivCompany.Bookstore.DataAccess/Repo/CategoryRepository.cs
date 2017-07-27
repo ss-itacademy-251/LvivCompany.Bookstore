@@ -41,6 +41,11 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
             context.Categories.Add(category);
         }
 
+        public async Task CreateAsync(Category category)
+        {
+            await context.Categories.AddAsync(category);
+        }
+
         public void Update(Category category)
         {
             context.Entry(category).State = EntityState.Modified;
@@ -61,6 +66,11 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
         public void Save()
         {
             context.SaveChanges();
+        }
+
+        public async Task SaveAsync()
+        {
+            await context.SaveChangesAsync();
         }
     }
 }

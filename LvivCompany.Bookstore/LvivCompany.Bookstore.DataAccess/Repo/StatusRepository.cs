@@ -45,6 +45,11 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
             context.Statuses.Add(status);
         }
 
+        public async Task CreateAsync(Status status)
+        {
+            await context.Statuses.AddAsync(status);
+        }
+
         public void Update(Status status)
         {
             context.Entry(status).State = EntityState.Modified;
@@ -65,6 +70,11 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
         public void Save()
         {
             context.SaveChanges();
+        }
+
+        public async Task SaveAsync()
+        {
+            await context.SaveChangesAsync();
         }
 
     }

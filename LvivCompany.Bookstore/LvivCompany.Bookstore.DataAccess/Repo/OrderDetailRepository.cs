@@ -51,6 +51,11 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
             context.OrderDetails.Add(orderDetail);
         }
 
+        public async Task CreateAsync(OrderDetail orderDetail)
+        {
+            await context.OrderDetails.AddAsync(orderDetail);
+        }
+
         public void Update(OrderDetail orderDetail)
         {
             context.Entry(orderDetail).State = EntityState.Modified;
@@ -71,6 +76,11 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
         public void Save()
         {
             context.SaveChanges();
+        }
+
+        public async Task SaveAsync()
+        {
+            await context.SaveChangesAsync();
         }
     }
 }
