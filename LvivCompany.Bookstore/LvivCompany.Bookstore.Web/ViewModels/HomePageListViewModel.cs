@@ -20,8 +20,5 @@ namespace LvivCompany.Bookstore.Web.ViewModels
         public decimal Price { get; set; }
 
         public string Image { get; set; }
-
-        [Display(Name = "Category")]
-        public decimal Category { get; set; }
     }
 }

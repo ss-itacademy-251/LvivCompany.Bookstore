@@ -1,6 +1,4 @@
-﻿
-
-ul > li {
+﻿ul > li {
     margin-right: 25px;
     font-weight: lighter;
     cursor: pointer
@@ -11,7 +9,7 @@ li.active {
 }
 
 .item-photo {
-    display:inherit;
+    display: flex;
     justify-content: center;
     align-items: center;
     border-right: 1px solid #f6f6f6;
@@ -21,13 +19,14 @@ li.active {
     list-style-type: none;
     font-size: 11px;
     display: inline-flex;
-    margin-bottom: 0;
+    margin-bottom: 0px;
     margin-top: 20px
 }
 
 .btn-success {
     width: 100%;
-    border-radius: 0;
+    border-radius: 0px;
+    margin-right: 20px;
 }
 
 .section {
@@ -39,15 +38,15 @@ li.active {
     background: #f8f9f9
 }
 
-.title-item {
+.title-items {
     margin-top: 30px;
-    margin-bottom: 0;
+    margin-bottom: 0px;
     color: black
 }
 
 .title-attr {
-    margin-top: 0;
-    margin-bottom: 0;
+    margin-top: 0px;
+    margin-bottom: 0px;
     color: black;
 }
 
@@ -61,7 +60,7 @@ li.active {
     padding-right: 10px;
     border: 1px solid gray;
     border-radius: 2px;
-    border-right: 0;
+    border-right: 0px;
 }
 
 .btn-plus {
@@ -74,7 +73,7 @@ li.active {
     padding-right: 10px;
     border: 1px solid gray;
     border-radius: 2px;
-    border-left: 0;
+    border-left: 0px;
 }
 
 div.section > div {
@@ -83,7 +82,7 @@ div.section > div {
 }
 
     div.section > div > input {
-        margin: 0;
+        margin: 0px;
         padding-left: 5px;
         font-size: 10px;
         padding-right: 5px;
@@ -111,16 +110,16 @@ div.section > div {
     }
 
         .container > .row {
-            padding: 0 !important;
+            padding: 0px !important;
         }
 
             .container > .row > .col-xs-12.col-sm-5 {
-                padding-right: 0;
+                padding-right: 0px;
             }
 
             .container > .row > .col-xs-12.col-sm-9 > div > p {
-                padding-left: 0 !important;
-                padding-right: 0 !important;
+                padding-left: 0px !important;
+                padding-right: 0px !important;
             }
 
             .container > .row > .col-xs-12.col-sm-9 > div > ul {
@@ -132,20 +131,31 @@ div.section > div {
     }
 
     .menu-items {
-        padding-left: 0;
+        padding-left: 0px;
     }
+}
+
+h3 {
+    margin-top: 0px;
+}
+
+img {
+    max-width: 100%;
+}
+
+.col-xs-5 {
+    border: 0px solid gray;
 }
 
 .amount {
     padding-bottom: 20px;
 }
 
+.line {
+    padding: 15px;
+}
+
 .description {
     width: 100%;
     border-top: 1px solid silver;
-    padding: 15px
-}
-
-img {
-    max-width: 100%;
 }

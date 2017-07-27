@@ -14,21 +14,11 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
             this.context = context;
         }
 
-        public IEnumerable<Order> GetAll()
-        {
-            return context.Orders;
-        }
-
         public async Task<IEnumerable<Order>> GetAllAsync()
         {
             return await context.Orders
                     .Include(x => x.Status)
                     .ToListAsync();
-        }
-
-        public Order Get(long id)
-        {
-            return context.Orders.Find(id);
         }
 
         public async Task<Order> GetAsync(long id)
@@ -37,36 +27,28 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Create(Order order)
-        {
-            context.Orders.Add(order);
-        }
-
         public async Task CreateAsync(Order order)
         {
             await context.Orders.AddAsync(order);
         }
 
-        public void Update(Order order)
+        public async Task<Order> UpdateAsync(Order order)
         {
             context.Entry(order).State = EntityState.Modified;
+            return await Task.FromResult<Order>(null);
         }
 
-        public void Delete(long id)
+        public async Task DeleteAsync(long id)
         {
-            Order order = context.Orders.Find(id);
+            Order order = await context.Orders.FindAsync(id);
             if (order != null)
                 context.Orders.Remove(order);
         }
 
-        public void Delete(Order order)
+        public async Task<Order> DeleteAsync(Order order)
         {
             context.Entry(order).State = EntityState.Deleted;
-        }
-
-        public void Save()
-        {
-            context.SaveChanges();
+            return await Task.FromResult<Order>(null);
         }
 
         public async Task SaveAsync()

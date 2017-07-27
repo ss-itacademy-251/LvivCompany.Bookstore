@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Design;
 using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.Entities.Models.ClassTest;
 
 namespace LvivCompany.Bookstore.DataAccess
 {
@@ -25,8 +24,7 @@ namespace LvivCompany.Bookstore.DataAccess
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Status> Statuses { get; set; }
 
-        //TODO:delete
-        public DbSet<BookTest> BookTests { get; set; }
+
 
        
 

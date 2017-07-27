@@ -1,55 +1,53 @@
-﻿@{
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
     //ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@model LvivCompany.Bookstore.Web.ViewModels.BookDetailViewModel
 <link href="~/css/BookDetailStyle.css" rel="stylesheet" />
-<form asp-controller="BookDetail" asp-action="BookDetailListView">
+<form asp-controller="BookDetail" asp-action="BookDetail">
     <div class="container">
         <div class="row">
             <div class="col-xs-4 item-photo">
-                <img style="max-width:100%;" src="@Model.Image" />
+                <img src="@Model.Image" />
             </div>
-            <div class="col-xs-5" style="border:0px solid gray">
+            <div class="col-xs-5">
                 <!-- Name -->
-                <h2><b>@Model.Name </b></h2>
+                <label asp-for="Name" class="title-items"></label><br />
+                <input asp-for="Name"><br />
+               
 
-                <!-- Author -->
-                <h6 class="title-price"><small>Author</small></h6>
-                @foreach (var author in @Model.BookAuthors)
-                {
-                <h3 style="margin-top:0px;">@author.Author.FirstName @author.Author.LastName</h3>
-                }
                 <!-- Category -->
-                <h6 class="title-price"><small>Category</small></h6>
-                <h3 style="margin-top:0px;">@Model.Category.Name</h3>
+                <label asp-for="Category" class="title-items"></label><br />
+                <input asp-for="Category"><br />
 
-                <!-- NumberOfPages -->
-                <h6 class="title-price"><small>Number Of Pages</small></h6>
-                <h3 style="margin-top:0px;">@Model.NumberOfPages</h3>
-
+                <!-- NumberOfPages-->
+                <label asp-for="NumberOfPages" class="title-items"></label><br />
+                <input asp-for="NumberOfPages"><br />
+                    
+                
                 <!-- PUBLISHER -->
-                <h6 class="title-price"><small>Publisher</small></h6>
-                <h3 style="margin-top:0px;">@Model.Publisher.Name</h3>
+                <label asp-for="Publisher" class="title-items"></label><br />
+                <input asp-for="Publisher"><br />
 
                 <!-- Year -->
-                <h6 class="title-price"><small>Year</small></h6>
-                <h3 style="margin-top:0px;">@Model.Year</h3>
+                <label asp-for="Year" class="title-items"></label><br />
+                <input asp-for="Year"><br />
 
-                <!-- Seller 
-                <h6 class="title-price"><small>Seller</small></h6>
-                <h3 style="margin-top:0px;">@Model.SellerId</h3>
--->
+                <!-- Seller -->
+                <label class="title-items"><small>Seller</small></label><br />
+                <input ><br />
+
                 <!-- Amount -->
-                <h6 class="title-price"><small>Amount</small></h6>
-                <h3 style="margin-top:0px;">@Model.Amount</h3>
+                <label asp-for="Amount" class="title-items"></label><br />
+                <input asp-for="Amount"><br />
 
                 <!-- Price -->
-                <h6 class="title-price"><small>Price</small></h6>
-                <h3 style="margin-top:0px;">@Model.Price</h3>
+                <label asp-for="Price" class="title-items"></label><br />
+                <input asp-for="Price"><br />
 
                 <!-- Amount to buy-->
-                <div class="section" style="padding-bottom:20px;">
+                <div class="section amount">
                     <h6 class="title-attr"><small>Amount To Order</small></h6>
                     <div>
                         <div class="btn-minus"><span class="glyphicon glyphicon-minus"></span></div>
@@ -59,21 +57,20 @@
                 </div>
 
                 <!-- Add to Order -->
-                <div class="section" style="padding-bottom:20px;">
-                    <button class="btn btn-success"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Order </button>
+                <div class="section amount">
+                    <button class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Order </button>
                 </div>
             </div>
 
             <div class="col-xs-9">
-                <h3>Description</h3>
-                <div style="width:100%;border-top:1px solid silver">
-                    <p style="padding:15px;">
-                        <small>
-                            @Model.Description
-                        </small>
+                <div class="description">
+                    <p class="line">
+                        <label asp-for="Description" class="title-items"></label><br />
+                        <input asp-for="Description"><br />
                     </p>
                 </div>
             </div>
         </div>
     </div>
 </form>
+

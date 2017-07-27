@@ -16,11 +16,6 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
             this.context = context;
         }
 
-        public IEnumerable<Book> GetAll()
-        {     
-            return context.Books;
-        }
-
         public async Task<IEnumerable<Book>> GetAllAsync()
         {
             return await context.Books
@@ -28,11 +23,6 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
                     .Include(x => x.Publisher)
                     .Include(x => x.BookAuthors)
                     .ThenInclude(x => x.Author).ToListAsync();
-        }
-
-        public Book Get(long id)
-        {
-            return context.Books.Find(id);
         }
 
         public async Task<Book> GetAsync(long id)
@@ -45,53 +35,28 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
                     .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Create(Book book)
-        {
-            context.Books.Add(book);
-        }
-
         public async Task CreateAsync(Book book)
         {
             await context.Books.AddAsync(book);
         }
 
-        public void Update(Book book)
+        public async Task<Book> UpdateAsync(Book book)
         {
             context.Entry(book).State = EntityState.Modified;
-        }
-
-        public async Task UpdateAsync(Book book)
-        {
-            context.Entry(book).State = EntityState.Modified;
-        }
-
-        public void Delete(long id)
-        {
-            Book book = context.Books.Find(id);
-            if (book != null)
-                context.Books.Remove(book);
+            return await Task.FromResult<Book>(null);
         }
         
         public async Task DeleteAsync(long id)
         {
             Book book = await context.Books.FindAsync(id);
             if (book != null)
-                context.Books.Remove(book);
+               context.Books.Remove(book);  
         }
 
-        public void Delete(Book book)
+        public async Task<Book> DeleteAsync(Book book)
         {
             context.Entry(book).State = EntityState.Deleted;
-        }
-
-        public async Task DeleteAsync(Book book)
-        {
-            context.Entry(book).State = EntityState.Deleted;
-        }
-
-        public void Save()
-        {
-            context.SaveChanges();
+            return await Task.FromResult<Book>(null);
         }
 
         public async Task SaveAsync()

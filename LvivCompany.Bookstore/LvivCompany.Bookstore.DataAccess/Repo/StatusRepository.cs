@@ -18,20 +18,10 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
             this.context = context;
         }
 
-        public IEnumerable<Status> GetAll()
-        {
-            return context.Statuses;
-        }
-
         public async Task<IEnumerable<Status>> GetAllAsync()
         {
             return await context.Statuses
                     .ToListAsync();
-        }
-
-        public Status Get(long id)
-        {
-            return context.Statuses.Find(id);
         }
 
         public async Task<Status> GetAsync(long id)
@@ -40,36 +30,28 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
                 .FirstOrDefaultAsync(x=>x.Id==id);
         }
 
-        public void Create(Status status)
-        {
-            context.Statuses.Add(status);
-        }
-
         public async Task CreateAsync(Status status)
         {
             await context.Statuses.AddAsync(status);
         }
 
-        public void Update(Status status)
+        public async Task<Status> UpdateAsync(Status status)
         {
             context.Entry(status).State = EntityState.Modified;
+            return await Task.FromResult<Status>(null);
         }
 
-        public void Delete(long id)
+        public async Task DeleteAsync(long id)
         {
-            Status status = context.Statuses.Find(id);
+            Status status = await context.Statuses.FindAsync(id);
             if (status != null)
                 context.Statuses.Remove(status);
         }
 
-        public void Delete(Status status)
+        public async Task<Status> DeleteAsync(Status status)
         {
             context.Entry(status).State = EntityState.Deleted;
-        }
-
-        public void Save()
-        {
-            context.SaveChanges();
+            return await Task.FromResult<Status>(null);
         }
 
         public async Task SaveAsync()

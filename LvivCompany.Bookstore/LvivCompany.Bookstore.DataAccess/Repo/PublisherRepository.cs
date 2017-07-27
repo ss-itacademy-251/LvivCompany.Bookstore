@@ -14,20 +14,10 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
             this.context = context;
         }
 
-        public IEnumerable<Publisher> GetAll()
-        {
-            return context.Publishers;
-        }
-
         public async Task<IEnumerable<Publisher>> GetAllAsync()
         {
             return await context.Publishers
                     .ToListAsync();
-        }
-
-        public Publisher Get(long id)
-        {
-            return context.Publishers.Find(id);
         }
 
         public async Task<Publisher> GetAsync(long id)
@@ -36,36 +26,28 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Create(Publisher publisher)
-        {
-            context.Publishers.Add(publisher);
-        }
-
         public async Task CreateAsync(Publisher publisher)
         {
             await context.Publishers.AddAsync(publisher);
         }
 
-        public void Update(Publisher publisher)
+        public async Task<Publisher> UpdateAsync(Publisher publisher)
         {
             context.Entry(publisher).State = EntityState.Modified;
+            return await Task.FromResult<Publisher>(null);
         }
 
-        public void Delete(long id)
+        public async Task DeleteAsync(long id)
         {
-            Publisher publisher = context.Publishers.Find(id);
+            Publisher publisher = await context.Publishers.FindAsync(id);
             if (publisher != null)
                 context.Publishers.Remove(publisher);
         }
 
-        public void Delete(Publisher publisher)
+        public async Task<Publisher> DeleteAsync(Publisher publisher)
         {
             context.Entry(publisher).State = EntityState.Deleted;
-        }
-
-        public void Save()
-        {
-            context.SaveChanges();
+            return await Task.FromResult<Publisher>(null);
         }
 
         public async Task SaveAsync()

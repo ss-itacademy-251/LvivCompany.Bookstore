@@ -14,12 +14,6 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
             this.context = context;
         }
 
-        public IEnumerable<OrderDetail> GetAll()
-        {
-            return context.OrderDetails;
-        }
-
-
         public async Task<IEnumerable<OrderDetail>> GetAllAsync()
         {
             return await context.OrderDetails
@@ -35,20 +29,10 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
                     .ToListAsync();
         }
 
-        public OrderDetail Get(long id)
-        {
-            return context.OrderDetails.Find(id);
-        }
-
         public async Task<OrderDetail> GetAsync(long id)
         {
             return await context.OrderDetails
                 .FirstOrDefaultAsync(x => x.Id == id);
-        }
-
-        public void Create(OrderDetail orderDetail)
-        {
-            context.OrderDetails.Add(orderDetail);
         }
 
         public async Task CreateAsync(OrderDetail orderDetail)
@@ -56,26 +40,23 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
             await context.OrderDetails.AddAsync(orderDetail);
         }
 
-        public void Update(OrderDetail orderDetail)
+        public async Task<OrderDetail> UpdateAsync(OrderDetail orderDetail)
         {
             context.Entry(orderDetail).State = EntityState.Modified;
+            return await Task.FromResult<OrderDetail>(null);
         }
 
-        public void Delete(long id)
+        public async Task DeleteAsync(long id)
         {
-            OrderDetail orderDetail = context.OrderDetails.Find(id);
+            OrderDetail orderDetail = await context.OrderDetails.FindAsync(id);
             if (orderDetail != null)
                 context.OrderDetails.Remove(orderDetail);
         }
 
-        public void Delete(OrderDetail orderDetail)
+        public async Task<OrderDetail> DeleteAsync(OrderDetail orderDetail)
         {
             context.Entry(orderDetail).State = EntityState.Deleted;
-        }
-
-        public void Save()
-        {
-            context.SaveChanges();
+            return await Task.FromResult<OrderDetail>(null);
         }
 
         public async Task SaveAsync()

@@ -14,20 +14,10 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
             this.context = context;
         }
 
-        public IEnumerable<Category> GetAll()
-        {
-            return context.Categories;
-        }
-
         public async Task<IEnumerable<Category>> GetAllAsync()
         {
             return await context.Categories
                   .ToListAsync();
-        }
-
-        public Category Get(long id)
-        {
-            return context.Categories.Find(id);
         }
 
         public async Task<Category> GetAsync(long id)
@@ -36,36 +26,28 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Create(Category category)
-        {
-            context.Categories.Add(category);
-        }
-
         public async Task CreateAsync(Category category)
         {
             await context.Categories.AddAsync(category);
         }
 
-        public void Update(Category category)
+        public async Task<Category> UpdateAsync(Category category)
         {
             context.Entry(category).State = EntityState.Modified;
+            return await Task.FromResult<Category>(null);
         }
 
-        public void Delete(long id)
+        public async Task DeleteAsync(long id)
         {
-            Category category = context.Categories.Find(id);
+            Category category = await context.Categories.FindAsync(id);
             if (category != null)
                 context.Categories.Remove(category);
         }
 
-        public void Delete(Category category)
+        public async Task<Category> DeleteAsync(Category category)
         {
             context.Entry(category).State = EntityState.Deleted;
-        }
-
-        public void Save()
-        {
-            context.SaveChanges();
+            return await Task.FromResult<Category>(null);
         }
 
         public async Task SaveAsync()

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LvivCompany.Bookstore.DataAccess.IRepo;
-using LvivCompany.Bookstore.Entities.Models.ClassTest;
 using LvivCompany.Bookstore.Entities;
+using LvivCompany.Bookstore.Web.ViewModels;
+using AutoMapper;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
@@ -21,8 +22,19 @@ namespace LvivCompany.Bookstore.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var book = await _bookRepo.GetAsync(8);
+            var config = new MapperConfiguration(cfg => {
+                cfg.CreateMap<Book, BookDetailViewModel>()
+                .ForMember(bv => bv.Author, b => b.MapFrom(
+                a => (a.BookAuthors.First().Author.FirstName + " "+  a.BookAuthors.First().Author.LastName)  ))
+                .ForMember(bv => bv.Category, b => b.MapFrom(
+                a => a.Category.Name))
+                .ForMember(bv => bv.Publisher, b => b.MapFrom(
+                a => a.Publisher.Name));
+            });
 
-            return View(book);
+            IMapper mapper = config.CreateMapper();
+            var model = mapper.Map<Book, BookDetailViewModel>(book);
+            return View(model);
           
         }
     }

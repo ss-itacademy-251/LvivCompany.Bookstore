@@ -14,21 +14,11 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
             this.context = context;
         }
 
-        public IEnumerable<Author> GetAll()
-        {
-            return context.Authors;
-        }
-
         public async Task<IEnumerable<Author>> GetAllAsync()
         {
             return await context.Authors
                     .Include(x => x.BookAuthors)
                     .ThenInclude(x => x.Book).ToListAsync();
-        }
-
-        public Author Get(long id)
-        {
-            return context.Authors.Find(id);
         }
 
         public async Task<Author> GetAsync(long id)
@@ -37,36 +27,28 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Create(Author author)
-        {
-            context.Authors.Add(author);
-        }
-
         public async Task CreateAsync(Author author)
         {
             await context.Authors.AddAsync(author);
         }
 
-        public void Update(Author author)
+        public async Task<Author> UpdateAsync(Author author)
         {
             context.Entry(author).State = EntityState.Modified;
+            return await Task.FromResult<Author>(null);
         }
 
-        public void Delete(long id)
+        public async Task DeleteAsync(long id)
         {
-            Author author = context.Authors.Find(id);
+            Author author = await context.Authors.FindAsync(id);
             if (author != null)
                 context.Authors.Remove(author);
         }
 
-        public void Delete(Author author)
+        public async Task<Author> DeleteAsync(Author author)
         {
             context.Entry(author).State = EntityState.Deleted;
-        }
-
-        public void Save()
-        {
-            context.SaveChanges();
+            return await Task.FromResult<Author>(null);
         }
 
         public async Task SaveAsync()
