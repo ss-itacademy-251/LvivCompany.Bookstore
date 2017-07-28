@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
+using LvivCompany.Bookstore.Web.ViewModels;
+using System.Linq;
 
 namespace LvivCompany.Bookstore.Web
 {
@@ -54,7 +56,6 @@ namespace LvivCompany.Bookstore.Web
             services.AddTransient<IRepo<Publisher>, PublisherRepository>();
             services.AddTransient<IRepo<Status>, StatusRepository>();
 
-          
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

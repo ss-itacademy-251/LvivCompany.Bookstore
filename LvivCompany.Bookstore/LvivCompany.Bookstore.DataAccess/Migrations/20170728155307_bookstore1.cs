@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LvivCompany.Bookstore.DataAccess.Migrations
 {
-    public partial class BookStore : Migration
+    public partial class bookstore1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,30 +22,6 @@ namespace LvivCompany.Bookstore.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Authors", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "BookTests",
-                columns: table => new
-                {
-                    Id = table.Column<long>(type: "bigint", nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AddedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Amount = table.Column<int>(type: "int", nullable: false),
-                    Author = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Image = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    NumberOfPages = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
-                    Publisher = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SellerName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Year = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_BookTests", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -235,9 +211,6 @@ namespace LvivCompany.Bookstore.DataAccess.Migrations
         {
             migrationBuilder.DropTable(
                 name: "BookAuthors");
-
-            migrationBuilder.DropTable(
-                name: "BookTests");
 
             migrationBuilder.DropTable(
                 name: "OrderDetails");

@@ -11,8 +11,8 @@ using System;
 namespace LvivCompany.Bookstore.DataAccess.Migrations
 {
     [DbContext(typeof(BookStoreContext))]
-    [Migration("20170726092020_BookStore")]
-    partial class BookStore
+    [Migration("20170728155307_bookstore1")]
+    partial class bookstore1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -98,40 +98,6 @@ namespace LvivCompany.Bookstore.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("LvivCompany.Bookstore.Entities.Models.ClassTest.BookTest", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime>("AddedDate");
-
-                    b.Property<int>("Amount");
-
-                    b.Property<string>("Author");
-
-                    b.Property<string>("Category");
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Image");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int>("NumberOfPages");
-
-                    b.Property<decimal>("Price");
-
-                    b.Property<string>("Publisher");
-
-                    b.Property<string>("SellerName");
-
-                    b.Property<DateTime>("Year");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BookTests");
                 });
 
             modelBuilder.Entity("LvivCompany.Bookstore.Entities.Order", b =>

@@ -1,6 +1,7 @@
 ﻿@model LvivCompany.Bookstore.Web.ViewModels.BookDetailViewModel
-<link href="~/css/BookDetailStyle.css" rel="stylesheet" />
-<link href="~/css/BookDetailStyle.css" rel="stylesheet" />
+@section Styles {
+    <link href="@Url.Content("~/css/BookDetailStyle.css")" rel="stylesheet" type="text/css" />
+}
 <form asp-controller="BookDetail" asp-action="BookDetailListView">
     <div class="container">
         <div class="row">
@@ -9,12 +10,14 @@
             </div>
             <div class="col-xs-5">
                 <!-- Name -->
-                <h2><b>@Model.Name </b></h2>
+                <h2>@Model.Name</h2>
 
                 <!-- Author -->
-                <label class="title-items"><small>Author   <br></small></label>
-                <span class="inf">@Model.Author<br></span>
-
+                <label class="title-items"><small>Author   </small></label><br>
+                @foreach (var author in @Model.Authors)
+                {
+                <span class="inf">@author.FirstName @author.LastName<br></span>
+                }
 
                 <!-- Category -->
                 <label class="title-items"><small>Category   <br></small></label>
@@ -52,7 +55,7 @@
 
                 <!-- Amount to buy-->
                 <div class="section amount">
-                    <h6 class="title-attr"><small>Amount To Order</small></h6>
+                    <label class="title-attr"><small>Amount To Order</small></label>
                     <div>
                         <div class="btn-minus"><span class="glyphicon glyphicon-minus"></span></div>
                         <input value="1" />
@@ -70,9 +73,9 @@
                 <label>Description</label>
                 <div class="description">
                     <p class="line">
-                        <small>
+                        <span class="inf">
                           @Model.Description
-                            <br></small>
+                            <br></span>
                     </p>
                 </div>
             </div>

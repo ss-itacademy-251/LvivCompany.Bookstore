@@ -11,14 +11,17 @@ namespace LvivCompany.Bookstore.Web.ViewModels
 {
     public class HomePageListViewModel
     {
-        [Required]
+        [Display(Name = "Books")]
+        public List<BookInfo> Books { get; set; }
+    }
+
+    public class BookInfo
+    {
         [Display(Name = "Name")]
         public string Name { get; set; }
-
-        [Required]
+        [Display(Name = "Image")]
+        public byte[] Image { get; set; }
         [Display(Name = "Price")]
         public decimal Price { get; set; }
-
-        public string Image { get; set; }
     }
 }

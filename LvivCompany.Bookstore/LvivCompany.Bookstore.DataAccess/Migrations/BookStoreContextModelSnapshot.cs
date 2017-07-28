@@ -25,7 +25,7 @@ namespace LvivCompany.Bookstore.DataAccess.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("AddedDate");
+                    b.Property<DateTime>("AddedDate");
 
                     b.Property<string>("FirstName");
 
@@ -41,7 +41,7 @@ namespace LvivCompany.Bookstore.DataAccess.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("AddedDate");
+                    b.Property<DateTime>("AddedDate");
 
                     b.Property<int>("Amount");
 
@@ -90,7 +90,7 @@ namespace LvivCompany.Bookstore.DataAccess.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("AddedDate");
+                    b.Property<DateTime>("AddedDate");
 
                     b.Property<string>("Name");
 
@@ -99,46 +99,12 @@ namespace LvivCompany.Bookstore.DataAccess.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("LvivCompany.Bookstore.Entities.Models.ClassTest.BookTest", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<DateTime?>("AddedDate");
-
-                    b.Property<int>("Amount");
-
-                    b.Property<string>("Author");
-
-                    b.Property<string>("Category");
-
-                    b.Property<string>("Description");
-
-                    b.Property<string>("Image");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int>("NumberOfPages");
-
-                    b.Property<decimal>("Price");
-
-                    b.Property<string>("Publisher");
-
-                    b.Property<string>("SellerName");
-
-                    b.Property<DateTime>("Year");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BookTests");
-                });
-
             modelBuilder.Entity("LvivCompany.Bookstore.Entities.Order", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("AddedDate");
+                    b.Property<DateTime>("AddedDate");
 
                     b.Property<long>("CustomerId");
 
@@ -160,7 +126,7 @@ namespace LvivCompany.Bookstore.DataAccess.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("AddedDate");
+                    b.Property<DateTime>("AddedDate");
 
                     b.Property<int>("Amount");
 
@@ -182,7 +148,7 @@ namespace LvivCompany.Bookstore.DataAccess.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("AddedDate");
+                    b.Property<DateTime>("AddedDate");
 
                     b.Property<string>("Name");
 
@@ -196,7 +162,7 @@ namespace LvivCompany.Bookstore.DataAccess.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime?>("AddedDate");
+                    b.Property<DateTime>("AddedDate");
 
                     b.Property<string>("Name");
 

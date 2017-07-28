@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using LvivCompany.Bookstore.Entities;
 
 namespace LvivCompany.Bookstore.Web.ViewModels
 {
@@ -15,7 +16,7 @@ namespace LvivCompany.Bookstore.Web.ViewModels
         public string Description { get; set; }
         public byte[] Image { get; set; }
         public decimal Price { get; set; }
-        public string Author { get; set; }
+        public List<Author> Authors { get; set; }
         public string Publisher { get; set; }
         public string Category { get; set; }
       

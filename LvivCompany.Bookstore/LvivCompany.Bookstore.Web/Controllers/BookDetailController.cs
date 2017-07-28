@@ -7,6 +7,7 @@ using LvivCompany.Bookstore.DataAccess.IRepo;
 using LvivCompany.Bookstore.Entities;
 using LvivCompany.Bookstore.Web.ViewModels;
 using AutoMapper;
+using LvivCompany.Bookstore.Web.Mapper;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
@@ -19,20 +20,11 @@ namespace LvivCompany.Bookstore.Web.Controllers
             _bookRepo = bookRepo;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int id)
         {
-            var book = await _bookRepo.GetAsync(8);
-            var config = new MapperConfiguration(cfg => {
-                cfg.CreateMap<Book, BookDetailViewModel>()
-                .ForMember(bv => bv.Author, b => b.MapFrom(
-                a => (a.BookAuthors.First().Author.FirstName + " "+  a.BookAuthors.First().Author.LastName)  ))
-                .ForMember(bv => bv.Category, b => b.MapFrom(
-                a => a.Category.Name))
-                .ForMember(bv => bv.Publisher, b => b.MapFrom(
-                a => a.Publisher.Name));
-            });
+            var book = await _bookRepo.GetAsync(id);
 
-            IMapper mapper = config.CreateMapper();
+            IMapper mapper = Mappers.MapperForBook().CreateMapper();
             var model = mapper.Map<Book, BookDetailViewModel>(book);
             return View(model);
           
