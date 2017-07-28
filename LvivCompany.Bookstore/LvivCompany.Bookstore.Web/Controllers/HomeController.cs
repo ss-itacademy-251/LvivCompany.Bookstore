@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 using AutoMapper;
 using LvivCompany.Bookstore.Web.ViewModels;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
     public class HomeController : Controller
     {
         private IRepo<Book> _bookRepo;
+        List<BookDetailViewModel> booklist=new List<BookDetailViewModel>();
+        BookDetailViewModel model;
 
         public HomeController(IRepo<Book> bookRepo)
         {
@@ -21,6 +24,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var book = await _bookRepo.GetAllAsync();
+            book.ToList();
             var config = new MapperConfiguration(cfg => {
                 cfg.CreateMap<Book, BookDetailViewModel>()
                 .ForMember(bv => bv.Author, b => b.MapFrom(
@@ -31,20 +35,26 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 a => a.Publisher.Name));
             });
 
-           /* IRepo<Book> set = null;
-            if (book != null)
-            {
-                foreach (Book item in book)
-                {
-                    set.Add(Mapper.Map<Book, BookDetailViewModel>(item));
-                }
-            }
-            return set;*/
-
+            /* IRepo<Book> set = null;
+             if (book != null)
+             {
+                 foreach (Book item in book)
+                 {
+                     set.Add(Mapper.Map<Book, BookDetailViewModel>(item));
+                 }
+             }
+             return set;*/
+           
             IMapper mapper = config.CreateMapper();
+           
+            foreach (Book b in book.ToList())
+            {
+                model = mapper.Map<Book, BookDetailViewModel>(b);
+                booklist.Add(model);
+
+            }
+                return View("Index", booklist);
             
-           //  var model=mapper.Map<Book, BookDetailViewModel>(book);
-            return View(book);
         }
     }
 }

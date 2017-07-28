@@ -1,6 +1,7 @@
 ﻿@model LvivCompany.Bookstore.Web.ViewModels.BookDetailViewModel
 <link href="~/css/BookDetailStyle.css" rel="stylesheet" />
-<form asp-controller="BookDetail" asp-action="BookDetail">
+<link href="~/css/BookDetailStyle.css" rel="stylesheet" />
+<form asp-controller="BookDetail" asp-action="BookDetailListView">
     <div class="container">
         <div class="row">
             <div class="col-xs-4 item-photo">
@@ -8,38 +9,40 @@
             </div>
             <div class="col-xs-5">
                 <!-- Name -->
-                <label asp-for="Name" class="title-items"></label><br />
-                <input asp-for="Name"><br />
-               
+                <h2><b>@Model.Name </b></h2>
+
+                <!-- Author -->
+                <label class="title-items"><small>Author   <br></small></label>
+                <span class="inf">@Model.Author<br></span>
+
 
                 <!-- Category -->
-                <label asp-for="Category" class="title-items"></label><br />
-                <input asp-for="Category"><br />
+                <label class="title-items"><small>Category   <br></small></label>
+                <span class="inf">@Model.Category<br></span>
 
-                <!-- NumberOfPages-->
-                <label asp-for="NumberOfPages" class="title-items"></label><br />
-                <input asp-for="NumberOfPages"><br />
-                    
-                
+                <!-- NumberOfPages -->
+                <label class="title-items"><small>Number Of Pages   <br></small></label>
+                <span class="inf">@Model.NumberOfPages<br></span>
+
                 <!-- PUBLISHER -->
-                <label asp-for="Publisher" class="title-items"></label><br />
-                <input asp-for="Publisher"><br />
+                <label class="title-items"><small>Publisher   <br></small></label>
+                <span class="inf">@Model.Publisher<br></span>
 
                 <!-- Year -->
-                <label asp-for="Year" class="title-items"></label><br />
-                <input asp-for="Year"><br />
+                <label class="title-items"><small>Year   <br></small></label>
+                <span class="inf">@Model.Year<br></span>
 
                 <!-- Seller -->
-                <label class="title-items"><small>Seller</small></label><br />
-                <input ><br />
+                <label class="title-items"><small>Seller   <br></small></label>
+                <span class="inf">SellerName<br></span>
 
                 <!-- Amount -->
-                <label asp-for="Amount" class="title-items"></label><br />
-                <input asp-for="Amount"><br />
+                <label class="title-items"><small>Amount   <br></small></label>
+                <span class="inf">@Model.Amount<br></span>
 
                 <!-- Price -->
-                <label asp-for="Price" class="title-items"></label><br />
-                <input asp-for="Price"><br />
+                <label class="title-items"><small>Price   <br></small></label>
+                <span class="inf">@Model.Price<br></span>
 
                 <!-- Amount to buy-->
                 <div class="section amount">
@@ -58,14 +61,17 @@
             </div>
 
             <div class="col-xs-9">
+                <label>Description</label>
                 <div class="description">
                     <p class="line">
-                        <label asp-for="Description" class="title-items"></label><br />
-                        <input asp-for="Description"><br />
+                        <small>
+                          @Model.Description
+                            <br></small>
                     </p>
                 </div>
             </div>
         </div>
     </div>
 </form>
+
 

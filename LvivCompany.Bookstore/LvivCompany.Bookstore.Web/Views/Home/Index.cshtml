@@ -1,26 +1,33 @@
-    <form asp-controller="Home" asp-action="HomePageListView">
+@model List<BookDetailViewModel>
+
+ <form asp-controller="Home" asp-action="BookDetail">
         <div class="container">
             <div class="row">
-                <!-- BEGIN PRODUCTS -->
-                @foreach (var std in @Model)
-                {
+    <!-- BEGIN PRODUCTS -->
 
-                <div class="col-md-3 col-sm-6">
-                    <span class="thumbnail">
-                        <img src="@std.Image" alt="...">
-                        <h4>@std.Name</h4>
-                        <hr class="line">
-                        <div class="row">
-                            <div class="col-md-6 col-sm-6">
-                                <p>@std.Price</p>
-                            </div>
-                            <div class="col-md-6 col-sm-6">
-                                <button class="btn btn-success right"> BUY</button>
-                            </div>
-                        </div>
-                    </span>
+
+    @foreach (var std in @Model)
+    {
+
+        <div class="col-md-3 col-sm-6">
+            <span class="thumbnail">
+                <img src="@std.Image" alt="...">
+                <h4 >@std.Name</h4>
+                <hr class="line">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <p>@std.Price</p>
+                    </div>
+                    <div class="col-md-6 col-sm-6">
+                        <button class="btn btn-success right"> BUY</button>
+                    </div>
                 </div>
-                }
+            </span>
+        </div>
+
+
+    }
+                
                
       
                 <!-- END PRODUCTS -->
