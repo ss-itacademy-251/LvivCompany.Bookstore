@@ -34,16 +34,6 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 .ForMember(bv => bv.Publisher, b => b.MapFrom(
                 a => a.Publisher.Name));
             });
-
-            /* IRepo<Book> set = null;
-             if (book != null)
-             {
-                 foreach (Book item in book)
-                 {
-                     set.Add(Mapper.Map<Book, BookDetailViewModel>(item));
-                 }
-             }
-             return set;*/
            
             IMapper mapper = config.CreateMapper();
            
@@ -54,7 +44,6 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
             }
                 return View("Index", booklist);
-            
         }
     }
 }

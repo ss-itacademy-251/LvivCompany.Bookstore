@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using LvivCompany.Bookstore.Web.ViewModels;
 using AutoMapper;
 
 namespace LvivCompany.Bookstore.Web
@@ -47,7 +46,6 @@ namespace LvivCompany.Bookstore.Web
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // TODO: Remove when dabase will be ready
-           // services.AddTransient<IRepo<BookTest>, BookTestRepository>();
             services.AddTransient<IRepo<Book>, BookRepository>();
             services.AddTransient<IRepo<Author>, AuthorRepository>();
             services.AddTransient<IRepo<Category>, CategoryRepository>();
