@@ -15,7 +15,6 @@ namespace LvivCompany.Bookstore.Web.Controllers
     {
         private IRepo<Book> _bookRepo;
         List<BookInfo> booklist;
-        BookDetailViewModel model;
 
         public HomeController(IRepo<Book> bookRepo)
         {
