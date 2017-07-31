@@ -23,12 +23,12 @@
                             <div class="entry">
                                 <div class="row rowmargin">
                                     <div class="col-md-6">
-                                        <label class="control-label">First Name</label>
+                                        <label asp-for="Authors[0].FirstName" class="control-label"></label>
                                         <input asp-for="Authors[0].FirstName" class="form-control" type="text" />
                                         <span asp-validation-for="Authors[0].FirstName" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="control-label">Last Name</label>
+                                        <label asp-for="Authors[0].LastName" class="control-label"></label>
                                         <div class="input-group">
                                             <input asp-for="Authors[0].LastName" class="form-control" type="text" />
                                             <span class="input-group-btn">
@@ -48,12 +48,12 @@
                             {<div class="entry">
                             <div class="row rowmargin">
                                 <div class="col-md-6">
-                                    <label class="control-label">First Name</label>
+                                    <label asp-for="Authors[0].FirstName" class="control-label"></label>
                                     <input asp-for="Authors[0].FirstName" class="form-control" type="text" />
                                     <span asp-validation-for="Authors[0].FirstName" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="control-label">Last Name</label>
+                                    <label asp-for="Authors[0].LastName" class="control-label"></label>
                                     <div class="input-group">
                                         <input asp-for="Authors[0].LastName" class="form-control" type="text" />
                                         <span class="input-group-btn">
@@ -69,12 +69,12 @@
                         <div class="entry">
                             <div class="row rowmargin">
                                 <div class="col-md-6">
-                                    <label class="control-label">First Name</label>
+                                    <label asp-for="Authors[1].FirstName" class="control-label"></label>
                                     <input asp-for="Authors[1].FirstName" class="form-control" type="text" />
                                     <span asp-validation-for="Authors[1].FirstName" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="control-label">Last Name</label>
+                                    <label asp-for="Authors[1].LastName" class="control-label"></label>
                                     <div class="input-group">
                                         <input asp-for="Authors[1].LastName" class="form-control" type="text" />
                                         <span class="input-group-btn">
@@ -95,12 +95,12 @@
                                     <div class="entry">
                                         <div class="row rowmargin">
                                             <div class="col-md-6">
-                                                <label class="control-label">First Name</label>
+                                                <label asp-for="Authors[i].FirstName" class="control-label"></label>
                                                 <input asp-for="Authors[i].FirstName" class="form-control" type="text" />
                                                 <span asp-validation-for="Authors[i].FirstName" class="text-danger"></span>
                                             </div>
                                             <div class="col-md-6">
-                                                <label class="control-label">Last Name</label>
+                                                <label asp-for="Authors[i].LastName" class="control-label"></label>
                                                 <div class="notinput-group">
                                                     <input asp-for="Authors[i].LastName" class="form-control" type="text" />
                                                 </div>
@@ -112,12 +112,12 @@
                                 <div class="entry">
                                     <div class="row rowmargin">
                                         <div class="col-md-6">
-                                            <label class="control-label">First Name</label>
+                                            <label asp-for="Authors[Model.Authors.Count - 2].FirstName" class="control-label"></label>
                                             <input asp-for="Authors[Model.Authors.Count - 2].FirstName" class="form-control" type="text" />
                                             <span asp-validation-for="Authors[Model.Authors.Count - 2].FirstName" class="text-danger"></span>
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="control-label">Last Name</label>
+                                            <label asp-for="Authors[Model.Authors.Count - 2].LastName" class="control-label"></label>
                                             <div class="input-group">
                                                 <input asp-for="Authors[Model.Authors.Count - 2].LastName" class="form-control" type="text" />
                                                 <span class="input-group-btn">
@@ -133,12 +133,12 @@
                                 <div class="entry">
                                     <div class="row rowmargin">
                                         <div class="col-md-6">
-                                            <label class="control-label">First Name</label>
+                                            <label asp-for="Authors[Model.Authors.Count - 1].FirstName" class="control-label"></label>
                                             <input asp-for="Authors[Model.Authors.Count - 1].FirstName" class="form-control" type="text" />
                                             <span asp-validation-for="Authors[Model.Authors.Count - 1].FirstName" class="text-danger"></span>
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="control-label">Last Name</label>
+                                            <label asp-for="Authors[Model.Authors.Count - 1].LastName" class="control-label"></label>
                                             <div class="input-group">
                                                 <input asp-for="Authors[Model.Authors.Count - 1].LastName" class="form-control" type="text" />
                                                 <span class="input-group-btn">
