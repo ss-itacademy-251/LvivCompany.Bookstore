@@ -15,10 +15,12 @@ namespace LvivCompany.Bookstore.Web.Controllers
     {
         private IRepo<Book> _bookRepo;
         List<BookInfo> booklist;
+        private IMapper<Book, BookInfo> _bookmapper;
 
-        public HomeController(IRepo<Book> bookRepo)
+        public HomeController(IRepo<Book> bookRepo, IMapper<Book, BookInfo> bookmapper)
         {
             _bookRepo = bookRepo;
+            _bookmapper = bookmapper;
         }
 
         public async Task<IActionResult> Index()

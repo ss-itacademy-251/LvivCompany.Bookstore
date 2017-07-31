@@ -8,13 +8,15 @@ using LvivCompany.Bookstore.Web.ViewModels;
 
 namespace LvivCompany.Bookstore.Web.Mapper
 {
-    public class BookMapper: IMapper<Book, BookDetailViewModel>
+    public class BookMapper: IMapper<Book, BookInfo>
     {
         private IMapper mapper;
 
         public BookMapper()
         {
+
             var config = new MapperConfiguration(cfg => {
+
                 cfg.CreateMap<Book, BookDetailViewModel>()
                 .ForMember(bv => bv.Authors, b => b.MapFrom(
                 a => a.BookAuthors.Select(c => c.Author).ToList()))
@@ -22,11 +24,14 @@ namespace LvivCompany.Bookstore.Web.Mapper
                 a => a.Category.Name))
                 .ForMember(bv => bv.Publisher, b => b.MapFrom(
                 a => a.Publisher.Name));
+
             });
+            
             mapper = config.CreateMapper();
         }
 
-        public BookDetailViewModel Map(Book entity) => mapper.Map<Book, BookDetailViewModel>(entity);
-        public Book Map(BookDetailViewModel entity) => mapper.Map<BookDetailViewModel, Book>(entity);
+        public BookInfo Map(Book entity) => mapper.Map<Book, BookInfo>(entity);
+        public Book Map(BookInfo entity) => mapper.Map<BookInfo, Book>(entity);
+       
     }
 }
