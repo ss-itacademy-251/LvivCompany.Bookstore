@@ -22,19 +22,13 @@ namespace LvivCompany.Bookstore.Web.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+
         }
 
 
         [HttpGet]
         public IActionResult Register()
         {
-            var role = _roleManager.FindByNameAsync("Admin");
-            if (role==null)
-            {
-                _roleManager.CreateAsync(new IdentityRole<long>("Admin"));
-                _roleManager.CreateAsync(new IdentityRole<long>("Customer"));
-                _roleManager.CreateAsync(new IdentityRole<long>("Seller"));
-            }
             RegisterViewModel model = new RegisterViewModel();
 
             model.AppRoles = _roleManager.Roles.Select(r => new SelectListItem
@@ -65,6 +59,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                         IdentityResult roleResult = await _userManager.AddToRoleAsync(user, approle.Name);
                         if (roleResult.Succeeded)
                         {
+                       
                             await _signInManager.SignInAsync(user, false);
                             return RedirectToAction("Login", "Account");
                         }
@@ -73,13 +68,24 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 }
                 else
                 {
+               
                     foreach (var error in result.Errors)
                     {
-                        ModelState.AddModelError(string.Empty, error.Description);
+                        
+                     ModelState.AddModelError(string.Empty, error.Description);
                     }
+              
                 }
             }
-            return View(model);
+            model.AppRoles = _roleManager.Roles.Select(r => new SelectListItem
+            {
+                Text = r.Name,
+                Value = r.Id.ToString()
+
+            }).ToList();
+            var itemToRemove = model.AppRoles.Single(r => r.Text == "Admin");
+            model.AppRoles.Remove(itemToRemove);
+            return View("Register", model);
         }
         public IActionResult Login(string returnUrl = null)
         {
@@ -97,7 +103,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 if (result.Succeeded)
                 {
 
-                    if (!String.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
+                    if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
                         return Redirect(model.ReturnUrl);
                     }
@@ -125,54 +131,63 @@ namespace LvivCompany.Bookstore.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Profile()
         {
-            RegisterViewModel model = new RegisterViewModel();
+            EditProfileViewModel model = new EditProfileViewModel();
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-            model.Address1 = currentUser.Address1;
-            model.Address2 = currentUser.Address2;
-            model.Email = currentUser.Email;
-            model.FirstName = currentUser.FirstName;
-            model.LastName = currentUser.LastName;
-            model.PhoneNumber = currentUser.PhoneNumber;
-            
-            
-          
-                return View("Profile", model);
+
+            model = UserToModel(currentUser);
+
+            return View("Profile", model);
         }
         [HttpGet]
         public async Task<IActionResult> Edit(IFormFile formFile)
-        {
-       
-            RegisterViewModel model = new RegisterViewModel();
+        {  EditProfileViewModel model = new EditProfileViewModel();
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-            model.Address1 = currentUser.Address1;
-            model.Address2 = currentUser.Address2;
-            model.Email = currentUser.Email;
-            model.FirstName = currentUser.FirstName;
-            model.LastName = currentUser.LastName;
-            model.PhoneNumber = currentUser.PhoneNumber;
-          
-            return View("Edit",model);
-        }
-         [HttpPost]
-        public async Task<IActionResult> Edit(RegisterViewModel model)
-        {
-            var user = await _userManager.GetUserAsync(HttpContext.User);
 
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            user.Address1 = model.Address1;
-            user.Address2 = model.Address2;
-            user.PhoneNumber = model.PhoneNumber;
-            user.Email = model.Email;
-            using (var memoryStream = new MemoryStream())
+            model = UserToModel(currentUser);
+
+            return View("Edit", model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditProfileViewModel model)
+        {
+            if (ModelState.IsValid)
             {
-                model.Photo.CopyTo(memoryStream);
-                user.Photo = memoryStream.ToArray();
-            }
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+
+                user = ModelToUser(model, user);
                 await _userManager.UpdateAsync(user);
 
-            return  RedirectToAction("Profile", "Account");
-        }
+                return RedirectToAction("Profile", "Account");
 
+            }
+            else
+            {
+                return View(model);
+            }
+          
+                
+        }
+        public User ModelToUser(EditProfileViewModel model, User tempUser)
+        {
+        
+            tempUser.FirstName = model.FirstName;
+            tempUser.LastName = model.LastName;
+            tempUser.Address1 = model.Address1;
+            tempUser.Address2 = model.Address2;
+            tempUser.PhoneNumber = model.PhoneNumber;
+            tempUser.Email = model.Email;
+            return tempUser;
+        }
+        public EditProfileViewModel UserToModel(User user)
+        {
+            EditProfileViewModel model = new EditProfileViewModel();
+            model.Address1 = user.Address1;
+            model.Address2 = user.Address2;
+            model.Email = user.Email;
+            model.FirstName = user.FirstName;
+            model.LastName = user.LastName;
+            model.PhoneNumber = user.PhoneNumber;
+            return model;
+        }
     }
 }

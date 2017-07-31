@@ -17,6 +17,7 @@
     border-radius: 30px;
 
 }
-.submit-btn {
-   background-color:forestgreen;
+.error-msg {
+    color:tomato;
 }
+

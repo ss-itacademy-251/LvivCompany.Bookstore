@@ -82,6 +82,7 @@ namespace LvivCompany.Bookstore.Web
             app.UseStaticFiles();
 
             app.UseAuthentication();
+            IdentityDbInitializer.Initialize(app.ApplicationServices, Configuration);
 
             app.UseMvc(routes =>
             {
