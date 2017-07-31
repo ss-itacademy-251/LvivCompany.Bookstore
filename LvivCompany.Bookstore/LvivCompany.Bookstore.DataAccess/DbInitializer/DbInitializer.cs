@@ -1,9 +1,7 @@
-﻿using System;
+﻿using LvivCompany.Bookstore.Entities;
+using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
-using LvivCompany.Bookstore.Entities;
 
 
 namespace LvivCompany.Bookstore.DataAccess
@@ -19,7 +17,7 @@ namespace LvivCompany.Bookstore.DataAccess
 
             List<Category> categories = new List<Category>
             {
-                new Category {AddedDate=DateTime.UtcNow, Name="Unknown" },
+                new Category {AddedDate=DateTime.UtcNow, Name="Other" },
                 new Category {AddedDate=DateTime.UtcNow, Name="Business"},
                 new Category {AddedDate=DateTime.UtcNow, Name="Kids"},
                 new Category {AddedDate=DateTime.UtcNow, Name="Comics"},

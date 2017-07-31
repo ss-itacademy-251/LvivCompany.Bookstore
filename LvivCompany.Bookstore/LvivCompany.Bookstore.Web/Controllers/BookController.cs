@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using LvivCompany.Bookstore.Web.ViewModels;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using LvivCompany.Bookstore.DataAccess.Repo;
 using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.Entities.Models;
-using LvivCompany.Bookstore.DataAccess.Repo;
+using LvivCompany.Bookstore.Web.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
+using System.Collections.Generic;
 using System.IO;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using System.Linq;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
@@ -18,46 +14,63 @@ namespace LvivCompany.Bookstore.Web.Controllers
     {
         private IRepo<Book> repoBook;
         private IRepo<Author> repoAuthor;
-        private IRepo<Publisher> repoPublisher;
         private IRepo<Category> repoCategory;
 
-        public BookController(IRepo<Author> repoAuthor, IRepo<Book> repoBook, IRepo<Publisher> repoPublisher, IRepo<Category> repoCategory)
+        public BookController(IRepo<Author> repoAuthor, IRepo<Book> repoBook, IRepo<Category> repoCategory)
         {
             this.repoAuthor = repoAuthor;
             this.repoBook = repoBook;
-            this.repoPublisher = repoPublisher;
             this.repoCategory = repoCategory;
         }
 
         [HttpGet]
         public IActionResult AddBook()
         {
-            BookViewModel model = new BookViewModel
-            {
-                Categories = repoCategory.GetAll().Select(c => new SelectListItem
-                {
-                    Text = $"{c.Name}",
-                    Value = c.Id.ToString()
-                }).ToList()
-            };
+            BookViewModel model = new BookViewModel();
+            PopulateCategoriesSelectList(model);
             return View("AddBook", model);
         }
 
         [HttpPost]
         public IActionResult AddBook(BookViewModel model)
         {
-            foreach (var item in model.Authors)
+            if (ModelState.IsValid)
             {
-                item.AddedDate = DateTime.UtcNow;
-                repoAuthor.Create(item);
+                SaveBookToDb(model);
+                return RedirectToAction("Index", "Home");
             }
-            repoAuthor.Save();
+            PopulateCategoriesSelectList(model);
+            return View(model);
+        }
+
+        private void PopulateCategoriesSelectList(BookViewModel model)
+        {
+            model.Categories = repoCategory.GetAll().Select(c => new SelectListItem
+            {
+                Text = $"{c.Name}",
+                Value = c.Id.ToString()
+            }).ToList();
+        }
+
+        public void SaveBookToDb(BookViewModel model)
+        {
+            List<Author> Authors = new List<Author>();
+            for (int i = 0; i < model.Authors.Count; i++)
+            {
+                Authors.Add(new Author
+                {
+                    AddedDate = DateTime.UtcNow,
+                    FirstName = model.Authors[i].FirstName,
+                    LastName = model.Authors[i].LastName
+                });
+                repoAuthor.Create(Authors[i]);
+            }
+
             Publisher publisher = new Publisher()
             {
+                AddedDate = DateTime.UtcNow,
                 Name = model.PublisherName
             };
-            repoPublisher.Create(publisher);
-            repoPublisher.Save();
 
             Book book = new Book()
             {
@@ -67,15 +80,26 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 NumberOfPages = model.NumberOfPages,
                 Amount = model.Amount,
                 Description = model.Description,
-                Price = model.Price
+                Price = model.Price,
+                CategoryId = repoCategory.GetAll().SingleOrDefault(c => c.Id == model.CategoryId).Id,
+                Publisher = publisher,
+                BookAuthors = new List<BookAuthor>()
             };
-            using (var memoryStream = new MemoryStream())
+            if (model.Image != null)
             {
-                model.Image.CopyTo(memoryStream);
-                book.Image = memoryStream.ToArray();
+                using (var memoryStream = new MemoryStream())
+                {
+                    model.Image.CopyTo(memoryStream);
+                    book.Image = memoryStream.ToArray();
+                }
+            }
+            for (int i = 0; i < model.Authors.Count; i++)
+            {
+                BookAuthor bookAuthor = new BookAuthor { BookId = book.Id, AuthorId = Authors[i].Id };
+                book.BookAuthors.Add(bookAuthor);
             }
             repoBook.Create(book);
-            return RedirectToAction("Index", "Home");
+            repoBook.Save();
         }
     }
 }

@@ -1,19 +1,10 @@
-﻿using System;
-using Microsoft.Extensions.Configuration;
+﻿using LvivCompany.Bookstore.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Design;
-using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.DataAccess.Repo;
-using System.Collections.Generic;
 
 namespace LvivCompany.Bookstore.DataAccess
 {
     public class BookStoreContext : DbContext
     {
-
-
-
         public BookStoreContext(DbContextOptions<BookStoreContext> options) : base(options)
         { }
 
@@ -45,7 +36,6 @@ namespace LvivCompany.Bookstore.DataAccess
                 .HasOne(bc => bc.Author)
                 .WithMany(c => c.BookAuthors)
                 .HasForeignKey(bc => bc.AuthorId);
-            
         }
     }
 }

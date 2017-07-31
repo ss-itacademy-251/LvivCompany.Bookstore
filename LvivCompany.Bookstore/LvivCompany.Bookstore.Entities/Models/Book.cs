@@ -14,7 +14,7 @@ namespace LvivCompany.Bookstore.Entities
 
         public string Description { get; set; }
 
-        public short Year { get; set; }
+        public int Year { get; set; }
 
         public long PublisherId { get; set; }
 
