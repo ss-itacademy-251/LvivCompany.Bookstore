@@ -22,7 +22,7 @@
     <link href="../Content/bootstrap.css" rel="stylesheet" />
     <link href="../Content/bootstrap.min.css" rel="stylesheet" />-->
     <link href="../Style/IconDown.css" rel="stylesheet" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="../Style/Carouselstyle.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,700&subset=latin-ext" rel="stylesheet">
@@ -33,39 +33,34 @@
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                     <span class="glyphicon glyphicon-th-large" \ style="color:lightgray"></span>
-
-
                 </button>
                 <a class="navbar-brand" href="#">BookStore</a>
             </div>
 
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-
                     <li class="container-fluid"><a asp-controller="Home" asp-action="Index">Home</a></li>
                     <li class="container-fluid"><a href="#">Delivery</a></li>
                     <li class="container-fluid"><a href="#">Help</a></li>
                     <li class="container-fluid"><a asp-controller="About" asp-action="About">About us</a></li>
-
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <input style="width:400px; margin-top:12px;" /> <a style="float:right" href=""><span class="glyphicon glyphicon-search"></span> </a>
+                    </li>
 
-                    <li><a href=""><input style="width:400px;" /> <span class="glyphicon glyphicon-search"></span> </a></li>
+                    <li><a asp-controller="Order" asp-action="Order"><span class="glyphicon glyphicon-shopping-cart"></span> My Order</a></li>
                     <li><a href="RegistryPage.html"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                     <li><a href="LogPage.html"><span class="glyphicon glyphicon-log-in"></span> Sign In</a></li>
                 </ul>
             </div>
         </div>
 
-
-
         <div class="nav-side-menu ">
             <div class="brand">Brand Logo</div>
             <i class="fa fa-bars fa-2x toggle-btn glyphicon glyphicon-chevron-down " style="background-color: #222222;color:#9d9d9d; margin-top: 2.1%;" ; data-toggle="collapse" data-target="#menu-content"></i>
-
             <div class="menu-list">
-
                 <ul id="menu-content" class="menu-content collapse out">
                     <li>
                         <a href="#">
@@ -77,12 +72,10 @@
                     </li>
                     <li>
                         <ul class="sub-menu collapse" id="products">
-
                             <li><a href="#">Detectives</a></li>
                             <li><a href="#">Historical</a></li>
                             <li><a href="#">Thriller</a></li>
                             <li><a href="#">Grief</a></li>
-
                         </ul>
                     </li>
                     <li data-toggle="collapse" data-target="#service" class="collapsed">
@@ -114,13 +107,13 @@
             </div>
         </div>
     </nav>
-   
-    <div style="margin-top:5%; margin-bottom:5%; margin-left:25%;">
+
+    <div style="margin-top:5%; margin-bottom:5%; margin-left:21%;">
         @RenderBody()
     </div>
 
     <div class="navbar  navbar-inverse navbar-fixed-bottom">
-        <div class="container">                
+        <div class="container">
             <div class="navbar-text pull=left">
                 <p> SoftServe IT academy 2017</p>
             </div>
