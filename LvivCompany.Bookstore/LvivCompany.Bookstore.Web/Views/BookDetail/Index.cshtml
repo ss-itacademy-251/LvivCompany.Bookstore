@@ -6,50 +6,50 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-4 item-photo">
-                <img src="@Model.Image" />
+                <img src="@Model.Image" alt="book cover" />
             </div>
             <div class="col-xs-5">
                 <!-- Name -->
                 <h2>@Model.Name</h2>
 
                 <!-- Author -->
-                <label class="title-items"><small>Author   </small></label><br>
+                <label class="title-items">Author   </label><br>
                 @foreach (var author in @Model.Authors)
                 {
-                <span class="inf">@author.FirstName @author.LastName<br></span>
+                <span class="inf">@author.FullName<br></span>
                 }
 
                 <!-- Category -->
-                <label class="title-items"><small>Category   <br></small></label>
+                <label class="title-items">Category   <br></label>
                 <span class="inf">@Model.Category<br></span>
 
                 <!-- NumberOfPages -->
-                <label class="title-items"><small>Number Of Pages   <br></small></label>
+                <label class="title-items">Number Of Pages   <br></label>
                 <span class="inf">@Model.NumberOfPages<br></span>
 
                 <!-- PUBLISHER -->
-                <label class="title-items"><small>Publisher   <br></small></label>
+                <label class="title-items">Publisher   <br></label>
                 <span class="inf">@Model.Publisher<br></span>
 
                 <!-- Year -->
-                <label class="title-items"><small>Year   <br></small></label>
+                <label class="title-items">Year   <br></label>
                 <span class="inf">@Model.Year<br></span>
 
                 <!-- Seller -->
-                <label class="title-items"><small>Seller   <br></small></label>
+                <label class="title-items">Seller   <br></label>
                 <span class="inf">SellerName<br></span>
 
                 <!-- Amount -->
-                <label class="title-items"><small>Amount   <br></small></label>
+                <label class="title-items">Amount   <br></label>
                 <span class="inf">@Model.Amount<br></span>
 
                 <!-- Price -->
-                <label class="title-items"><small>Price<br></small></label>
+                <label class="title-items">Price<br></label>
                 <span class="inf">@Model.Price<br></span>
 
                 <!-- Amount to buy-->
                 <div class="section amount">
-                    <label class="title-attr"><small>Amount To Order</small></label>
+                    <label class="title-attr">Amount To Order</label>
                     <div>
                         <div class="btn-minus"><span class="glyphicon glyphicon-minus"></span></div>
                         <input value="1" />

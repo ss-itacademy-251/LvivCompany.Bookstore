@@ -16,9 +16,14 @@ namespace LvivCompany.Bookstore.Web.ViewModels
         public string Description { get; set; }
         public byte[] Image { get; set; }
         public decimal Price { get; set; }
-        public List<Author> Authors { get; set; }
+        public List<AuthorFullName> Authors { get; set; }
         public string Publisher { get; set; }
         public string Category { get; set; }
-      
+    }
+
+    public class AuthorFullName
+    {
+        [Display(Name = "FullName")]
+        public string FullName { get; set; }
     }
 }

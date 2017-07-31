@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using AutoMapper;
 using LvivCompany.Bookstore.Web.ViewModels;
 using System.Linq;
+using LvivCompany.Bookstore.Web.Mapper;
 
 namespace LvivCompany.Bookstore.Web
 {
@@ -55,6 +56,11 @@ namespace LvivCompany.Bookstore.Web
             services.AddTransient<IRepo<OrderDetail>, OrderDetailRepository>();
             services.AddTransient<IRepo<Publisher>, PublisherRepository>();
             services.AddTransient<IRepo<Status>, StatusRepository>();
+
+            services.AddTransient<IMapper<Book,BookDetailViewModel>, BookMapper>();
+            services.AddTransient<IMapper<Book, BookInfo>, BookDetailMapper>();
+            services.AddTransient<IMapper<Author, AuthorFullName>, AuthorMapper >();
+
 
         }
 
