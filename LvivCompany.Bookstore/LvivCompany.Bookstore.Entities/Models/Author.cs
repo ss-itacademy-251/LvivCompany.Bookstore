@@ -11,6 +11,8 @@ namespace LvivCompany.Bookstore.Entities
 
         public string LastName { get; set; }
 
+        public string FullName => $"{FirstName} {LastName}";
+
         public List<BookAuthor> BookAuthors { get; set; }
      
 

@@ -7,7 +7,7 @@ using LvivCompany.Bookstore.Entities;
 
 namespace LvivCompany.Bookstore.DataAccess
 {
-    public class BookStoreContext : DbContext
+    public class  BookStoreContext : DbContext
     {
 
 
@@ -24,10 +24,9 @@ namespace LvivCompany.Bookstore.DataAccess
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Status> Statuses { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer(@"Server=DESKTOP-ANNA\SQLEXPRESS;Database=bookstoredb;Trusted_Connection=True;");
-        }
+
+
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -51,7 +50,7 @@ namespace LvivCompany.Bookstore.DataAccess
         public BookStoreContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<BookStoreContext>();
-            builder.UseSqlServer(@"Server=DESKTOP-ANNA\SQLEXPRESS;Database=bookstoredb;Trusted_Connection=True;");
+            builder.UseSqlServer(@"(localdb)\\mssqllocaldb;Database=bookstoredb;Trusted_Connection=True;");
             return new BookStoreContext(builder.Options);
         }
     }
