@@ -1,0 +1,7 @@
+﻿{
+  "azureKeyVault": {
+    "vault": "keyvault-bookstore",
+    "clientid": "bc6901f1-07cd-4bb5-aca6-85d571800205",
+    "clientSecret": "WfVj+LcLT1fOSf1i1cCxzt0RLprnbHRbt69FmwQN8Hc="
+  }
+}

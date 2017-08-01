@@ -20,29 +20,44 @@ namespace LvivCompany.Bookstore.Web
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
 
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile("azurekeyvault.json", optional: false, reloadOnChange: true)
                 .AddEnvironmentVariables();
+
+            var config = builder.Build();
+
+            builder.AddAzureKeyVault(
+               $"https://{config["azureKeyVault:vault"]}.vault.azure.net/",
+               config["azureKeyVault:clientId"],
+               config["azureKeyVault:clientSecret"]);
+
             Configuration = builder.Build();
-        }       
+
+            var connectionString = Configuration["appSettings:connectionStrings:bookStore"];
+        }
+
+        public IConfiguration Configuration { get; }
+
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<IConfiguration>(Configuration);
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User,AppRole>()
+            services.AddIdentity<User, AppRole>()
                .AddEntityFrameworkStores<ApplicationContext>()
                .AddDefaultTokenProviders();
-
+            services.Configure<Config.AppConfiguration>(Configuration.GetSection("AppSettings"));
             services.AddMvc();
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<IRepo<Book>, BookRepository>();
@@ -72,7 +87,7 @@ namespace LvivCompany.Bookstore.Web
 
             app.UseStaticFiles();
 
-            app.UseIdentity();         
+            app.UseIdentity();
 
             app.UseMvc(routes =>
             {
