@@ -16,22 +16,16 @@ namespace LvivCompany.Bookstore.Web.Mapper
         {
 
             var config = new MapperConfiguration(cfg => {
-
-                cfg.CreateMap<Book, BookDetailViewModel>()
-                .ForMember(bv => bv.Authors, b => b.MapFrom(
-                a => a.BookAuthors.Select(c => c.Author).ToList()))
-                .ForMember(bv => bv.Category, b => b.MapFrom(
-                a => a.Category.Name))
-                .ForMember(bv => bv.Publisher, b => b.MapFrom(
-                a => a.Publisher.Name));
-
+                cfg.CreateMap<Book, BookInfo>();
             });
-            
             mapper = config.CreateMapper();
+            
         }
 
         public BookInfo Map(Book entity) => mapper.Map<Book, BookInfo>(entity);
         public Book Map(BookInfo entity) => mapper.Map<BookInfo, Book>(entity);
-       
+
+        public List<BookInfo> Map(IEnumerable<Book> entity) => mapper.Map<IEnumerable<Book>, List<BookInfo>>(entity);
+        public IEnumerable<Book> Map(List<BookInfo> entity) => mapper.Map<List<BookInfo>, IEnumerable<Book>>(entity);
     }
 }

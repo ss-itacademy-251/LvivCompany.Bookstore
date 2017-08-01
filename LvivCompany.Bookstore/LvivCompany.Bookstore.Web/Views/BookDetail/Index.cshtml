@@ -12,50 +12,65 @@
                 <!-- Name -->
                 <h2>@Model.Name</h2>
 
-                <!-- Author -->
-                <label class="title-items">Author   </label><br>
-                @foreach (var author in @Model.Authors)
-                {
-                <span class="inf">@author.FullName<br></span>
-                }
+                <ul class="list-info">
+                    <!-- Author -->
+                <li>
+                        <label class="title-items">Author   </label>
+                        <ul>
+                        @foreach (var author in @Model.Authors)
+                        {
+                           <li> <span class="inf">@author.FullName</span></li>
+                        }
+                        </ul>
+                </li>
 
                 <!-- Category -->
-                <label class="title-items">Category   <br></label>
-                <span class="inf">@Model.Category<br></span>
-
+                <li>
+                    <label class="title-items">Category   </label>
+                    <span class="inf">@Model.Category</span>
+                </li>
                 <!-- NumberOfPages -->
-                <label class="title-items">Number Of Pages   <br></label>
-                <span class="inf">@Model.NumberOfPages<br></span>
-
+                <li>
+                    <label class="title-items">Number Of Pages   </label>
+                    <span class="inf">@Model.NumberOfPages</span>
+                </li>
                 <!-- PUBLISHER -->
-                <label class="title-items">Publisher   <br></label>
-                <span class="inf">@Model.Publisher<br></span>
-
+                <li>
+                    <label class="title-items">Publisher   </label>
+                    <span class="inf">@Model.Publisher</span>
+                </li>
                 <!-- Year -->
-                <label class="title-items">Year   <br></label>
-                <span class="inf">@Model.Year<br></span>
-
+                <li>
+                    <label class="title-items">Year   </label>
+                    <span class="inf">@Model.Year</span>
+                </li>
                 <!-- Seller -->
-                <label class="title-items">Seller   <br></label>
-                <span class="inf">SellerName<br></span>
-
+                <li>
+                    <label class="title-items">Seller   </label>
+                    <span class="inf">SellerName</span>
+                </li>
                 <!-- Amount -->
-                <label class="title-items">Amount   <br></label>
-                <span class="inf">@Model.Amount<br></span>
-
+                <li>
+                    <label class="title-items">Amount   </label>
+                    <span class="inf">@Model.Amount<br></span>
+                </li>
                 <!-- Price -->
-                <label class="title-items">Price<br></label>
-                <span class="inf">@Model.Price<br></span>
-
+                <li>
+                    <label class="title-items">Price</label>
+                    <span class="inf">@Model.Price</span>
+                </li>
                 <!-- Amount to buy-->
-                <div class="section amount">
-                    <label class="title-attr">Amount To Order</label>
-                    <div>
-                        <div class="btn-minus"><span class="glyphicon glyphicon-minus"></span></div>
-                        <input value="1" />
-                        <div class="btn-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                <li>
+                    <div class="section amount">
+                        <label class="title-attr">Amount To Order</label>
+                        <div>
+                            <div class="btn-minus"><span class="glyphicon glyphicon-minus"></span></div>
+                            <input value="1" />
+                            <div class="btn-plus"><span class="glyphicon glyphicon-plus"></span></div>
+                        </div>
                     </div>
-                </div>
+                </li>
+                </ul>
 
                 <!-- Add to Order -->
                 <div class="section amount">
@@ -69,7 +84,7 @@
                     <p class="line">
                         <span class="inf">
                           @Model.Description
-                            <br></span>
+                            </span>
                     </p>
                 </div>
             </div>

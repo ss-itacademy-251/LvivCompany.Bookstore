@@ -9,6 +9,9 @@ namespace LvivCompany.Bookstore.Web.Mapper
     {
         TDestination Map(TSource entity);
         TSource Map(TDestination entity);
+
+        List<TDestination> Map(IEnumerable<TSource> entity);
+        IEnumerable<TSource> Map(List<TDestination> entity);
     }
 
 }

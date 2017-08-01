@@ -14,7 +14,6 @@ namespace LvivCompany.Bookstore.Web.Controllers
     public class HomeController : Controller
     {
         private IRepo<Book> _bookRepo;
-        List<BookInfo> booklist;
         private IMapper<Book, BookInfo> _bookmapper;
 
         public HomeController(IRepo<Book> bookRepo, IMapper<Book, BookInfo> bookmapper)
@@ -26,9 +25,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var book = await _bookRepo.GetAllAsync();
-            IMapper mapper = Mappers.MapperForBookInfo().CreateMapper();
-            booklist = mapper.Map<IEnumerable<Book>, List<BookInfo>>(book);
-            return View("Index", new HomePageListViewModel() { Books = booklist });
+            return View(new HomePageListViewModel() { Books = _bookmapper.Map(book)});
         }
     }
 }
