@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using LvivCompany.Bookstore.Entities;
+using System.Threading.Tasks;
 
 namespace LvivCompany.Bookstore.DataAccess.IRepo
 {
@@ -13,41 +14,54 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
             this.context = context;
         }
 
-        public IEnumerable<OrderDetail> GetAll()
+        public async Task<IEnumerable<OrderDetail>> GetAllAsync()
         {
-            return context.OrderDetails;
+            return await context.OrderDetails
+                    .Include(x => x.Book)
+                    .ThenInclude(x=>x.Category)
+                    .Include(x => x.Book)
+                    .ThenInclude(x=>x.Publisher)
+                    .Include(x => x.Book)
+                    .ThenInclude(x => x.BookAuthors)
+                    .ThenInclude(x => x.Author)
+                    .Include(x => x.Order)
+                    .ThenInclude(x => x.Status)
+                    .ToListAsync();
         }
 
-        public OrderDetail Get(long id)
+        public async Task<OrderDetail> GetAsync(long id)
         {
-            return context.OrderDetails.Find(id);
+            return await context.OrderDetails
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Create(OrderDetail orderDetail)
+        public async Task CreateAsync(OrderDetail orderDetail)
         {
-            context.OrderDetails.Add(orderDetail);
+            await context.OrderDetails.AddAsync(orderDetail);
         }
 
-        public void Update(OrderDetail orderDetail)
+        public async Task<OrderDetail> UpdateAsync(OrderDetail orderDetail)
         {
             context.Entry(orderDetail).State = EntityState.Modified;
+            return await Task.FromResult<OrderDetail>(null);
         }
 
-        public void Delete(long id)
+        public async Task DeleteAsync(long id)
         {
-            OrderDetail orderDetail = context.OrderDetails.Find(id);
+            OrderDetail orderDetail = await context.OrderDetails.FindAsync(id);
             if (orderDetail != null)
                 context.OrderDetails.Remove(orderDetail);
         }
 
-        public void Delete(OrderDetail orderDetail)
+        public async Task<OrderDetail> DeleteAsync(OrderDetail orderDetail)
         {
             context.Entry(orderDetail).State = EntityState.Deleted;
+            return await Task.FromResult<OrderDetail>(null);
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }
