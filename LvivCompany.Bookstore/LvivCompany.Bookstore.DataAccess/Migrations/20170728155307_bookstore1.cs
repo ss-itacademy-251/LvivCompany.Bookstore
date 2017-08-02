@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LvivCompany.Bookstore.DataAccess.Migrations
 {
-    public partial class initial : Migration
+    public partial class bookstore1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -82,7 +82,7 @@ namespace LvivCompany.Bookstore.DataAccess.Migrations
                     Price = table.Column<decimal>(type: "decimal(18, 2)", nullable: false),
                     PublisherId = table.Column<long>(type: "bigint", nullable: false),
                     SellerId = table.Column<long>(type: "bigint", nullable: false),
-                    Year = table.Column<short>(type: "smallint", nullable: false)
+                    Year = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

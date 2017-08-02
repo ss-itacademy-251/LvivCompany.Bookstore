@@ -1,10 +1,13 @@
-﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using LvivCompany.Bookstore.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace LvivCompany.Bookstore.DataAccess.Repo
 {
-    public class BookRepository : IRepo <Book>
+    public class BookRepository : IRepo<Book>
     {
         private BookStoreContext context;
 
@@ -13,41 +16,52 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
             this.context = context;
         }
 
-        public IEnumerable<Book> GetAll()
+        public async Task<IEnumerable<Book>> GetAllAsync()
         {
-            return context.Books;
+            return await context.Books
+                    .Include(x => x.Category)
+                    .Include(x => x.Publisher)
+                    .Include(x => x.BookAuthors)
+                    .ThenInclude(x => x.Author).ToListAsync();
         }
 
-        public Book Get(long id)
+        public async Task<Book> GetAsync(long id)
         {
-            return context.Books.Find(id);
+                  return await context.Books
+                    .Include(x => x.Category)
+                    .Include(x => x.Publisher)
+                    .Include(x => x.BookAuthors)
+                    .ThenInclude(x => x.Author)
+                    .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Create(Book book)
+        public async Task CreateAsync(Book book)
         {
-            context.Books.Add(book);
+            await context.Books.AddAsync(book);
         }
 
-        public void Update(Book book)
+        public async Task<Book> UpdateAsync(Book book)
         {
             context.Entry(book).State = EntityState.Modified;
+            return await Task.FromResult<Book>(null);
         }
-
-        public void Delete(long id)
+        
+        public async Task DeleteAsync(long id)
         {
-            Book book = context.Books.Find(id);
+            Book book = await context.Books.FindAsync(id);
             if (book != null)
-                context.Books.Remove(book);
+               context.Books.Remove(book);  
         }
 
-        public void Delete(Book book)
+        public async Task<Book> DeleteAsync(Book book)
         {
             context.Entry(book).State = EntityState.Deleted;
+            return await Task.FromResult<Book>(null);
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }

@@ -1,102 +1,35 @@
-﻿<div class="container">
-    <div class="row">
-        
+@model HomePageListViewModel
+
+ <form asp-controller="Home" asp-action="BookDetail">
+        <div class="container">
+            <div class="row">
+    <!-- BEGIN PRODUCTS -->
+
+    @foreach (var book in @Model.Books)
+    {
+
         <div class="col-md-3 col-sm-6">
             <span class="thumbnail">
-                <img src="http://placehold.it/500x400" alt="...">
-                <h4>Product Tittle</h4>
-                <div class="ratings">
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star-empty"></span>
-                </div>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
+                <img src="@book.Image" alt="book cover">
+                <h4 >@book.Name</h4>
                 <hr class="line">
                 <div class="row">
                     <div class="col-md-6 col-sm-6">
-                        <p class="price">$29,90</p>
+                        <p>@book.Price</p>
                     </div>
                     <div class="col-md-6 col-sm-6">
-                        <button class="btn btn-success right"> BUY ITEM</button>
+                        <button class="btn btn-success right"> BUY</button>
                     </div>
-
                 </div>
             </span>
         </div>
-        <div class="col-md-3 col-sm-6">
-            <span class="thumbnail">
-                <img src="http://placehold.it/500x400" alt="...">
-                <h4>Product Tittle</h4>
-                <div class="ratings">
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star-empty"></span>
-                </div>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                <hr class="line">
-                <div class="row">
-                    <div class="col-md-6 col-sm-6">
-                        <p class="price">$29,90</p>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <button class="btn btn-success right"> BUY ITEM</button>
-                    </div>
 
-                </div>
-            </span>
-        </div>
-        <div class="col-md-3 col-sm-6">
-            <span class="thumbnail">
-                <img src="http://placehold.it/500x400" alt="...">
-                <h4>Product Tittle</h4>
-                <div class="ratings">
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star-empty"></span>
-                </div>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                <hr class="line">
-                <div class="row">
-                    <div class="col-md-6 col-sm-6">
-                        <p class="price">$29,90</p>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <button class="btn btn-success right"> BUY ITEM</button>
-                    </div>
 
-                </div>
-            </span>
+    }
+                
+                <!-- END PRODUCTS -->
+            </div>
         </div>
-        <div class="col-md-3 col-sm-6">
-            <span class="thumbnail">
-                <img src="http://placehold.it/500x400" alt="...">
-                <h4>Product Tittle</h4>
-                <div class="ratings">
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star"></span>
-                    <span class="glyphicon glyphicon-star-empty"></span>
-                </div>
-                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. </p>
-                <hr class="line">
-                <div class="row">
-                    <div class="col-md-6 col-sm-6">
-                        <p class="price">$29,90</p>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-                        <button class="btn btn-success right"> BUY ITEM</button>
-                    </div>
+    </form>
 
-                </div>
-            </span>
-        </div>
-        
-    </div>
-</div>
+

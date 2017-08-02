@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LvivCompany.Bookstore.DataAccess
 {
-    public class BookStoreContext : DbContext
+    public class  BookStoreContext : DbContext
     {
         public BookStoreContext(DbContextOptions<BookStoreContext> options) : base(options)
         { }
@@ -21,6 +21,9 @@ namespace LvivCompany.Bookstore.DataAccess
         {
 
         }
+
+
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

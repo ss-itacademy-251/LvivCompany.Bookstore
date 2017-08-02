@@ -11,8 +11,8 @@ using System;
 namespace LvivCompany.Bookstore.DataAccess.Migrations
 {
     [DbContext(typeof(BookStoreContext))]
-    [Migration("20170725194021_initial")]
-    partial class initial
+    [Migration("20170728155307_bookstore1")]
+    partial class bookstore1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,7 +62,7 @@ namespace LvivCompany.Bookstore.DataAccess.Migrations
 
                     b.Property<long>("SellerId");
 
-                    b.Property<short>("Year");
+                    b.Property<int>("Year");
 
                     b.HasKey("Id");
 

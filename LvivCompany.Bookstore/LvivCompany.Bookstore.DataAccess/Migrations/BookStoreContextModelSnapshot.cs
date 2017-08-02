@@ -61,7 +61,7 @@ namespace LvivCompany.Bookstore.DataAccess.Migrations
 
                     b.Property<long>("SellerId");
 
-                    b.Property<short>("Year");
+                    b.Property<int>("Year");
 
                     b.HasKey("Id");
 

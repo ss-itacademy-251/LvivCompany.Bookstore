@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Data.SqlClient;
+using LvivCompany.Bookstore.DataAccess;
+using LvivCompany.Bookstore.DataAccess.IRepo;
+using LvivCompany.Bookstore.Entities;
+using LvivCompany.Bookstore.Entities.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using LvivCompany.Bookstore.DataAccess.Repo;
@@ -13,8 +15,10 @@ using LvivCompany.Bookstore.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using Microsoft.AspNetCore.Identity;
-using LvivCompany.Bookstore.Entities.Models;
+using AutoMapper;
+using LvivCompany.Bookstore.Web.ViewModels;
+using System.Linq;
+using LvivCompany.Bookstore.Web.Mapper;
 
 namespace LvivCompany.Bookstore.Web
 {
@@ -30,7 +34,6 @@ namespace LvivCompany.Bookstore.Web
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
-        }       
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
@@ -42,7 +45,10 @@ namespace LvivCompany.Bookstore.Web
                .AddDefaultTokenProviders();
 
             services.AddMvc();
+            services.AddAutoMapper();
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionToDb")));
+
+
             services.AddTransient<IRepo<Book>, BookRepository>();
             services.AddTransient<IRepo<Author>, AuthorRepository>();
             services.AddTransient<IRepo<Category>, CategoryRepository>();
@@ -50,6 +56,9 @@ namespace LvivCompany.Bookstore.Web
             services.AddTransient<IRepo<OrderDetail>, OrderDetailRepository>();
             services.AddTransient<IRepo<Publisher>, PublisherRepository>();
             services.AddTransient<IRepo<Status>, StatusRepository>();
+
+            services.AddTransient<IMapper<Book,BookDetailViewModel>, BookDetailMapper>();
+            services.AddTransient<IMapper<Book, BookInfo>, BookMapper>();
 
             var serviceProvider = services.BuildServiceProvider();
             var context = serviceProvider.GetService<BookStoreContext>();
