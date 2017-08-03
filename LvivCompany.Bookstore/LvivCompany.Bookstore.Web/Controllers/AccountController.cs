@@ -52,7 +52,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             if (ModelState.IsValid)
             {
                 User user = _registerMapper.Map(model);
-                user.UserName = user.Email;
+             
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
