@@ -25,12 +25,12 @@
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,700&subset=latin-ext" rel="stylesheet">
 </head>
-<body style="font-family:'Century Gothic';">
+<body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                    <span class="glyphicon glyphicon-th-large" \ style="color:lightgray"></span>
+                <button type="button" class="navbar-toggle title-name" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="glyphicon glyphicon-th-large" ></span>
                 </button>
                 <a class="navbar-brand" href="#">BookStore</a>
             </div>
@@ -45,7 +45,7 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <input style="width:400px; margin-top:12px;" /> <a style="float:right" href=""><span class="glyphicon glyphicon-search"></span> </a>
+                        <input class="search-input" /> <a class="a-input" href=""><span class="glyphicon glyphicon-search"></span> </a>
                     </li>
 
                     <li><a asp-controller="Order" asp-action="Order"><span class="glyphicon glyphicon-shopping-cart"></span> My Order</a></li>
@@ -57,7 +57,7 @@
 
         <div class="nav-side-menu ">
             <div class="brand">Brand Logo</div>
-            <i class="fa fa-bars fa-2x toggle-btn glyphicon glyphicon-chevron-down " style="background-color: #222222;color:#9d9d9d; margin-top: 2.1%;" ; data-toggle="collapse" data-target="#menu-content"></i>
+            <i class="fa fa-bars fa-2x toggle-btn glyphicon glyphicon-chevron-down brand-logo" data-toggle="collapse" data-target="#menu-content"></i>
             <div class="menu-list">
                 <ul id="menu-content" class="menu-content collapse out">
                     <li>
@@ -106,7 +106,7 @@
         </div>
     </nav>
 
-    <div style="margin-top:5%; margin-bottom:5%; margin-left:21%;">
+    <div class="render-body" >
         @RenderBody()
     </div>
 
