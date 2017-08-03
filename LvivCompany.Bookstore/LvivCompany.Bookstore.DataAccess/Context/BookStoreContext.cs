@@ -19,11 +19,7 @@ namespace LvivCompany.Bookstore.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
         }
-
-
-       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

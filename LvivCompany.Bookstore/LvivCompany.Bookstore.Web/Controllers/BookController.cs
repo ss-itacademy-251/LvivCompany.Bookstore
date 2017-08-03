@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
@@ -24,35 +25,36 @@ namespace LvivCompany.Bookstore.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddBook()
+        public async Task<IActionResult> AddBook()
         {
             BookViewModel model = new BookViewModel();
-            PopulateCategoriesSelectList(model);
+            await PopulateCategoriesSelectList(model);
             return View("AddBook", model);
         }
 
         [HttpPost]
-        public IActionResult AddBook(BookViewModel model)
+        public async Task<IActionResult> AddBook(BookViewModel model)
         {
             if (ModelState.IsValid)
             {
-                SaveBookToDb(model);
+                await SaveBookToDb(model);
                 return RedirectToAction("Index", "Home");
             }
-            PopulateCategoriesSelectList(model);
+            await PopulateCategoriesSelectList(model);
             return View(model);
         }
 
-        private void PopulateCategoriesSelectList(BookViewModel model)
+        private async Task PopulateCategoriesSelectList(BookViewModel model)
         {
-            model.Categories = repoCategory.GetAll().Select(c => new SelectListItem
+            var categoryList = await repoCategory.GetAllAsync();
+            model.Categories = categoryList.Select(c => new SelectListItem
             {
                 Text = $"{c.Name}",
                 Value = c.Id.ToString()
             }).ToList();
         }
 
-        public void SaveBookToDb(BookViewModel model)
+        public async Task SaveBookToDb(BookViewModel model)
         {
             List<Author> Authors = new List<Author>();
             for (int i = 0; i < model.Authors.Count; i++)
@@ -63,7 +65,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                     FirstName = model.Authors[i].FirstName,
                     LastName = model.Authors[i].LastName
                 });
-                repoAuthor.Create(Authors[i]);
+                await repoAuthor.CreateAsync(Authors[i]);
             }
 
             Publisher publisher = new Publisher()
@@ -81,7 +83,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 Amount = model.Amount,
                 Description = model.Description,
                 Price = model.Price,
-                CategoryId = repoCategory.GetAll().SingleOrDefault(c => c.Id == model.CategoryId).Id,
+                CategoryId = (await repoCategory.GetAllAsync()).SingleOrDefault(c => c.Id == model.CategoryId).Id,
                 Publisher = publisher,
                 BookAuthors = new List<BookAuthor>()
             };
@@ -98,8 +100,8 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 BookAuthor bookAuthor = new BookAuthor { BookId = book.Id, AuthorId = Authors[i].Id };
                 book.BookAuthors.Add(bookAuthor);
             }
-            repoBook.Create(book);
-            repoBook.Save();
+            await repoBook.CreateAsync(book);
+            await repoBook.SaveAsync();
         }
     }
 }

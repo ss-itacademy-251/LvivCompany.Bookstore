@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.DataAccess.IRepo;
+using LvivCompany.Bookstore.DataAccess.Repo;
 using LvivCompany.Bookstore.DataAccess;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -25,7 +25,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var book = await _bookRepo.GetAllAsync();
-            return View(new HomePageListViewModel() { Books = _bookmapper.Map(book)});
+            return View(new HomePageListViewModel() { Books = _bookmapper.Map(book) });
         }
     }
 }

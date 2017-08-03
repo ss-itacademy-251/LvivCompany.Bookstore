@@ -1,24 +1,17 @@
-﻿using System.Data.SqlClient;
+﻿using AutoMapper;
 using LvivCompany.Bookstore.DataAccess;
-using LvivCompany.Bookstore.DataAccess.IRepo;
+using LvivCompany.Bookstore.DataAccess.Repo;
 using LvivCompany.Bookstore.Entities;
 using LvivCompany.Bookstore.Entities.Models;
+using LvivCompany.Bookstore.Web.Mapper;
+using LvivCompany.Bookstore.Web.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using LvivCompany.Bookstore.DataAccess.Repo;
-using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.DataAccess;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using AutoMapper;
-using LvivCompany.Bookstore.Web.ViewModels;
-using System.Linq;
-using LvivCompany.Bookstore.Web.Mapper;
+using System;
 
 namespace LvivCompany.Bookstore.Web
 {
@@ -34,6 +27,7 @@ namespace LvivCompany.Bookstore.Web
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+        }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
@@ -47,7 +41,6 @@ namespace LvivCompany.Bookstore.Web
             services.AddMvc();
             services.AddAutoMapper();
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionToDb")));
-
 
             services.AddTransient<IRepo<Book>, BookRepository>();
             services.AddTransient<IRepo<Author>, AuthorRepository>();
@@ -66,7 +59,6 @@ namespace LvivCompany.Bookstore.Web
             return serviceProvider;
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using LvivCompany.Bookstore.DataAccess.IRepo;
+using LvivCompany.Bookstore.DataAccess.Repo;
 using LvivCompany.Bookstore.Entities;
 using LvivCompany.Bookstore.Web.ViewModels;
 using LvivCompany.Bookstore.Web.Mapper;
