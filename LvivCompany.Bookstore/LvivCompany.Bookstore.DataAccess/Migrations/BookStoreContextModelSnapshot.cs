@@ -217,7 +217,6 @@ namespace LvivCompany.Bookstore.DataAccess.Migrations
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
-#pragma warning restore 612, 618
         }
     }
 }
