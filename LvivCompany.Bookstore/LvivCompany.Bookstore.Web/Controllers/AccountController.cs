@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using AutoMapper;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
@@ -16,13 +17,14 @@ namespace LvivCompany.Bookstore.Web.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private RoleManager<IdentityRole<long>> _roleManager;
+        private readonly IMapper _mapper;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole<long>> roleManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole<long>> roleManager,IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
-
+            _mapper = mapper;
         }
 
 
@@ -48,8 +50,8 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                User user = new User { Email = model.Email, UserName = model.Email, FirstName = model.FirstName, Address1 = model.Address1, Address2 = model.Address2, PhoneNumber = model.PhoneNumber, LastName = model.LastName };
-
+                User user = _mapper.Map<User>(model); //new User { Email = model.Email, UserName = model.Email, FirstName = model.FirstName, Address1 = model.Address1, Address2 = model.Address2, PhoneNumber = model.PhoneNumber, LastName = model.LastName };
+                user.UserName = user.Email;
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -134,7 +136,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             EditProfileViewModel model = new EditProfileViewModel();
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
-            model = UserToModel(currentUser);
+            model = _mapper.Map<EditProfileViewModel>(currentUser);
 
             return View("Profile", model);
         }
@@ -143,7 +145,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
         {  EditProfileViewModel model = new EditProfileViewModel();
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
-            model = UserToModel(currentUser);
+            model = _mapper.Map<EditProfileViewModel>(currentUser);
 
             return View("Edit", model);
         }
@@ -154,7 +156,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
 
-                user = ModelToUser(model, user);
+                user = _mapper.Map< EditProfileViewModel,User>(model,user); //*/ModelToUser(model, user);//
                 await _userManager.UpdateAsync(user);
 
                 return RedirectToAction("Profile", "Account");

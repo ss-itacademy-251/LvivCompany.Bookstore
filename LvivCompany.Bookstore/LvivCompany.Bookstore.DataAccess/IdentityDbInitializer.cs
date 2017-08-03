@@ -27,26 +27,7 @@ namespace LvivCompany.Bookstore.DataAccess
                     {
                         var result = await roleManager.CreateAsync(new IdentityRole<long> { Name = role });
                     }
-                }
-                var _user = await userManager.FindByEmailAsync("admin.gmail.com");
-                if (_user == null)
-                {
-                    var adminUser = new User
-                    {
-                        Email = Configuration.GetSection("AdminUserSettings")["UserEmail"],
-                        UserName = Configuration.GetSection("AdminUserSettings")["UserEmail"]
-                    };
-                    var result = await userManager.CreateAsync(adminUser, Configuration.GetSection("AdminUserSettings")["UserPassword"]);
-                    if (result.Succeeded)
-                    {
-                        IdentityRole<long> approle = await roleManager.FindByNameAsync("Admin");
-                        if (approle != null)
-                        {
-                            IdentityResult roleResult = await userManager.AddToRoleAsync(adminUser, "Admin");
-                        }
-
-                    }
-                }
+                }               
             }
         }
     }

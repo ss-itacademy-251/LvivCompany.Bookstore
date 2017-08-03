@@ -14,6 +14,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity;
+using LvivCompany.Bookstore.Web.ViewModels;
 
 namespace LvivCompany.Bookstore.Web
 {
@@ -29,7 +30,7 @@ namespace LvivCompany.Bookstore.Web
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
-        }       
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -50,7 +51,24 @@ namespace LvivCompany.Bookstore.Web
 
             services.AddScoped<RoleManager<IdentityRole<long>>, RoleManager<IdentityRole<long>>>();
 
-          
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+                {
+                    cfg.CreateMap<RegisterViewModel, User>();
+                 cfg.CreateMap<EditProfileViewModel, User>()
+                         .ForMember(d => d.PasswordHash, o => o.Ignore())
+                     .ForMember(d => d.PhoneNumberConfirmed, o => o.Ignore())
+                     .ForMember(d => d.Photo, o => o.Ignore())
+                     .ForMember(d => d.SecurityStamp, o => o.Ignore())
+                     .ForMember(d => d.UserName, o => o.Ignore())
+                     .ForMember(d => d.AccessFailedCount, o => o.Ignore())
+                     .ForMember(d => d.ConcurrencyStamp, o => o.Ignore());
+
+                    cfg.CreateMap<User, EditProfileViewModel>();
+                }
+               );
+            var mapper = config.CreateMapper();
+
+            services.AddSingleton(mapper);
 
             services.AddMvc();
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));

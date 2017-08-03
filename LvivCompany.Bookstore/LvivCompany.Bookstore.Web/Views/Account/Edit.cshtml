@@ -1,6 +1,17 @@
-﻿<script src="~/js/site.js"></script>
-@model LvivCompany.Bookstore.Web.ViewModels.EditProfileViewModel
-<link href="~/css/RegLogStyle.css" rel="stylesheet" />
+﻿
+@model EditProfileViewModel
+
+@section Scripts{
+<script src="~/js/site.js"></script>
+ }
+
+
+@section Styles
+
+    {
+    <link href="@Url.Content("~/css/RegLogStyle.css")" rel="stylesheet" type="text/css" />
+}
+
 <div class="container " style="padding-top: 0px;">
     <div class="row">
         <form class="form-horizontal" role="form" asp-controller="Account" asp-action="Edit" method="get" enctype="multipart/form-data">
@@ -11,7 +22,7 @@
 
                     <img id="imgDisplayArea" class="avatar img-circle img-thumbnail img-responsive" />
                     <h6>Upload a different photo...</h6>
-                    <input asp-for="Photo" type="file" onchange="imagePreview(this)">
+                   <input asp-for="Photo" type="file" onchange="imagePreview(this)">
                 </div>
             </div>
 
