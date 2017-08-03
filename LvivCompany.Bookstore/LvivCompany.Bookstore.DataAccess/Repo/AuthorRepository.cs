@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using LvivCompany.Bookstore.Entities;
+using System.Threading.Tasks;
 
 namespace LvivCompany.Bookstore.DataAccess.IRepo
 {
@@ -13,41 +14,46 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
             this.context = context;
         }
 
-        public IEnumerable<Author> GetAll()
+        public async Task<IEnumerable<Author>> GetAllAsync()
         {
-            return context.Authors;
+            return await context.Authors
+                    .Include(x => x.BookAuthors)
+                    .ThenInclude(x => x.Book).ToListAsync();
         }
 
-        public Author Get(long id)
+        public async Task<Author> GetAsync(long id)
         {
-            return context.Authors.Find(id);
+            return await context.Authors
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Create(Author author)
+        public async Task CreateAsync(Author author)
         {
-            context.Authors.Add(author);
+            await context.Authors.AddAsync(author);
         }
 
-        public void Update(Author author)
+        public async Task<Author> UpdateAsync(Author author)
         {
             context.Entry(author).State = EntityState.Modified;
+            return await Task.FromResult<Author>(null);
         }
 
-        public void Delete(long id)
+        public async Task DeleteAsync(long id)
         {
-            Author author = context.Authors.Find(id);
+            Author author = await context.Authors.FindAsync(id);
             if (author != null)
                 context.Authors.Remove(author);
         }
 
-        public void Delete(Author author)
+        public async Task<Author> DeleteAsync(Author author)
         {
             context.Entry(author).State = EntityState.Deleted;
+            return await Task.FromResult<Author>(null);
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using LvivCompany.Bookstore.Entities;
+using System.Threading.Tasks;
 
 namespace LvivCompany.Bookstore.DataAccess.IRepo
 {
@@ -13,41 +14,46 @@ namespace LvivCompany.Bookstore.DataAccess.IRepo
             this.context = context;
         }
 
-        public IEnumerable<Order> GetAll()
+        public async Task<IEnumerable<Order>> GetAllAsync()
         {
-            return context.Orders;
+            return await context.Orders
+                    .Include(x => x.Status)
+                    .ToListAsync();
         }
 
-        public Order Get(long id)
+        public async Task<Order> GetAsync(long id)
         {
-            return context.Orders.Find(id);
+            return await context.Orders
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public void Create(Order order)
+        public async Task CreateAsync(Order order)
         {
-            context.Orders.Add(order);
+            await context.Orders.AddAsync(order);
         }
 
-        public void Update(Order order)
+        public async Task<Order> UpdateAsync(Order order)
         {
             context.Entry(order).State = EntityState.Modified;
+            return await Task.FromResult<Order>(null);
         }
 
-        public void Delete(long id)
+        public async Task DeleteAsync(long id)
         {
-            Order order = context.Orders.Find(id);
+            Order order = await context.Orders.FindAsync(id);
             if (order != null)
                 context.Orders.Remove(order);
         }
 
-        public void Delete(Order order)
+        public async Task<Order> DeleteAsync(Order order)
         {
             context.Entry(order).State = EntityState.Deleted;
+            return await Task.FromResult<Order>(null);
         }
 
-        public void Save()
+        public async Task SaveAsync()
         {
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
     }
 }
