@@ -87,6 +87,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 Publisher = publisher,
                 BookAuthors = new List<BookAuthor>()
             };
+
             if (model.Image != null)
             {
                 using (var memoryStream = new MemoryStream())
@@ -95,13 +96,14 @@ namespace LvivCompany.Bookstore.Web.Controllers
                     book.Image = memoryStream.ToArray();
                 }
             }
+
             for (int i = 0; i < model.Authors.Count; i++)
             {
                 BookAuthor bookAuthor = new BookAuthor { BookId = book.Id, AuthorId = Authors[i].Id };
                 book.BookAuthors.Add(bookAuthor);
             }
+
             await repoBook.CreateAsync(book);
-            await repoBook.SaveAsync();
         }
     }
 }

@@ -1,59 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using LvivCompany.Bookstore.Entities;
 using Microsoft.EntityFrameworkCore;
-using LvivCompany.Bookstore.Entities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace LvivCompany.Bookstore.DataAccess.Repo
 {
-    public class OrderRepository : IRepo<Order>
+    public class OrderRepository : Repo<Order>
     {
-        private BookStoreContext context;
-
-        public OrderRepository(BookStoreContext context)
+        public OrderRepository(BookStoreContext context) : base(context)
         {
-            this.context = context;
         }
 
-        public async Task<IEnumerable<Order>> GetAllAsync()
+        public override async Task<IEnumerable<Order>> GetAllAsync()
         {
             return await context.Orders
                     .Include(x => x.Status)
                     .ToListAsync();
         }
 
-        public async Task<Order> GetAsync(long id)
+        public override Task<Order> GetAsync(long id)
         {
-            return await context.Orders
+            return context.Orders
                 .FirstOrDefaultAsync(x => x.Id == id);
-        }
-
-        public async Task CreateAsync(Order order)
-        {
-            await context.Orders.AddAsync(order);
-        }
-
-        public async Task<Order> UpdateAsync(Order order)
-        {
-            context.Entry(order).State = EntityState.Modified;
-            return await Task.FromResult<Order>(null);
-        }
-
-        public async Task DeleteAsync(long id)
-        {
-            Order order = await context.Orders.FindAsync(id);
-            if (order != null)
-                context.Orders.Remove(order);
-        }
-
-        public async Task<Order> DeleteAsync(Order order)
-        {
-            context.Entry(order).State = EntityState.Deleted;
-            return await Task.FromResult<Order>(null);
-        }
-
-        public async Task SaveAsync()
-        {
-            await context.SaveChangesAsync();
         }
     }
 }

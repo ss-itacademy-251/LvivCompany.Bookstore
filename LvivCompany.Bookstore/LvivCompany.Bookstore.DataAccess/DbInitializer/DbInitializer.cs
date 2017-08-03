@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-
 namespace LvivCompany.Bookstore.DataAccess
 {
     public static class DbInitializer
