@@ -3,7 +3,6 @@ using LvivCompany.Bookstore.Entities;
 using LvivCompany.Bookstore.DataAccess.IRepo;
 using LvivCompany.Bookstore.DataAccess;
 using System.Threading.Tasks;
-using AutoMapper;
 using LvivCompany.Bookstore.Web.ViewModels;
 using System.Linq;
 using System.Collections.Generic;
@@ -14,9 +13,9 @@ namespace LvivCompany.Bookstore.Web.Controllers
     public class HomeController : Controller
     {
         private IRepo<Book> _bookRepo;
-        private IMapper<Book, BookInfo> _bookmapper;
+        private IMapp<Book, BookInfo> _bookmapper;
 
-        public HomeController(IRepo<Book> bookRepo, IMapper<Book, BookInfo> bookmapper)
+        public HomeController(IRepo<Book> bookRepo, IMapp<Book, BookInfo> bookmapper)
         {
             _bookRepo = bookRepo;
             _bookmapper = bookmapper;
@@ -24,7 +23,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var book = await _bookRepo.GetAllAsync();
+            List<Book>book = (await _bookRepo.GetAllAsync()).ToList();
             return View(new HomePageListViewModel() { Books = _bookmapper.Map(book)});
         }
     }

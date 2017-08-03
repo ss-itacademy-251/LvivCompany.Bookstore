@@ -6,9 +6,8 @@ using LvivCompany.Bookstore.Web.ViewModels;
 using LvivCompany.Bookstore.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.IO;
 using Microsoft.AspNetCore.Http;
-using AutoMapper;
+using LvivCompany.Bookstore.Web.Mapper;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
@@ -17,14 +16,16 @@ namespace LvivCompany.Bookstore.Web.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private RoleManager<IdentityRole<long>> _roleManager;
-        private readonly IMapper _mapper;
+        private IMapp<User, EditProfileViewModel> _profileMapper;
+        private IMapp<User, RegisterViewModel> _registerMapper;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole<long>> roleManager,IMapper mapper)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole<long>> roleManager, IMapp<User, EditProfileViewModel> profileMapper, IMapp<User, RegisterViewModel> registerMapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
-            _mapper = mapper;
+            _profileMapper = profileMapper;
+            _registerMapper = registerMapper;
         }
 
 
@@ -50,7 +51,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                User user = _mapper.Map<User>(model); //new User { Email = model.Email, UserName = model.Email, FirstName = model.FirstName, Address1 = model.Address1, Address2 = model.Address2, PhoneNumber = model.PhoneNumber, LastName = model.LastName };
+                User user = _registerMapper.Map(model);
                 user.UserName = user.Email;
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
@@ -61,7 +62,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                         IdentityResult roleResult = await _userManager.AddToRoleAsync(user, approle.Name);
                         if (roleResult.Succeeded)
                         {
-                       
+
                             await _signInManager.SignInAsync(user, false);
                             return RedirectToAction("Login", "Account");
                         }
@@ -70,13 +71,13 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 }
                 else
                 {
-               
+
                     foreach (var error in result.Errors)
                     {
-                        
-                     ModelState.AddModelError(string.Empty, error.Description);
+
+                        ModelState.AddModelError(string.Empty, error.Description);
                     }
-              
+
                 }
             }
             model.AppRoles = _roleManager.Roles.Select(r => new SelectListItem
@@ -136,16 +137,17 @@ namespace LvivCompany.Bookstore.Web.Controllers
             EditProfileViewModel model = new EditProfileViewModel();
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
-            model = _mapper.Map<EditProfileViewModel>(currentUser);
+            model = _profileMapper.Map(currentUser);
 
             return View("Profile", model);
         }
         [HttpGet]
-        public async Task<IActionResult> Edit(IFormFile formFile)
-        {  EditProfileViewModel model = new EditProfileViewModel();
+        public async Task<IActionResult> Edit()
+        {
+            EditProfileViewModel model = new EditProfileViewModel();
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
-            model = _mapper.Map<EditProfileViewModel>(currentUser);
+            model = _profileMapper.Map(currentUser);
 
             return View("Edit", model);
         }
@@ -156,7 +158,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
 
-                user = _mapper.Map< EditProfileViewModel,User>(model,user); //*/ModelToUser(model, user);//
+                user = _profileMapper.Map(model, user);
                 await _userManager.UpdateAsync(user);
 
                 return RedirectToAction("Profile", "Account");
@@ -166,30 +168,9 @@ namespace LvivCompany.Bookstore.Web.Controllers
             {
                 return View(model);
             }
-          
-                
+
+
         }
-        public User ModelToUser(EditProfileViewModel model, User tempUser)
-        {
-        
-            tempUser.FirstName = model.FirstName;
-            tempUser.LastName = model.LastName;
-            tempUser.Address1 = model.Address1;
-            tempUser.Address2 = model.Address2;
-            tempUser.PhoneNumber = model.PhoneNumber;
-            tempUser.Email = model.Email;
-            return tempUser;
-        }
-        public EditProfileViewModel UserToModel(User user)
-        {
-            EditProfileViewModel model = new EditProfileViewModel();
-            model.Address1 = user.Address1;
-            model.Address2 = user.Address2;
-            model.Email = user.Email;
-            model.FirstName = user.FirstName;
-            model.LastName = user.LastName;
-            model.PhoneNumber = user.PhoneNumber;
-            return model;
-        }
+
     }
 }

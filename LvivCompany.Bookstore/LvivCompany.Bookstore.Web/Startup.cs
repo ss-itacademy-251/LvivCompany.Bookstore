@@ -2,17 +2,15 @@
 using LvivCompany.Bookstore.DataAccess;
 using LvivCompany.Bookstore.DataAccess.IRepo;
 using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.Entities.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using AutoMapper;
 using LvivCompany.Bookstore.Web.ViewModels;
-using System.Linq;
 using LvivCompany.Bookstore.Web.Mapper;
+using Microsoft.AspNetCore.Identity;
 
 namespace LvivCompany.Bookstore.Web
 {
@@ -52,27 +50,8 @@ namespace LvivCompany.Bookstore.Web
 
             services.AddScoped<RoleManager<IdentityRole<long>>, RoleManager<IdentityRole<long>>>();
 
-            var config = new AutoMapper.MapperConfiguration(cfg =>
-                {
-                    cfg.CreateMap<RegisterViewModel, User>();
-                 cfg.CreateMap<EditProfileViewModel, User>()
-                         .ForMember(d => d.PasswordHash, o => o.Ignore())
-                     .ForMember(d => d.PhoneNumberConfirmed, o => o.Ignore())
-                     .ForMember(d => d.Photo, o => o.Ignore())
-                     .ForMember(d => d.SecurityStamp, o => o.Ignore())
-                     .ForMember(d => d.UserName, o => o.Ignore())
-                     .ForMember(d => d.AccessFailedCount, o => o.Ignore())
-                     .ForMember(d => d.ConcurrencyStamp, o => o.Ignore());
-
-                    cfg.CreateMap<User, EditProfileViewModel>();
-                }
-               );
-            var mapper = config.CreateMapper();
-
-            services.AddSingleton(mapper);
-
             services.AddMvc();
-            services.AddAutoMapper();
+
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // TODO: Remove when dabase will be ready
@@ -84,8 +63,10 @@ namespace LvivCompany.Bookstore.Web
             services.AddTransient<IRepo<Publisher>, PublisherRepository>();
             services.AddTransient<IRepo<Status>, StatusRepository>();
 
-            services.AddTransient<IMapper<Book,BookDetailViewModel>, BookDetailMapper>();
-            services.AddTransient<IMapper<Book, BookInfo>, BookMapper>();
+            services.AddTransient<IMapp<Book, BookDetailViewModel>, BookDetailMapper>();
+            services.AddTransient<IMapp<Book, BookInfo>, BookMapper>();
+            services.AddTransient<IMapp<User, EditProfileViewModel>, ProfileMapper>();
+            services.AddTransient<IMapp<User, RegisterViewModel>, RegisterMapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
