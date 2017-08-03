@@ -24,10 +24,16 @@ namespace LvivCompany.Bookstore.DataAccess
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Status> Statuses { get; set; }
 
+<<<<<<< HEAD
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
             optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=BookDb;Trusted_Connection=True;MultipleActiveResultSets=true");
+        }
+=======
 
 
        
+>>>>>>> develop
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -51,7 +57,11 @@ namespace LvivCompany.Bookstore.DataAccess
         public BookStoreContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<BookStoreContext>();
+<<<<<<< HEAD
+            builder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=BookDb;Trusted_Connection=True;MultipleActiveResultSets=true");
+=======
             builder.UseSqlServer(@"(localdb)\\mssqllocaldb;Database=bookstoredb;Trusted_Connection=True;");
+>>>>>>> develop
             return new BookStoreContext(builder.Options);
         }
     }

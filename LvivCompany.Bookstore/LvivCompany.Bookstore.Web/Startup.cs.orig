@@ -9,10 +9,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+<<<<<<< HEAD
+using Microsoft.AspNetCore.Identity;
+using LvivCompany.Bookstore.Web.ViewModels;
+=======
 using AutoMapper;
 using LvivCompany.Bookstore.Web.ViewModels;
 using System.Linq;
 using LvivCompany.Bookstore.Web.Mapper;
+>>>>>>> develop
 
 namespace LvivCompany.Bookstore.Web
 {
@@ -28,10 +33,14 @@ namespace LvivCompany.Bookstore.Web
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+<<<<<<< HEAD
+        }
+=======
 
         }
 
 
+>>>>>>> develop
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
