@@ -56,17 +56,6 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
         public async Task SaveBookToDb(BookViewModel model)
         {
-            List<Author> Authors = new List<Author>();
-            for (int i = 0; i < model.Authors.Count; i++)
-            {
-                Authors.Add(new Author
-                {
-                    AddedDate = DateTime.UtcNow,
-                    FirstName = model.Authors[i].FirstName,
-                    LastName = model.Authors[i].LastName
-                });
-                await repoAuthor.CreateAsync(Authors[i]);
-            }
 
             Publisher publisher = new Publisher()
             {
@@ -97,9 +86,18 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 }
             }
 
-            for (int i = 0; i < model.Authors.Count; i++)
+            foreach (var author in model.Authors)
             {
-                BookAuthor bookAuthor = new BookAuthor { BookId = book.Id, AuthorId = Authors[i].Id };
+                BookAuthor bookAuthor = new BookAuthor
+                {
+                    Book = book,
+                    Author = new Author
+                    {
+                        AddedDate = DateTime.UtcNow,
+                        FirstName = author.FirstName,
+                        LastName = author.LastName
+                    }
+                };
                 book.BookAuthors.Add(bookAuthor);
             }
 
