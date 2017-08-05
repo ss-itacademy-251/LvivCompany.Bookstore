@@ -72,7 +72,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 Amount = model.Amount,
                 Description = model.Description,
                 Price = model.Price,
-                CategoryId = (await repoCategory.GetAllAsync()).SingleOrDefault(c => c.Id == model.CategoryId).Id,
+                CategoryId = model.CategoryId,
                 Publisher = publisher,
                 BookAuthors = new List<BookAuthor>()
             };
