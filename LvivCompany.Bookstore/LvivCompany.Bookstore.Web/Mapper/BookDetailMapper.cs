@@ -38,7 +38,7 @@ namespace LvivCompany.Bookstore.Web.Mapper
         }
         public Book Map(BookDetailViewModel model, Book tempBook)
         {
-            
+               
             return tempBook;
         }
         public List<BookDetailViewModel> Map(List<Book> entity)
@@ -58,5 +58,6 @@ namespace LvivCompany.Bookstore.Web.Mapper
             }
             return books;
         }
+
     }
 }

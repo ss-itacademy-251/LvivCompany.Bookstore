@@ -63,10 +63,10 @@ namespace LvivCompany.Bookstore.Web
             services.AddTransient<IRepo<Publisher>, PublisherRepository>();
             services.AddTransient<IRepo<Status>, StatusRepository>();
 
-            services.AddTransient<IMapp<Book, BookDetailViewModel>, BookDetailMapper>();
-            services.AddTransient<IMapp<Book, BookInfo>, BookMapper>();
-            services.AddTransient<IMapp<User, EditProfileViewModel>, ProfileMapper>();
-            services.AddTransient<IMapp<User, RegisterViewModel>, RegisterMapper>();
+            services.AddTransient<IMapper<Book, BookDetailViewModel>, BookDetailMapper>();
+            services.AddTransient<IMapper<Book, BookInfo>, BookMapper>();
+            services.AddTransient<IMapper<User, EditProfileViewModel>, ProfileMapper>();
+            services.AddTransient<IMapper<User, RegisterViewModel>, RegisterMapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

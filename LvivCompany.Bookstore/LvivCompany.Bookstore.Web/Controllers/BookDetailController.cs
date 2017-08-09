@@ -24,7 +24,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
         public async Task<IActionResult> Index(int id)
         {
-            
+      
             var book = await _bookRepo.GetAsync(id);
             return View("Index", _bookmapper.Map(book));
         }

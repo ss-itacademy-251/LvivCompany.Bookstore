@@ -20,11 +20,18 @@ namespace LvivCompany.Bookstore.Web.Controllers
             _bookRepo = bookRepo;
             _bookmapper = bookmapper;
         }
-
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<Book>book = (await _bookRepo.GetAllAsync()).ToList();
-            return View(new HomePageListViewModel() { Books = _bookmapper.Map(book)});
+            List<Book> book = (await _bookRepo.GetAllAsync()).ToList();
+            return View(new HomePageListViewModel() { Books = _bookmapper.Map(book) });
+        }
+        [HttpPost]
+        public async Task<IActionResult> Index(long id)
+        {
+
+
+            return RedirectToAction("Index", "BookDetail", id);
         }
     }
 }

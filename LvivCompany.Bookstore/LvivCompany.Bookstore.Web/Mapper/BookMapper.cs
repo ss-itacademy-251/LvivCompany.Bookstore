@@ -21,7 +21,7 @@ namespace LvivCompany.Bookstore.Web.Mapper
             BookInfo tempBookInfo = new BookInfo();
             tempBookInfo.Name = entity.Name;
             tempBookInfo.Price = entity.Price;
-           
+            tempBookInfo.Id = entity.Id;
             return tempBookInfo;
         }
         public Book Map(BookInfo model)
@@ -29,6 +29,7 @@ namespace LvivCompany.Bookstore.Web.Mapper
             Book tempBook = new Book();
             tempBook.Name = model.Name;
             tempBook.Price = model.Price;
+            tempBook.Id = model.Id;
             return tempBook;
         }
         public Book Map(BookInfo model,Book tempBook)
