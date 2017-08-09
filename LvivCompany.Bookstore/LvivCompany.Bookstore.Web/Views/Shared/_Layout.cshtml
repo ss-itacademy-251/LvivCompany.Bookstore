@@ -1,6 +1,8 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    @RenderSection("scripts", required: false)
+    @RenderSection("styles", required: false)
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Lviv Bookstore Company</title>
     <meta charset="utf-8" />
@@ -106,7 +108,5 @@
             </div>
         </div>
         </div>
-    @RenderSection("scripts", required: false)
-    @RenderSection("styles", required: false)
 </body>
 </html>

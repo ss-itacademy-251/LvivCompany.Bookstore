@@ -17,10 +17,6 @@ namespace LvivCompany.Bookstore.DataAccess
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Status> Statuses { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-        }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BookAuthor>()

@@ -4,7 +4,7 @@
 <div class="container">
     <form method="post" asp-action="AddBook" asp-controller="Book" enctype="multipart/form-data">
         <div class="col-md-4 ">
-            <img id="imgDisplayArea" class="img-responsive" src="~/book_template.png"/>
+            <img id="imgDisplayArea" class="img-responsive" src="~/book_template.png" />
             <input asp-for="Image" type="file"
                    accept="image/*" onchange="imagePreview(this)">
         </div>
@@ -18,140 +18,52 @@
                 <div class="controls">
                     <fieldset class="table-bordered fieldsetpadding">
                         <label>Authors</label>
-                        @if (Model.Authors == null || Model.Authors.Count == 1)
+                        @for (int i = 0; i < Model.Authors.Count; i++)
                         {
                             <div class="entry">
                                 <div class="row rowmargin">
                                     <div class="col-md-6">
-                                        <label asp-for="Authors[0].FirstName" class="control-label"></label>
-                                        <input asp-for="Authors[0].FirstName" class="form-control" type="text" />
-                                        <span asp-validation-for="Authors[0].FirstName" class="text-danger"></span>
+                                        <label asp-for="Authors[i].FirstName" class="control-label"></label>
+                                        <input asp-for="Authors[i].FirstName" class="form-control" type="text" />
+                                        <span asp-validation-for="Authors[i].FirstName" class="text-danger"></span>
                                     </div>
                                     <div class="col-md-6">
-                                        <label asp-for="Authors[0].LastName" class="control-label"></label>
-                                        <div class="input-group">
-                                            <input asp-for="Authors[0].LastName" class="form-control" type="text" />
-                                            <span class="input-group-btn">
-                                            <button class="btn btn-success btn-add" type="button">
-                                                <span class="glyphicon glyphicon-plus"></span>
-                                            </button>
-                                            </span>
-                                        </div>
-                                        <span asp-validation-for="Authors[0].LastName" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                        else
-                        {
-                            if (Model.Authors.Count == 2)
-                            {<div class="entry">
-                            <div class="row rowmargin">
-                                <div class="col-md-6">
-                                    <label asp-for="Authors[0].FirstName" class="control-label"></label>
-                                    <input asp-for="Authors[0].FirstName" class="form-control" type="text" />
-                                    <span asp-validation-for="Authors[0].FirstName" class="text-danger"></span>
-                                </div>
-                                <div class="col-md-6">
-                                    <label asp-for="Authors[0].LastName" class="control-label"></label>
-                                    <div class="input-group">
-                                        <input asp-for="Authors[0].LastName" class="form-control" type="text" />
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-danger btn-remove" type="button">
-                                                <span class="glyphicon glyphicon-minus"></span>
-                                            </button>
-                                        </span>
-                                    </div>
-                                    <span asp-validation-for="Authors[0].LastName" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="entry">
-                            <div class="row rowmargin">
-                                <div class="col-md-6">
-                                    <label asp-for="Authors[1].FirstName" class="control-label"></label>
-                                    <input asp-for="Authors[1].FirstName" class="form-control" type="text" />
-                                    <span asp-validation-for="Authors[1].FirstName" class="text-danger"></span>
-                                </div>
-                                <div class="col-md-6">
-                                    <label asp-for="Authors[1].LastName" class="control-label"></label>
-                                    <div class="input-group">
-                                        <input asp-for="Authors[1].LastName" class="form-control" type="text" />
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-success btn-add" type="button">
-                                                <span class="glyphicon glyphicon-plus"></span>
-                                            </button>
-                                        </span>
-                                    </div>
-                                    <span asp-validation-for="Authors[1].LastName" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                            }
-                            else
-                            {
-                                for (int i = 0; i < Model.Authors.Count - 2; i++)
-                                {
-                                    <div class="entry">
-                                        <div class="row rowmargin">
-                                            <div class="col-md-6">
-                                                <label asp-for="Authors[i].FirstName" class="control-label"></label>
-                                                <input asp-for="Authors[i].FirstName" class="form-control" type="text" />
-                                                <span asp-validation-for="Authors[i].FirstName" class="text-danger"></span>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label asp-for="Authors[i].LastName" class="control-label"></label>
-                                                <div class="notinput-group">
-                                                    <input asp-for="Authors[i].LastName" class="form-control" type="text" />
-                                                </div>
-                                                <span asp-validation-for="Authors[i].LastName" class="text-danger"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                                <div class="entry">
-                                    <div class="row rowmargin">
-                                        <div class="col-md-6">
-                                            <label asp-for="Authors[Model.Authors.Count - 2].FirstName" class="control-label"></label>
-                                            <input asp-for="Authors[Model.Authors.Count - 2].FirstName" class="form-control" type="text" />
-                                            <span asp-validation-for="Authors[Model.Authors.Count - 2].FirstName" class="text-danger"></span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label asp-for="Authors[Model.Authors.Count - 2].LastName" class="control-label"></label>
+                                        <label asp-for="Authors[i].LastName" class="control-label"></label>
+                                        @if (i == (Model.Authors.Count - 1))
+                                        {
                                             <div class="input-group">
-                                                <input asp-for="Authors[Model.Authors.Count - 2].LastName" class="form-control" type="text" />
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-danger btn-remove" type="button">
-                                                        <span class="glyphicon glyphicon-minus"></span>
-                                                    </button>
-                                                </span>
-                                            </div>
-                                            <span asp-validation-for="Authors[Model.Authors.Count - 2].LastName" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="entry">
-                                    <div class="row rowmargin">
-                                        <div class="col-md-6">
-                                            <label asp-for="Authors[Model.Authors.Count - 1].FirstName" class="control-label"></label>
-                                            <input asp-for="Authors[Model.Authors.Count - 1].FirstName" class="form-control" type="text" />
-                                            <span asp-validation-for="Authors[Model.Authors.Count - 1].FirstName" class="text-danger"></span>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label asp-for="Authors[Model.Authors.Count - 1].LastName" class="control-label"></label>
-                                            <div class="input-group">
-                                                <input asp-for="Authors[Model.Authors.Count - 1].LastName" class="form-control" type="text" />
+                                                <input asp-for="Authors[i].LastName" class="form-control" type="text" />
                                                 <span class="input-group-btn">
                                                     <button class="btn btn-success btn-add" type="button">
                                                         <span class="glyphicon glyphicon-plus"></span>
                                                     </button>
                                                 </span>
                                             </div>
-                                            <span asp-validation-for="Authors[Model.Authors.Count - 1].LastName" class="text-danger"></span>
-                                        </div>
+                                        }
+                                        else
+                                        {
+                                            if (i == (Model.Authors.Count - 2))
+                                            {
+                                                <div class="input-group">
+                                                    <input asp-for="Authors[i].LastName" class="form-control" type="text" />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-danger btn-remove" type="button">
+                                                            <span class="glyphicon glyphicon-minus"></span>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="notinput-group">
+                                                    <input asp-for="Authors[i].LastName" class="form-control" type="text" />
+                                                </div>
+                                            }
+                                        }
+                                        <span asp-validation-for="Authors[i].LastName" class="text-danger"></span>
                                     </div>
                                 </div>
-                            }
+                            </div>
                         }
                     </fieldset>
                 </div>
@@ -204,16 +116,16 @@
                 <a class="btn btn-danger col-md-offset-4" asp-controller="Home" asp-action="Index">Cancel</a>
             </div>
         </div>
-</form>
+    </form>
 </div>
 
 @section styles
-{
-    <link  href="~/css/AddBookViewStyles.css" rel="stylesheet" type="text/css" />
+    {
+    <link href="~/css/AddBookViewStyles.css" rel="stylesheet" type="text/css" />
 }
 @section scripts
     {
     <script src="http://code.jquery.com/jquery-1.8.2.js" asp-append-version="true"></script>
     <script src="~/js/addimage.js" asp-append-version="true"></script>
-        <script src="~/js/addremoveinput.js" asp-append-version="true"></script>
+    <script src="~/js/addremoveinput.js" asp-append-version="true"></script>
 }

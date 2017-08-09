@@ -49,7 +49,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             var categoryList = await repoCategory.GetAllAsync();
             model.Categories = categoryList.Select(c => new SelectListItem
             {
-                Text = $"{c.Name}",
+                Text = c.Name,
                 Value = c.Id.ToString()
             }).ToList();
         }

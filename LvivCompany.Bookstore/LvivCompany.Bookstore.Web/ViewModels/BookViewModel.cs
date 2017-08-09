@@ -44,5 +44,13 @@ namespace LvivCompany.Bookstore.Web.ViewModels
         public long CategoryId { get; set; }
 
         public List<SelectListItem> Categories { get; set; }
+
+        public BookViewModel()
+        {
+            Authors = new List<AuthorViewModel>
+            {
+                new AuthorViewModel()
+            };
+        }
     }
 }

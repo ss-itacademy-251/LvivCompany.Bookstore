@@ -16,7 +16,7 @@
         newEntry.find('input:first').attr("name", nameLeftInput).attr("id", idLeftInput).val('');
         newEntry.find('input:last').attr("name", nameRightInput).attr("id", idRightInput).val('');
         newEntry.find('.text-danger').text('');
-        if (counter == 1) {
+        if (counter === 1) {
             controlFieldset.find('.entry:first .btn-add')
                 .removeClass('btn-add').addClass('btn-remove')
                 .removeClass('btn-success').addClass('btn-danger')
