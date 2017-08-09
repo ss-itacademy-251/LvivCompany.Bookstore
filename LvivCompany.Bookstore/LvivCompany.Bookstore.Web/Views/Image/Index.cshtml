@@ -1,58 +1,22 @@
-﻿@model LvivCompany.Bookstore.Web.Controllers.ImagesModel
-@{
-    ViewData["Title"] = "Index";
+﻿@model LvivCompany.Bookstore.Web.ViewModels.ImageViewModel
+@section Styles {
+    <link href="@Url.Content("~/css/ImageStyle.css")" rel="stylesheet" type="text/css" />
 }
 
 <h2>Index</h2>
 
 
 <form method="post" asp-action="Index" asp-controller="Image" enctype="multipart/form-data">
-    <input type="file" name="files" multiple />
+    <input type="file" name="files"  />
     <input type="submit" value="Upload" />
 
 </form>
-<div style="height:230px;overflow-x:scroll; ">
-    @foreach (var image in @Model.FilesCollection)
-    {
-        <div style="
-         height:200px; width:200px; display:inline; margin:10px;">
-            <img src="@image" />
+<div class="listofimages" >
+   
+        <div class="uploadimages" >
+            <img src="@Model.ImageFile" />
         </div>
-    }
+    
 
 </div>
-    <!--<input type="file" id="fileinput" multiple />
-
-    <input type="submit" />
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-            function readMultipleFiles(evt) {
-                //Retrieve all the files from the FileList object
-                var files = evt.target.files;
-
-                if (files) {
-                    for (var i = 0, f; f = files[i]; i++) {
-                        var r = new FileReader();
-                        r.onload = (function (f) {
-                            return function (e) {
-                                var contents = e.target.result;
-                                $('body').append('<h1>' + f.name + '</h1><img src="learn/' + f.name + '"/>');
-                            };
-                        })(f);
-
-                        r.readAsText(f);
-                    }
-                } else {
-                    alert("Failed to load files");
-                }
-            }
-
-            document.getElementById('fileinput').addEventListener('change', readMultipleFiles, false);
-
-        });
-    </script>
-
--->
-
+   

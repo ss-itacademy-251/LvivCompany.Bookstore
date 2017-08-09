@@ -7,40 +7,35 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
-using System.Web;
-using System.Net.Http.Headers;
+using LvivCompany.Bookstore.Web.ViewModels;
+using Microsoft.Extensions.Configuration;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
     public class ImageController: Controller
     {
+        private readonly IConfiguration configuration;
 
+        public ImageController(IConfiguration configuration )
+        {
+            this.configuration = configuration;
+        }
 
         public async Task<string> UploadFileToBlob(IFormFile file, string fileName)
         {
             try
             {
-
-                CloudStorageAccount storageAccount = CloudStorageAccount.Parse("DefaultEndpointsProtocol=https;AccountName=lv251bookstore;AccountKey=QVHI9huflou7/ERBeqx/3ZX6lllGMT8Tb/CpteX/BfcbjBTfOjBTaBf11Au9t0cPfseaaExHa2pxQGeMONzVBw==;EndpointSuffix=core.windows.net");
-
-                // Create a blob client.
+                var test = configuration["ContainerCS"];
+                CloudStorageAccount storageAccount = CloudStorageAccount.Parse(test);
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
-
-                // Get a reference to a container 
                 CloudBlobContainer container = blobClient.GetContainerReference("images");
-                //https://lv251bookstore.blob.core.windows.net/
-                // If container doesn’t exist, create it.
                 await container.CreateIfNotExistsAsync(BlobContainerPublicAccessType.Blob, null, null);
-
-                // Get a reference to a blob 
+   
                 CloudBlockBlob blockBlob = container.GetBlockBlobReference(fileName);
-
-                // Create or overwrite the blob with the contents of a local file
-                using (var fileStream = file.OpenReadStream()) // file.OpenReadStream())
+                using (var fileStream = file.OpenReadStream()) 
                 {
                     await blockBlob.UploadFromStreamAsync(fileStream);
                 }
-
                 return blockBlob.Uri.AbsoluteUri;
             }
             catch (Exception x)
@@ -49,27 +44,22 @@ namespace LvivCompany.Bookstore.Web.Controllers
             }
         }
 
+
         public async Task<IActionResult> Index()
         {
-            ImagesModel filesURL = new ImagesModel();
+            ImageViewModel filesURL = new ImageViewModel();
             return View(filesURL);
         }
 
         [HttpPost]
         public async Task<IActionResult> Index(ICollection<IFormFile> files)
         {
-            ImagesModel filesURL = new ImagesModel();
-            // var uploads = Path.Combine(_environment.WebRootPath, "uploads");
-            var uploads = Path.Combine("E:/", "uploads");
-            foreach (var file in files)
-            {
-                if (file.Length > 0)
-                {
-                    var fileUrl =await UploadFileToBlob(file, RandomString(10)+".jpg");
-                    if(!string.IsNullOrEmpty(fileUrl))
-                    filesURL.FilesCollection.Add(fileUrl);
-                }
-            }
+            ImageViewModel filesURL = new ImageViewModel();
+            var file = files.FirstOrDefault();
+            string Extension = Path.GetExtension(file.FileName);
+            var filesUrl = await UploadFileToBlob(file, RandomString(10)+ Extension);
+            filesURL.ImageFile = filesUrl;
+               
             return View(filesURL);
         }
 
@@ -82,12 +72,4 @@ namespace LvivCompany.Bookstore.Web.Controllers
         }
     }
 
-    public class ImagesModel
-    {
-        public List<string> FilesCollection { get; set; }
-        public ImagesModel()
-        {
-            FilesCollection = new List<string>();
-        }
-    }
 }

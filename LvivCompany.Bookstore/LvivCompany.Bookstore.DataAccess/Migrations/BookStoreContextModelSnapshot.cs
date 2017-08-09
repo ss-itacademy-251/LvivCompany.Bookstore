@@ -49,7 +49,7 @@ namespace LvivCompany.Bookstore.DataAccess.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<byte[]>("Image");
+                    b.Property<string>("Image");
 
                     b.Property<string>("Name");
 
@@ -217,6 +217,7 @@ namespace LvivCompany.Bookstore.DataAccess.Migrations
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
+#pragma warning restore 612, 618
         }
     }
 }

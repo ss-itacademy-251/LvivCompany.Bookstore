@@ -11,7 +11,7 @@ using System;
 namespace LvivCompany.Bookstore.DataAccess.Migrations
 {
     [DbContext(typeof(BookStoreContext))]
-    [Migration("20170728155307_bookstore1")]
+    [Migration("20170804092353_bookstore1")]
     partial class bookstore1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,7 +50,7 @@ namespace LvivCompany.Bookstore.DataAccess.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<byte[]>("Image");
+                    b.Property<string>("Image");
 
                     b.Property<string>("Name");
 

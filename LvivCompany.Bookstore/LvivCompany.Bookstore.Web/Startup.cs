@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using AutoMapper;
 using LvivCompany.Bookstore.Web.ViewModels;
-using System.Linq;
 using LvivCompany.Bookstore.Web.Mapper;
 
 namespace LvivCompany.Bookstore.Web
@@ -22,13 +21,20 @@ namespace LvivCompany.Bookstore.Web
 
         public Startup(IHostingEnvironment env)
         {
+           
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
+            var config = builder.Build();
             Configuration = builder.Build();
+            builder.AddAzureKeyVault(
+            $"https://{config["azureKeyVault:vault"]}.vault.azure.net/",
+            config["azureKeyVault:clientId"],
+            config["azureKeyVault:clientSecret"]);
 
+            Configuration = builder.Build();
         }
 
 
@@ -38,7 +44,7 @@ namespace LvivCompany.Bookstore.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<User,AppRole>()
                .AddEntityFrameworkStores<ApplicationContext>()
@@ -59,6 +65,8 @@ namespace LvivCompany.Bookstore.Web
 
             services.AddTransient<IMapper<Book,BookDetailViewModel>, BookDetailMapper>();
             services.AddTransient<IMapper<Book, BookInfo>, BookMapper>();
+
+            services.AddSingleton(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -69,18 +77,15 @@ namespace LvivCompany.Bookstore.Web
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage(); 
                 app.UseBrowserLink();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
             app.UseStaticFiles();
-
             app.UseIdentity();         
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
