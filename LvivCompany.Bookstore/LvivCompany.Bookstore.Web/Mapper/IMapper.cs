@@ -5,13 +5,14 @@ using System.Threading.Tasks;
 
 namespace LvivCompany.Bookstore.Web.Mapper
 {
-    public interface IMapper<TSource, TDestination>
+    public interface IMapper<Tsource,TDestination>
     {
-        TDestination Map(TSource entity);
-        TSource Map(TDestination entity);
+        Tsource Map(TDestination entity);
+        TDestination Map(Tsource entity);
+        Tsource Map( TDestination model,Tsource entity);
 
-        List<TDestination> Map(IEnumerable<TSource> entity);
-        IEnumerable<TSource> Map(List<TDestination> entity);
+
+        List<TDestination> Map(List<Tsource> entity);
+        List<Tsource> Map(List<TDestination> entity);
     }
-
 }

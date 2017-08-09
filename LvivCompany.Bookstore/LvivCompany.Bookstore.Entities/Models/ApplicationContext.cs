@@ -4,13 +4,13 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
-using LvivCompany.Bookstore.Entities.Models;
+using LvivCompany.Bookstore.Entities;
 
 namespace LvivCompany.Bookstore.Entities
 {
-    public class ApplicationContext : IdentityDbContext<User,AppRole, Int64>
+    public class ApplicationContext : IdentityDbContext<User, IdentityRole<long>, long>
     {
-        public ApplicationContext(DbContextOptions options) : base(options)
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
         }
     }

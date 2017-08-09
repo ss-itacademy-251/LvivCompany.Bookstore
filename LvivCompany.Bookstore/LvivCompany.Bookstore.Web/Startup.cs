@@ -1,8 +1,6 @@
-﻿using AutoMapper;
-using LvivCompany.Bookstore.DataAccess;
+﻿using LvivCompany.Bookstore.DataAccess;
 using LvivCompany.Bookstore.DataAccess.Repo;
 using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.Entities.Models;
 using LvivCompany.Bookstore.Web.Mapper;
 using LvivCompany.Bookstore.Web.ViewModels;
 using Microsoft.AspNetCore.Builder;
@@ -12,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace LvivCompany.Bookstore.Web
 {
@@ -34,12 +33,20 @@ namespace LvivCompany.Bookstore.Web
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionToIdentityDb")));
 
-            services.AddIdentity<User,AppRole>()
+
+            services.AddIdentity<User, IdentityRole<long>>(o =>
+            {
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequiredLength = 6;
+                o.Password.RequireUppercase = false;
+            })
                .AddEntityFrameworkStores<ApplicationContext>()
                .AddDefaultTokenProviders();
 
+            services.AddScoped<RoleManager<IdentityRole<long>>, RoleManager<IdentityRole<long>>>();
+
             services.AddMvc();
-            services.AddAutoMapper();
+
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionToDb")));
 
             services.AddTransient<IRepo<Book>, BookRepository>();
@@ -50,8 +57,10 @@ namespace LvivCompany.Bookstore.Web
             services.AddTransient<IRepo<Publisher>, PublisherRepository>();
             services.AddTransient<IRepo<Status>, StatusRepository>();
 
-            services.AddTransient<IMapper<Book,BookDetailViewModel>, BookDetailMapper>();
+            services.AddTransient<IMapper<Book, BookDetailViewModel>, BookDetailMapper>();
             services.AddTransient<IMapper<Book, BookInfo>, BookMapper>();
+            services.AddTransient<IMapper<User, EditProfileViewModel>, ProfileMapper>();
+            services.AddTransient<IMapper<User, RegisterViewModel>, RegisterMapper>();
 
             var serviceProvider = services.BuildServiceProvider();
             var context = serviceProvider.GetService<BookStoreContext>();
@@ -76,7 +85,8 @@ namespace LvivCompany.Bookstore.Web
 
             app.UseStaticFiles();
 
-            app.UseIdentity();         
+            app.UseAuthentication();
+            IdentityDbInitializer.Initialize(app.ApplicationServices, Configuration);
 
             app.UseMvc(routes =>
             {

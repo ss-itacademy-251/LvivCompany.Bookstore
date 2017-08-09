@@ -17,6 +17,7 @@ namespace LvivCompany.Bookstore.Web.ViewModels
 
     public class BookInfo
     {
+        public long Id { get; set; }
         [Display(Name = "Name")]
         public string Name { get; set; }
         [Display(Name = "Image")]

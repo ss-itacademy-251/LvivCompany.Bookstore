@@ -3,7 +3,6 @@ using LvivCompany.Bookstore.Entities;
 using LvivCompany.Bookstore.DataAccess.Repo;
 using LvivCompany.Bookstore.DataAccess;
 using System.Threading.Tasks;
-using AutoMapper;
 using LvivCompany.Bookstore.Web.ViewModels;
 using System.Linq;
 using System.Collections.Generic;
@@ -21,11 +20,18 @@ namespace LvivCompany.Bookstore.Web.Controllers
             _bookRepo = bookRepo;
             _bookmapper = bookmapper;
         }
-
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var book = await _bookRepo.GetAllAsync();
+            List<Book> book = (await _bookRepo.GetAllAsync()).ToList();
             return View(new HomePageListViewModel() { Books = _bookmapper.Map(book) });
+        }
+        [HttpPost]
+        public async Task<IActionResult> Index(long id)
+        {
+
+
+            return RedirectToAction("Index", "BookDetail", id);
         }
     }
 }
