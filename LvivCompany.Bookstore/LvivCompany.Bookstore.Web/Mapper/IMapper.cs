@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LvivCompany.Bookstore.Web.Mapper
 {
-    public interface IMapp<Tsource,TDestination>
+    public interface IMapper<Tsource,TDestination>
     {
         Tsource Map(TDestination entity);
         TDestination Map(Tsource entity);

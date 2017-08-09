@@ -14,13 +14,13 @@
 
 
 
-.nav-side-menu .brand {
-    background-color: #222222;
-    line-height: 50px;
-    display: block;
-    text-align: center;
-    font-size: 14px;
-}
+    .nav-side-menu .brand {
+        background-color: #222222;
+        line-height: 50px;
+        display: block;
+        text-align: center;
+        font-size: 14px;
+    }
 
     .nav-side-menu .toggle-btn {
         display: none;
@@ -33,9 +33,6 @@
         margin: 0px;
         line-height: 35px;
         cursor: pointer;
-            
-  
-
     }
 
         .nav-side-menu ul :not(collapsed) .arrow:before,
@@ -144,6 +141,7 @@
         line-height: 50px !important;
     }
 }
+
 .downIcon {
     color: #9d9d9d;
     background-color: #222222;
@@ -156,16 +154,54 @@
 }
 
 .main-content {
-  padding-top:10%;
-  padding-left:40%;
-    background-color:white;
-    overflow:auto;    
+    padding-top: 10%;
+    padding-left: 40%;
+    background-color: white;
+    overflow: auto;
 }
 
 
 .aboutinfo {
-    float:right !important;
+    float: right !important;
 }
-.bdy-main {
-    font-family:'Franklin Gothic';
+
+.bdy-main{
+font-family:'Franklin Goothic'
+}
+
+.search-input {
+    margin-top: 12px;
+    width: 400px;
+}
+
+.a-input {
+    float: right;
+}
+
+.brand-logo {
+    background-color: #222222;
+    color: #9d9d9d;
+    margin-top: 2.1%;
+}
+
+.render-body {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 20%;
+}
+
+.book-pictogram {
+    width: 72px;
+    height: 72px;
+}
+
+.strong {
+    font-weight: bold;
+}
+
+.title-name {
+    color:lightgray;
+}
+.part-log-view {
+    margin-top:10px;
 }

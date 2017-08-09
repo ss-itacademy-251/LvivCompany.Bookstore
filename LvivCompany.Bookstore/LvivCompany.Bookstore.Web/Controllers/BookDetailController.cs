@@ -14,9 +14,9 @@ namespace LvivCompany.Bookstore.Web.Controllers
     public class BookDetailController : Controller
     {
         private IRepo<Book> _bookRepo;
-        private IMapp<Book,BookDetailViewModel> _bookmapper;
+        private IMapper<Book,BookDetailViewModel> _bookmapper;
 
-        public BookDetailController(IMapp<Book, BookDetailViewModel> bookmapper,IRepo<Book> bookRepo )
+        public BookDetailController(IMapper<Book, BookDetailViewModel> bookmapper,IRepo<Book> bookRepo )
         {
             _bookRepo = bookRepo;
             _bookmapper = bookmapper;

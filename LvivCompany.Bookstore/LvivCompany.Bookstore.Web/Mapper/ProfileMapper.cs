@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LvivCompany.Bookstore.Web.Mapper
 {
-    public class ProfileMapper:IMapp<User,EditProfileViewModel>
+    public class ProfileMapper:IMapper<User,EditProfileViewModel>
     {
         public ProfileMapper()
         {

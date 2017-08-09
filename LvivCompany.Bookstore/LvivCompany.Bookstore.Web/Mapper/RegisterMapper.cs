@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LvivCompany.Bookstore.Web.Mapper
 {
-    public class RegisterMapper:IMapp<User,RegisterViewModel>
+    public class RegisterMapper:IMapper<User,RegisterViewModel>
     {
         public RegisterMapper()
         { }

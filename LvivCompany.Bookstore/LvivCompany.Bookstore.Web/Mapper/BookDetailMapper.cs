@@ -7,7 +7,7 @@ using LvivCompany.Bookstore.Web.ViewModels;
 
 namespace LvivCompany.Bookstore.Web.Mapper
 {
-    public class BookDetailMapper : IMapp<Book, BookDetailViewModel>
+    public class BookDetailMapper : IMapper<Book, BookDetailViewModel>
     {
 
 

@@ -16,10 +16,10 @@ namespace LvivCompany.Bookstore.Web.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private RoleManager<IdentityRole<long>> _roleManager;
-        private IMapp<User, EditProfileViewModel> _profileMapper;
-        private IMapp<User, RegisterViewModel> _registerMapper;
+        private IMapper<User, EditProfileViewModel> _profileMapper;
+        private IMapper<User, RegisterViewModel> _registerMapper;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole<long>> roleManager, IMapp<User, EditProfileViewModel> profileMapper, IMapp<User, RegisterViewModel> registerMapper)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole<long>> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
