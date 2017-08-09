@@ -33,17 +33,6 @@
         margin: 0px;
         line-height: 35px;
         cursor: pointer;
-        /*.collapsed{
-       .arrow:before{
-                 font-family: FontAwesome;
-                 content: "\f053";
-                 display: inline-block;
-                 padding-left:10px;
-                 padding-right: 10px;
-                 vertical-align: middle;
-                 float:right;
-            }
-     }*/
     }
 
         .nav-side-menu ul :not(collapsed) .arrow:before,
@@ -176,6 +165,10 @@
     float: right !important;
 }
 
+.bdy-main{
+font-family:'Franklin Goothic'
+}
+
 .search-input {
     margin-top: 12px;
     width: 400px;
@@ -194,7 +187,7 @@
 .render-body {
     margin-top: 5%;
     margin-bottom: 5%;
-    margin-left: 21%;
+    margin-left: 20%;
 }
 
 .book-pictogram {
@@ -208,4 +201,7 @@
 
 .title-name {
     color:lightgray;
+}
+.part-log-view {
+    margin-top:10px;
 }
