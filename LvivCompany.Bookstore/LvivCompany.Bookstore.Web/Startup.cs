@@ -92,9 +92,7 @@ namespace LvivCompany.Bookstore.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseStaticFiles();
-
-            app.UseIdentity();         
+            app.UseStaticFiles();      
 
             app.UseAuthentication();
             IdentityDbInitializer.Initialize(app.ApplicationServices, Configuration);

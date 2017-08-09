@@ -23,8 +23,6 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
         public async Task<string> UploadFileToBlob(IFormFile file, string fileName)
         {
-            try
-            {
                 var test = configuration["ContainerCS"];
                 CloudStorageAccount storageAccount = CloudStorageAccount.Parse(test);
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
@@ -37,11 +35,6 @@ namespace LvivCompany.Bookstore.Web.Controllers
                     await blockBlob.UploadFromStreamAsync(fileStream);
                 }
                 return blockBlob.Uri.AbsoluteUri;
-            }
-            catch (Exception x)
-            {
-                return string.Empty;
-            }
         }
 
 
