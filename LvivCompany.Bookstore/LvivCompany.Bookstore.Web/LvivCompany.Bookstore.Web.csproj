@@ -25,6 +25,7 @@
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
 
+
   <ItemGroup>    
     <None Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
