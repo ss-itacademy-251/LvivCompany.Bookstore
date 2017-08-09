@@ -23,8 +23,7 @@ namespace LvivCompany.Bookstore.Web
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddJsonFile("azurekeyvault.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)            
                 .AddEnvironmentVariables();
 
             var config = builder.Build();
@@ -51,7 +50,7 @@ namespace LvivCompany.Bookstore.Web
             services.Configure<Config.AppConfiguration>(Configuration.GetSection("AppSettings"));
             services.AddMvc();
             services.AddAutoMapper();
-            services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("bookstore")));
 
 
             services.AddTransient<IRepo<Book>, BookRepository>();

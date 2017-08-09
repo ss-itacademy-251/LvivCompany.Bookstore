@@ -45,13 +45,13 @@ namespace LvivCompany.Bookstore.DataAccess
         }
     }
 
-    public class BloggingContextFactory : IDesignTimeDbContextFactory<BookStoreContext>
-    {
-        public BookStoreContext CreateDbContext(string[] args)
-        {
-            var builder = new DbContextOptionsBuilder<BookStoreContext>();
-            builder.UseSqlServer(@"(localdb)\\mssqllocaldb;Database=bookstoredb;Trusted_Connection=True;");
-            return new BookStoreContext(builder.Options);
-        }
-    }
+    //public class BloggingContextFactory : IDesignTimeDbContextFactory<BookStoreContext>
+    //{
+    //    public BookStoreContext CreateDbContext(string[] args)
+    //    {
+    //        var builder = new DbContextOptionsBuilder<BookStoreContext>();
+    //        builder.UseSqlServer(@"(localdb)\\mssqllocaldb;Database=bookstoredb;Trusted_Connection=True;");
+    //        return new BookStoreContext(builder.Options);
+    //    }
+    //}
 }
