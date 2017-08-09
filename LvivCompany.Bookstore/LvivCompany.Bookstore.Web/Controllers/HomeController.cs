@@ -30,7 +30,6 @@ namespace LvivCompany.Bookstore.Web.Controllers
         public async Task<IActionResult> Index(long id)
         {
 
-
             return RedirectToAction("Index", "BookDetail", id);
         }
     }

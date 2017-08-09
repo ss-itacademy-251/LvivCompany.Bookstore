@@ -20,13 +20,20 @@ namespace LvivCompany.Bookstore.Web
 
         public Startup(IHostingEnvironment env)
         {
+           
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
+            var config = builder.Build();
             Configuration = builder.Build();
+            builder.AddAzureKeyVault(
+            $"https://{config["azureKeyVault:vault"]}.vault.azure.net/",
+            config["azureKeyVault:clientId"],
+            config["azureKeyVault:clientSecret"]);
 
+            Configuration = builder.Build();
         }
 
 
@@ -36,7 +43,7 @@ namespace LvivCompany.Bookstore.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 
             services.AddIdentity<User, IdentityRole<long>>(o =>
@@ -65,6 +72,7 @@ namespace LvivCompany.Bookstore.Web
 
             services.AddTransient<IMapper<Book, BookDetailViewModel>, BookDetailMapper>();
             services.AddTransient<IMapper<Book, BookInfo>, BookMapper>();
+            services.AddSingleton(Configuration);
             services.AddTransient<IMapper<User, EditProfileViewModel>, ProfileMapper>();
             services.AddTransient<IMapper<User, RegisterViewModel>, RegisterMapper>();
         }
@@ -77,15 +85,14 @@ namespace LvivCompany.Bookstore.Web
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage(); 
                 app.UseBrowserLink();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
-            app.UseStaticFiles();
+            app.UseStaticFiles();      
 
             app.UseAuthentication();
             IdentityDbInitializer.Initialize(app.ApplicationServices, Configuration);

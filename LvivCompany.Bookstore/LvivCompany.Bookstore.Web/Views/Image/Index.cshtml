@@ -1,0 +1,22 @@
+﻿@model LvivCompany.Bookstore.Web.ViewModels.ImageViewModel
+@section Styles {
+    <link href="@Url.Content("~/css/ImageStyle.css")" rel="stylesheet" type="text/css" />
+}
+
+<h2>Index</h2>
+
+
+<form method="post" asp-action="Index" asp-controller="Image" enctype="multipart/form-data">
+    <input type="file" name="files"  />
+    <input type="submit" value="Upload" />
+
+</form>
+<div class="listofimages" >
+   
+        <div class="uploadimages" >
+            <img src="@Model.ImageFile" />
+        </div>
+    
+
+</div>
+   
