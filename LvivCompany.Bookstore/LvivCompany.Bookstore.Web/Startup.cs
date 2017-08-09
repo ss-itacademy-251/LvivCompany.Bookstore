@@ -2,17 +2,15 @@
 using LvivCompany.Bookstore.DataAccess;
 using LvivCompany.Bookstore.DataAccess.IRepo;
 using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.Entities.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using AutoMapper;
 using LvivCompany.Bookstore.Web.ViewModels;
-using System.Linq;
 using LvivCompany.Bookstore.Web.Mapper;
+using Microsoft.AspNetCore.Identity;
 
 namespace LvivCompany.Bookstore.Web
 {
@@ -40,12 +38,20 @@ namespace LvivCompany.Bookstore.Web
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User,AppRole>()
+
+            services.AddIdentity<User, IdentityRole<long>>(o =>
+            {
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequiredLength = 6;
+                o.Password.RequireUppercase = false;
+            })
                .AddEntityFrameworkStores<ApplicationContext>()
                .AddDefaultTokenProviders();
 
+            services.AddScoped<RoleManager<IdentityRole<long>>, RoleManager<IdentityRole<long>>>();
+
             services.AddMvc();
-            services.AddAutoMapper();
+
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // TODO: Remove when dabase will be ready
@@ -57,8 +63,10 @@ namespace LvivCompany.Bookstore.Web
             services.AddTransient<IRepo<Publisher>, PublisherRepository>();
             services.AddTransient<IRepo<Status>, StatusRepository>();
 
-            services.AddTransient<IMapper<Book,BookDetailViewModel>, BookDetailMapper>();
+            services.AddTransient<IMapper<Book, BookDetailViewModel>, BookDetailMapper>();
             services.AddTransient<IMapper<Book, BookInfo>, BookMapper>();
+            services.AddTransient<IMapper<User, EditProfileViewModel>, ProfileMapper>();
+            services.AddTransient<IMapper<User, RegisterViewModel>, RegisterMapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -79,7 +87,8 @@ namespace LvivCompany.Bookstore.Web
 
             app.UseStaticFiles();
 
-            app.UseIdentity();         
+            app.UseAuthentication();
+            IdentityDbInitializer.Initialize(app.ApplicationServices, Configuration);
 
             app.UseMvc(routes =>
             {
