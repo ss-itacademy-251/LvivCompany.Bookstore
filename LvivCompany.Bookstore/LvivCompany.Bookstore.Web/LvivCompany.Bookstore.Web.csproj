@@ -15,10 +15,6 @@
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\image\" />
-  </ItemGroup>
-
   <ItemGroup>    
     <None Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>

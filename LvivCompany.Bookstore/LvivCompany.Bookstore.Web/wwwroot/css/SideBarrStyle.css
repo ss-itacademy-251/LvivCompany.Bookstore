@@ -183,6 +183,7 @@
 
 .a-input {
     float: right;
+
 }
 
 .brand-logo {
@@ -210,4 +211,31 @@
     color:lightgray;
 }
 
+
+}
+
+.brand-logo {
+    background-color: #222222;
+    color: #9d9d9d;
+    margin-top: 2.1%;
+}
+
+.render-body {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 21%;
+}
+
+.book-pictogram {
+    width: 72px;
+    height: 72px;
+}
+
+.strong {
+    font-weight: bold;
+}
+
+.title-name {
+    color:lightgray;
+}
 
