@@ -74,17 +74,9 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 Price = model.Price,
                 CategoryId = model.CategoryId,
                 Publisher = publisher,
+                Image=model.Image,
                 BookAuthors = new List<BookAuthor>()
             };
-
-            if (model.Image != null)
-            {
-                using (var memoryStream = new MemoryStream())
-                {
-                    model.Image.CopyTo(memoryStream);
-                    book.Image = memoryStream.ToArray();
-                }
-            }
 
             foreach (var author in model.Authors)
             {

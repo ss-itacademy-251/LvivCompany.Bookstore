@@ -29,12 +29,12 @@ namespace LvivCompany.Bookstore.Web.ViewModels
         [StringLength(10000)]
         public string Description { get; set; }
 
+        public string Image { get; set; }
+
         [Required(ErrorMessage = "The publisher name is required")]
         [StringLength(100)]
         [Display(Name = "Publisher")]
         public string PublisherName { get; set; }
-
-        public IFormFile Image { get; set; }
 
         [Required]
         public decimal Price { get; set; }
