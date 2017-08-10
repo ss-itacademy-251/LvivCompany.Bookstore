@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -7,6 +6,8 @@ namespace LvivCompany.Bookstore.Web.ViewModels
 {
     public class BookViewModel
     {
+        public long Id { get; set; }
+
         public List<AuthorViewModel> Authors { get; set; }
 
         [Required(ErrorMessage = "The title is required")]
@@ -44,6 +45,8 @@ namespace LvivCompany.Bookstore.Web.ViewModels
         public long CategoryId { get; set; }
 
         public List<SelectListItem> Categories { get; set; }
+
+        public string Category { get; set; }
 
         public BookViewModel()
         {

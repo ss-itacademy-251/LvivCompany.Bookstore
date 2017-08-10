@@ -1,11 +1,9 @@
 ﻿using LvivCompany.Bookstore.DataAccess.Repo;
 using LvivCompany.Bookstore.Entities;
+using LvivCompany.Bookstore.Web.Mapper;
 using LvivCompany.Bookstore.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,14 +12,20 @@ namespace LvivCompany.Bookstore.Web.Controllers
     public class BookController : Controller
     {
         private IRepo<Book> repoBook;
-        private IRepo<Author> repoAuthor;
         private IRepo<Category> repoCategory;
+        private IMapper<Book, BookViewModel> bookmapper;
 
-        public BookController(IRepo<Author> repoAuthor, IRepo<Book> repoBook, IRepo<Category> repoCategory)
+        public BookController(IRepo<Book> repoBook, IRepo<Category> repoCategory, IMapper<Book, BookViewModel> bookmapper)
         {
-            this.repoAuthor = repoAuthor;
             this.repoBook = repoBook;
             this.repoCategory = repoCategory;
+            this.bookmapper = bookmapper;
+        }
+
+        public async Task<IActionResult> BookPage(long id)
+        {
+            var book = await repoBook.GetAsync(id);
+            return View("BookPage", bookmapper.Map(book));
         }
 
         [HttpGet]
@@ -37,9 +41,11 @@ namespace LvivCompany.Bookstore.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                await SaveBookToDb(model);
+                Book book = bookmapper.Map(model);
+                await repoBook.CreateAsync(book);
                 return RedirectToAction("Index", "Home");
             }
+
             await PopulateCategoriesSelectList(model);
             return View(model);
         }
@@ -52,48 +58,6 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 Text = c.Name,
                 Value = c.Id.ToString()
             }).ToList();
-        }
-
-        public async Task SaveBookToDb(BookViewModel model)
-        {
-
-            Publisher publisher = new Publisher()
-            {
-                AddedDate = DateTime.UtcNow,
-                Name = model.PublisherName
-            };
-
-            Book book = new Book()
-            {
-                AddedDate = DateTime.UtcNow,
-                Name = model.Name,
-                Year = model.Year,
-                NumberOfPages = model.NumberOfPages,
-                Amount = model.Amount,
-                Description = model.Description,
-                Price = model.Price,
-                CategoryId = model.CategoryId,
-                Publisher = publisher,
-                Image=model.Image,
-                BookAuthors = new List<BookAuthor>()
-            };
-
-            foreach (var author in model.Authors)
-            {
-                BookAuthor bookAuthor = new BookAuthor
-                {
-                    Book = book,
-                    Author = new Author
-                    {
-                        AddedDate = DateTime.UtcNow,
-                        FirstName = author.FirstName,
-                        LastName = author.LastName
-                    }
-                };
-                book.BookAuthors.Add(bookAuthor);
-            }
-
-            await repoBook.CreateAsync(book);
         }
     }
 }

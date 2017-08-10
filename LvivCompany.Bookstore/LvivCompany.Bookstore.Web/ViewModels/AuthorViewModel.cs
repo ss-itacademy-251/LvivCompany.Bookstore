@@ -11,5 +11,7 @@ namespace LvivCompany.Bookstore.Web.ViewModels
         [Required(ErrorMessage = "The author's last name is required")]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+
+        public string FullName => $"{FirstName} {LastName}";
     }
 }
