@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.DataAccess.IRepo;
-using LvivCompany.Bookstore.DataAccess;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using LvivCompany.Bookstore.Web.ViewModels;
-using System.Linq;
-using System.Collections.Generic;
+using LvivCompany.Bookstore.DataAccess;
+using LvivCompany.Bookstore.DataAccess.IRepo;
+using LvivCompany.Bookstore.Entities;
 using LvivCompany.Bookstore.Web.Mapper;
+using LvivCompany.Bookstore.Web.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {

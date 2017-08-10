@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
 namespace LvivCompany.Bookstore.Web.ViewModels
 {
@@ -20,8 +20,6 @@ namespace LvivCompany.Bookstore.Web.ViewModels
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-
-
         [Required]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
@@ -29,7 +27,6 @@ namespace LvivCompany.Bookstore.Web.ViewModels
         [Required]
         [Display(Name = "Address 1")]
         public string Address1 { get; set; }
-
 
         [Required]
         [Display(Name = "Address 2")]
@@ -39,8 +36,6 @@ namespace LvivCompany.Bookstore.Web.ViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
-
-
 
         [Required]
         [Compare("Password", ErrorMessage = "Please check your password")]

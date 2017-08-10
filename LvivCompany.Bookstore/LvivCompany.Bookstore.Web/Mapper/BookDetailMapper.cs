@@ -28,7 +28,6 @@ namespace LvivCompany.Bookstore.Web.Mapper
 
         public BookDetailViewModel Map(Book entity) => mapper.Map<Book, BookDetailViewModel>(entity);
         public Book Map(BookDetailViewModel entity) => mapper.Map<BookDetailViewModel, Book>(entity);
-
         public List<BookDetailViewModel> Map(IEnumerable<Book> entity) => mapper.Map<IEnumerable<Book>, List<BookDetailViewModel>>(entity);
         public IEnumerable<Book> Map(List<BookDetailViewModel> entity) => mapper.Map<List<BookDetailViewModel>, IEnumerable<Book>>(entity);
     }

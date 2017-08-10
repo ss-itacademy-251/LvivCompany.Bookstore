@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using AutoMapper;
 using LvivCompany.Bookstore.DataAccess.IRepo;
 using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.Web.ViewModels;
 using LvivCompany.Bookstore.Web.Mapper;
-using AutoMapper;
+using LvivCompany.Bookstore.Web.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
     public class BookDetailController : Controller
     {
         private IRepo<Book> _bookRepo;
-        private IMapper<Book,BookDetailViewModel> _bookmapper;
+        private IMapper<Book, BookDetailViewModel> _bookmapper;
 
         public BookDetailController(IRepo<Book> bookRepo, IMapper<Book, BookDetailViewModel> bookmapper)
         {
