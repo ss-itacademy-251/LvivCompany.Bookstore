@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LvivCompany.Bookstore.Web.ViewModels
 {
@@ -10,6 +12,7 @@ namespace LvivCompany.Bookstore.Web.ViewModels
     {
         [Required]
         [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required]
@@ -23,6 +26,7 @@ namespace LvivCompany.Bookstore.Web.ViewModels
 
 
         [Required]
+        [RegularExpression("[0-9]{10}")]
         [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
@@ -31,16 +35,24 @@ namespace LvivCompany.Bookstore.Web.ViewModels
         public string Address1 { get; set; }
 
 
-        [Required]
+
         [Display(Name = "Address 2")]
         public string Address2 { get; set; }
+       
+       
+        public List<SelectListItem> AppRoles { get; set; }
+
+        public IFormFile Photo { get; set; }
+        [Display(Name = "Role")]
+        [Required]
+        public long AppRoleId { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
 
-
+       
 
         [Required]
         [Compare("Password", ErrorMessage = "Please check your password")]

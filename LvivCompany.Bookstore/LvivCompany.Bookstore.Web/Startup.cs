@@ -1,16 +1,15 @@
 ﻿using LvivCompany.Bookstore.DataAccess;
 using LvivCompany.Bookstore.DataAccess.IRepo;
 using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.Entities.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using AutoMapper;
 using LvivCompany.Bookstore.Web.ViewModels;
 using LvivCompany.Bookstore.Web.Mapper;
+using Microsoft.AspNetCore.Identity;
 
 namespace LvivCompany.Bookstore.Web
 {
@@ -20,6 +19,7 @@ namespace LvivCompany.Bookstore.Web
 
         public Startup(IHostingEnvironment env)
         {
+           
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -34,8 +34,9 @@ namespace LvivCompany.Bookstore.Web
                config["azureKeyVault:clientSecret"]);
 
             Configuration = builder.Build();
+          
 
-            var connectionString = Configuration["appSettings:connectionStrings:bookStore"];
+            var connectionString = Configuration["appSettings--connectionStrings--bookstore2Db"];
         }
 
 
@@ -43,13 +44,23 @@ namespace LvivCompany.Bookstore.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User, AppRole>()
+
+            services.AddIdentity<User, IdentityRole<long>>(o =>
+            {
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequiredLength = 6;
+                o.Password.RequireUppercase = false;
+            })
                .AddEntityFrameworkStores<ApplicationContext>()
                .AddDefaultTokenProviders();
             services.Configure<Config.AppConfiguration>(Configuration.GetSection("AppSettings"));
+            services.AddScoped<RoleManager<IdentityRole<long>>, RoleManager<IdentityRole<long>>>();
+
             services.AddMvc();
-            services.AddAutoMapper();
+
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("bookstore")));
 
 
@@ -63,6 +74,9 @@ namespace LvivCompany.Bookstore.Web
 
             services.AddTransient<IMapper<Book, BookDetailViewModel>, BookDetailMapper>();
             services.AddTransient<IMapper<Book, BookInfo>, BookMapper>();
+            services.AddSingleton(Configuration);
+            services.AddTransient<IMapper<User, EditProfileViewModel>, ProfileMapper>();
+            services.AddTransient<IMapper<User, RegisterViewModel>, RegisterMapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -73,17 +87,17 @@ namespace LvivCompany.Bookstore.Web
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage(); 
                 app.UseBrowserLink();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseStaticFiles();      
 
-            app.UseStaticFiles();
-
-            app.UseIdentity();
+            app.UseAuthentication();
+            IdentityDbInitializer.Initialize(app.ApplicationServices, Configuration);
 
             app.UseMvc(routes =>
             {

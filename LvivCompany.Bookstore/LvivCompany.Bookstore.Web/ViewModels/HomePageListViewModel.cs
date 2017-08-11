@@ -17,10 +17,11 @@ namespace LvivCompany.Bookstore.Web.ViewModels
 
     public class BookInfo
     {
+        public long Id { get; set; }
         [Display(Name = "Name")]
         public string Name { get; set; }
         [Display(Name = "Image")]
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
         [Display(Name = "Price")]
         public decimal Price { get; set; }
     }
