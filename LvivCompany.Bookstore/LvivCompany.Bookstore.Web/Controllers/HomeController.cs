@@ -6,6 +6,8 @@ using Microsoft.Extensions.Options;
 using LvivCompany.Bookstore.Web.Config;
 using LvivCompany.Bookstore.Web.ViewModels;
 using LvivCompany.Bookstore.Web.Mapper;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
@@ -23,9 +25,10 @@ namespace LvivCompany.Bookstore.Web.Controllers
             Configuration = configuration.Value;
         }
 
+
         public async Task<IActionResult> Index()
         {
-            var book = await _bookRepo.GetAllAsync();
+            var book = (await _bookRepo.GetAllAsync()).ToList();
             return View(new HomePageListViewModel() { Books = _bookmapper.Map(book)});
         }
     }

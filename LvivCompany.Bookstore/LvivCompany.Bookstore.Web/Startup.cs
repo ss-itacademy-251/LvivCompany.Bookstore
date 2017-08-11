@@ -61,7 +61,7 @@ namespace LvivCompany.Bookstore.Web
 
             services.AddMvc();
 
-            services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("bookstore")));
+            services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("bookStore")));
 
 
             services.AddTransient<IRepo<Book>, BookRepository>();
@@ -97,7 +97,7 @@ namespace LvivCompany.Bookstore.Web
             app.UseStaticFiles();      
 
             app.UseAuthentication();
-            IdentityDbInitializer.Initialize(app.ApplicationServices, Configuration);
+            //IdentityDbInitializer.Initialize(app.ApplicationServices, Configuration);
 
             app.UseMvc(routes =>
             {
