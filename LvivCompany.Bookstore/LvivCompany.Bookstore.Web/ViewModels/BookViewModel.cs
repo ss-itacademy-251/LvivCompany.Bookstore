@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -30,7 +31,9 @@ namespace LvivCompany.Bookstore.Web.ViewModels
         [StringLength(10000)]
         public string Description { get; set; }
 
-        public string Image { get; set; }
+        public IFormFile Image { get; set; }
+
+        public string ImageUrl { get; set; }
 
         [Required(ErrorMessage = "The publisher name is required")]
         [StringLength(100)]

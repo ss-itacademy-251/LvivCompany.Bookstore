@@ -4,6 +4,7 @@ using LvivCompany.Bookstore.Web.Mapper;
 using LvivCompany.Bookstore.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,12 +15,14 @@ namespace LvivCompany.Bookstore.Web.Controllers
         private IRepo<Book> repoBook;
         private IRepo<Category> repoCategory;
         private IMapper<Book, BookViewModel> bookmapper;
+        private IConfiguration configuration;
 
-        public BookController(IRepo<Book> repoBook, IRepo<Category> repoCategory, IMapper<Book, BookViewModel> bookmapper)
+        public BookController(IRepo<Book> repoBook, IRepo<Category> repoCategory, IMapper<Book, BookViewModel> bookmapper, IConfiguration configuration)
         {
             this.repoBook = repoBook;
             this.repoCategory = repoCategory;
             this.bookmapper = bookmapper;
+            this.configuration = configuration;
         }
 
         public async Task<IActionResult> BookPage(long id)
@@ -33,6 +36,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
         {
             BookViewModel model = new BookViewModel();
             await PopulateCategoriesSelectList(model);
+            model.ImageUrl = UploadFile.defaultBookImage;
             return View("AddBook", model);
         }
 
@@ -42,10 +46,20 @@ namespace LvivCompany.Bookstore.Web.Controllers
             if (ModelState.IsValid)
             {
                 Book book = bookmapper.Map(model);
+                if (model.Image != null)
+                {
+                    book.ImageUrl = await UploadFile.RetrieveFilePath(model.Image, configuration);
+                }
+                else
+                {
+                    book.ImageUrl = UploadFile.defaultBookImage;
+                }
+
                 await repoBook.CreateAsync(book);
                 return RedirectToAction("Index", "Home");
             }
 
+            model.ImageUrl = UploadFile.defaultBookImage;
             await PopulateCategoriesSelectList(model);
             return View(model);
         }

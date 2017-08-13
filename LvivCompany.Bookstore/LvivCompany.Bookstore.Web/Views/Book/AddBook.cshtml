@@ -4,7 +4,7 @@
 <div class="container">
     <form method="post" asp-action="AddBook" asp-controller="Book" enctype="multipart/form-data">
         <div class="col-md-4 ">
-            <img id="imgDisplayArea" class="img-responsive" src="~/book_template.png" />
+            <img id="imgDisplayArea" class="img-responsive" src="@Model.ImageUrl" />
             <input asp-for="Image" type="file"
                    accept="image/*" onchange="imagePreview(this)">
         </div>

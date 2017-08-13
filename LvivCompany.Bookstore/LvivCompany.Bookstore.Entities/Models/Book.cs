@@ -27,7 +27,7 @@ namespace LvivCompany.Bookstore.Entities
 
         public int Amount { get; set; }
 
-        public string Image { get; set; }
+        public string ImageUrl { get; set; }
 
         public decimal Price { get; set; }
 

@@ -25,7 +25,7 @@ namespace LvivCompany.Bookstore.Web.Mapper
                 Name = book.Name,
                 Price = book.Price,
                 Year = book.Year,
-                Image = book.Image,
+                ImageUrl = book.ImageUrl,
                 Authors = new List<AuthorViewModel>()
             };
 
@@ -60,7 +60,6 @@ namespace LvivCompany.Bookstore.Web.Mapper
                 Price = model.Price,
                 CategoryId = model.CategoryId,
                 Publisher = publisher,
-                Image = model.Image,
                 BookAuthors = new List<BookAuthor>()
             };
 
