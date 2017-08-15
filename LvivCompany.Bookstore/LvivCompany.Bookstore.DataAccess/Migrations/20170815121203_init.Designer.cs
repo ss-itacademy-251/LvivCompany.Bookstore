@@ -11,8 +11,8 @@ using System;
 namespace LvivCompany.Bookstore.DataAccess.Migrations
 {
     [DbContext(typeof(BookStoreContext))]
-    [Migration("20170813132636_BooksTableChange")]
-    partial class BooksTableChange
+    [Migration("20170815121203_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

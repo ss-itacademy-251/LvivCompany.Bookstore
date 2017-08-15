@@ -13,8 +13,6 @@ namespace LvivCompany.Bookstore.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private AppConfiguration Configuration;
-       
         private IRepo<Book> _bookRepo;
         private IMapper<Book, BookViewModel> _bookmapper;
 
@@ -22,7 +20,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
         {
             _bookRepo = bookRepo;
             _bookmapper = bookmapper;
-            Configuration = configuration.Value;
+            
         }
 
 
