@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 namespace LvivCompany.Bookstore.DataAccess
 {
 
-    public static class IdentityDbInitializer
+   /* public static class IdentityDbInitializer
     {
         public static async void Initialize(IServiceProvider services, IConfiguration Configuration)
         {
@@ -30,7 +30,7 @@ namespace LvivCompany.Bookstore.DataAccess
                 }               
             }
         }
-    }
+    }*/
 }
 
 
