@@ -11,8 +11,8 @@ using System;
 namespace LvivCompany.Bookstore.Entities.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20170719123704_Initial")]
-    partial class Initial
+    [Migration("20170809194226_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

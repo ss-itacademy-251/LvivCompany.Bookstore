@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace LvivCompany.Bookstore.DataAccess.Migrations
 {
-    public partial class bookstore1 : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.DataAccess.IRepo;
+using LvivCompany.Bookstore.DataAccess.Repo;
 using LvivCompany.Bookstore.DataAccess;
 using System.Threading.Tasks;
 using LvivCompany.Bookstore.Web.ViewModels;
@@ -13,9 +13,9 @@ namespace LvivCompany.Bookstore.Web.Controllers
     public class HomeController : Controller
     {
         private IRepo<Book> _bookRepo;
-        private IMapper<Book, BookInfo> _bookmapper;
+        private IMapper<Book, BookViewModel> _bookmapper;
 
-        public HomeController(IRepo<Book> bookRepo, IMapper<Book, BookInfo> bookmapper)
+        public HomeController(IRepo<Book> bookRepo, IMapper<Book, BookViewModel> bookmapper)
         {
             _bookRepo = bookRepo;
             _bookmapper = bookmapper;
@@ -27,7 +27,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             return View(new HomePageListViewModel() { Books = _bookmapper.Map(book) });
         }
         [HttpPost]
-        public async Task<IActionResult> Index(long id)
+        public IActionResult Index(long id)
         {
 
             return RedirectToAction("Index", "BookDetail", id);
