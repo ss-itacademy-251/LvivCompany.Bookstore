@@ -1,0 +1,80 @@
+﻿@model EditBookViewModel
+
+<h1> Edit Book </h1>
+<div class="container">
+    <form method="post" asp-action="EditBook" asp-controller="Book" asp-route-id="@Model.Id" enctype="multipart/form-data">
+        <div class="col-md-4 ">
+            <div class="form-group">
+                <img id="imgDisplayArea" height="225" class="img" src="@Model.ImageUrl" />
+                <input asp-for="Image" type="file"
+                       accept="image/*" onchange="imagePreview(this)" />
+            </div>
+            <div class="form-group">
+                <input asp-for="ImageUrl" type="hidden" />
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control input-md" type="text" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label asp-for="Year" class="control-label"></label>
+                    <input asp-for="Year" class="form-control input-md" type="number" min="1900" max="2017" />
+                    <span asp-validation-for="Year" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="NumberOfPages" class="control-label"></label>
+                    <input asp-for="NumberOfPages" class="form-control input-md" type="number" min="1" max="10000" />
+                    <span asp-validation-for="NumberOfPages" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Price" class="control-label"></label>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input asp-for="Price" class="form-control input-md" type="number" min="0.01" step="0.01" max="1000.00" />
+                    </div>
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control input-md" type="number" min="1" max="1000" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" asp-items="Model.Categories" class="form-control">
+                    <option>Please select a category</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="10"></textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success" type="submit">Submit</button>
+                <a class="btn btn-danger col-md-offset-4" asp-controller="Home" asp-action="Index">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+<div>
+    <span class="additional">
+        *Changing data about the authors and publisher is restricted. If you want to edit data about the authors and publisher you should delete the book and create a new one with the corresponding data.
+    </span>
+</div>
+
+@section styles
+    {
+    <link href="~/css/AddBookViewStyles.css" rel="stylesheet" type="text/css" />
+}
+
+@section scripts
+    {
+    <script src="http://code.jquery.com/jquery-1.8.2.js" asp-append-version="true"></script>
+    <script src="~/js/addimage.js" asp-append-version="true"></script>
+}

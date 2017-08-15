@@ -81,11 +81,9 @@ namespace LvivCompany.Bookstore.Web.Mapper
             return book;
         }
 
-        public Book Map(BookViewModel model, Book tempBook)
+        public Book Map(BookViewModel model, Book book)
         {
-            tempBook.Name = model.Name;
-            tempBook.Price = model.Price;
-            return tempBook;
+            return new Book();
         }
 
         public List<BookViewModel> Map(List<Book> entity)
