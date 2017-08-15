@@ -1,0 +1,131 @@
+﻿@model BookViewModel
+
+<h1> Add Book </h1>
+<div class="container">
+    <form method="post" asp-action="AddBook" asp-controller="Book" enctype="multipart/form-data">
+        <div class="col-md-4">
+            <img id="imgDisplayArea" height="225" class="img" src="@Model.ImageUrl" />
+            <input asp-for="Image" type="file"
+                   accept="image/*" onchange="imagePreview(this)" />
+        </div>
+        <div class="col-md-8">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control input-md" type="text" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div class="controls">
+                    <fieldset class="table-bordered fieldsetpadding">
+                        <label>Authors</label>
+                        @for (int i = 0; i < Model.Authors.Count; i++)
+                        {
+                            <div class="entry">
+                                <div class="row rowmargin">
+                                    <div class="col-md-6">
+                                        <label asp-for="Authors[i].FirstName" class="control-label"></label>
+                                        <input asp-for="Authors[i].FirstName" class="form-control" type="text" />
+                                        <span asp-validation-for="Authors[i].FirstName" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="Authors[i].LastName" class="control-label"></label>
+                                        @if (i == (Model.Authors.Count - 1))
+                                        {
+                                            <div class="input-group">
+                                                <input asp-for="Authors[i].LastName" class="form-control" type="text" />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-success btn-add" type="button">
+                                                        <span class="glyphicon glyphicon-plus"></span>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            if (i == (Model.Authors.Count - 2))
+                                            {
+                                                <div class="input-group">
+                                                    <input asp-for="Authors[i].LastName" class="form-control" type="text" />
+                                                    <span class="input-group-btn">
+                                                        <button class="btn btn-danger btn-remove" type="button">
+                                                            <span class="glyphicon glyphicon-minus"></span>
+                                                        </button>
+                                                    </span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="notinput-group">
+                                                    <input asp-for="Authors[i].LastName" class="form-control" type="text" />
+                                                </div>
+                                            }
+                                        }
+                                        <span asp-validation-for="Authors[i].LastName" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </fieldset>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label asp-for="Year" class="control-label"></label>
+                    <input asp-for="Year" class="form-control input-md" type="number" min="1900" max="2017" />
+                    <span asp-validation-for="Year" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="NumberOfPages" class="control-label"></label>
+                    <input asp-for="NumberOfPages" class="form-control input-md" type="number" min="1" max="10000" />
+                    <span asp-validation-for="NumberOfPages" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Price" class="control-label"></label>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input asp-for="Price" class="form-control input-md" type="number" min="0.01" step="0.01" max="1000.00" />
+                    </div>
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-8">
+                    <label asp-for="PublisherName" class="control-label"></label>
+                    <input asp-for="PublisherName" class="form-control input-md" type="text" />
+                    <span asp-validation-for="PublisherName" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Amount" class="control-label"></label>
+                    <input asp-for="Amount" class="form-control input-md" type="number" min="1" max="1000" />
+                    <span asp-validation-for="Amount" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" asp-items="Model.Categories" class="form-control">
+                    <option>Please select a category</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="10"></textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success" type="submit">Submit</button>
+                <a class="btn btn-danger col-md-offset-4" asp-controller="Home" asp-action="Index">Cancel</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Styles
+    {
+    <link href="~/css/AddBookViewStyles.css" rel="stylesheet" type="text/css" />
+}
+@section Scripts
+    {
+    <script src="http://code.jquery.com/jquery-1.8.2.js" asp-append-version="true"></script>
+    <script src="~/js/addimage.js" asp-append-version="true"></script>
+    <script src="~/js/addremoveinput.js" asp-append-version="true"></script>
+}

@@ -1,0 +1,14 @@
+﻿
+@inject SignInManager<User> _SignInManager
+@inject UserManager<User> _UserManager
+
+@if (_SignInManager.IsSignedIn(User))
+{  
+        <a  class="btn btn-link btn-group" asp-controller="Account" asp-action="Profile"><span class="glyphicon glyphicon-user"> @_UserManager.GetUserName(User)</span> </a>
+      <button class="btn btn-link btn-group " asp-controller="Account" asp-action="LogOff"/><span class="glyphicon glyphicon-log-out"> LogOut</span>
+}
+else
+{
+    <a  class="btn btn-link btn-group" asp-controller="Account" asp-action="Register"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+   <a class="btn btn-link btn-group" asp-controller="Account" asp-action="Login"><span class="glyphicon glyphicon-log-in"></span> Sign In</a>
+}

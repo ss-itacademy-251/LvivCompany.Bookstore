@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace LvivCompany.Bookstore.Entities
 {
-    public class User: IdentityUser<Int64>
+    public class User: IdentityUser<long>
     {   
         public string FirstName { get; set; }
         public string LastName { get; set; }

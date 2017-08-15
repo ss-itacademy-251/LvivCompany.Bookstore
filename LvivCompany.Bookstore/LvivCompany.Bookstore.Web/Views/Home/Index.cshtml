@@ -1,6 +1,6 @@
 @model HomePageListViewModel
 
- <form asp-controller="Home" asp-action="BookDetail">
+ <form asp-controller="Home" asp-action="Index" method="post">
         <div class="container">
             <div class="row">
     <!-- BEGIN PRODUCTS -->
@@ -10,7 +10,7 @@
 
         <div class="col-md-3 col-sm-6">
             <span class="thumbnail">
-                <img src="@book.Image" alt="book cover">
+                <img src="@book.ImageUrl" alt="book cover">
                 <h4 >@book.Name</h4>
                 <hr class="line">
                 <div class="row">
@@ -18,7 +18,7 @@
                         <p>@book.Price</p>
                     </div>
                     <div class="col-md-6 col-sm-6">
-                        <button class="btn btn-success right"> BUY</button>
+         <a asp-controller="BookDetail" asp-action="Index" asp-route-id="@book.Id" >View Details</a>
                     </div>
                 </div>
             </span>

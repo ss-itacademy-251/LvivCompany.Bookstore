@@ -4,7 +4,7 @@
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
     <AssetTargetFallback>%3bnet461%3bportable-net45+win8</AssetTargetFallback>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
     <WarningLevel>0</WarningLevel>
@@ -12,20 +12,24 @@
     <CodeAnalysisRuleSet>stylecop.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AutoMapper" Version="6.1.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="2.0.1" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Data\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0-preview2-final" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta004" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="2.0.0-preview2-final" />
   </ItemGroup>
   <ItemGroup>
     <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="wwwroot\image\" />
+  <ItemGroup> 
+    <Folder Include="wwwroot\js\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Views\Shared\_Layout.cshtml" />
-  </ItemGroup>
+    </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LvivCompany.Bookstore.Entities\LvivCompany.Bookstore.Entities.csproj" />
     <ProjectReference Include="..\LvivCompany.Bookstore.DataAccess\LvivCompany.Bookstore.DataAccess.csproj" />

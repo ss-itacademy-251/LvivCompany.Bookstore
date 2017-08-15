@@ -1,8 +1,5 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace LvivCompany.Bookstore.Entities
 {
@@ -30,7 +27,7 @@ namespace LvivCompany.Bookstore.Entities
 
         public int Amount { get; set; }
 
-        public byte[] Image { get; set; }
+        public string ImageUrl { get; set; }
 
         public decimal Price { get; set; }
 

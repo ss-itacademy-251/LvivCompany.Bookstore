@@ -1,10 +1,9 @@
-﻿using System.Data.SqlClient;
-using System.Linq;
-using AutoMapper;
+﻿using System.Linq;
 using LvivCompany.Bookstore.DataAccess;
-using LvivCompany.Bookstore.DataAccess.IRepo;
+using LvivCompany.Bookstore.DataAccess.Repo;
 using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.Entities.Models;
+using LvivCompany.Bookstore.Web.Mapper;
+using LvivCompany.Bookstore.Web.ViewModels;
 using LvivCompany.Bookstore.Web.Mapper;
 using LvivCompany.Bookstore.Web.ViewModels;
 using Microsoft.AspNetCore.Builder;
@@ -13,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System;
+using Microsoft.AspNetCore.Identity;
 
 
 namespace LvivCompany.Bookstore.Web
@@ -23,30 +24,42 @@ namespace LvivCompany.Bookstore.Web
 
         public Startup(IHostingEnvironment env)
         {
+           
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
+            var config = builder.Build();
+            builder.AddAzureKeyVault(
+            $"https://{config["azureKeyVault:vault"]}.vault.azure.net/",
+            config["azureKeyVault:clientId"],
+            config["azureKeyVault:clientSecret"]);
+
             Configuration = builder.Build();
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionToIdentityDb")));
 
-            services.AddIdentity<User,AppRole>()
+
+            services.AddIdentity<User, IdentityRole<long>>(o =>
+            {
+                o.Password.RequireNonAlphanumeric = false;
+                o.Password.RequiredLength = 6;
+                o.Password.RequireUppercase = false;
+            })
                .AddEntityFrameworkStores<ApplicationContext>()
                .AddDefaultTokenProviders();
 
-            services.AddMvc();
-            services.AddAutoMapper();
-            services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddScoped<RoleManager<IdentityRole<long>>, RoleManager<IdentityRole<long>>>();
 
-            // TODO: Remove when dabase will be ready
+            services.AddMvc();
+
+            services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionToDb")));
+
             services.AddTransient<IRepo<Book>, BookRepository>();
             services.AddTransient<IRepo<Author>, AuthorRepository>();
             services.AddTransient<IRepo<Category>, CategoryRepository>();
@@ -55,11 +68,17 @@ namespace LvivCompany.Bookstore.Web
             services.AddTransient<IRepo<Publisher>, PublisherRepository>();
             services.AddTransient<IRepo<Status>, StatusRepository>();
 
-            services.AddTransient<IMapper<Book,BookDetailViewModel>, BookDetailMapper>();
-            services.AddTransient<IMapper<Book, BookInfo>, BookMapper>();
+            services.AddTransient<IMapper<Book, BookViewModel>, BookMapper>();
+            services.AddSingleton(Configuration);
+            services.AddTransient<IMapper<User, EditProfileViewModel>, ProfileMapper>();
+            services.AddTransient<IMapper<User, RegisterViewModel>, RegisterMapper>();
+
+            var serviceProvider = services.BuildServiceProvider();
+            var context = serviceProvider.GetService<BookStoreContext>();
+            DbInitializer.Seed(context);
+            return serviceProvider;
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
@@ -67,17 +86,17 @@ namespace LvivCompany.Bookstore.Web
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage(); 
                 app.UseBrowserLink();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseStaticFiles();      
 
-            app.UseStaticFiles();
-
-            app.UseIdentity();         
+            app.UseAuthentication();
+            IdentityDbInitializer.Initialize(app.ApplicationServices, Configuration);
 
             app.UseMvc(routes =>
             {
