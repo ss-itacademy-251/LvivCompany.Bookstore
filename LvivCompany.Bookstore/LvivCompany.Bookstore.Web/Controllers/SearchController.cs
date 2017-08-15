@@ -14,13 +14,11 @@ namespace LvivCompany.Bookstore.Web.Controllers
     public class SearchController : Controller
     {
         private IRepo<Book> _bookRepo;
-        private IRepo<Author> _authorRepo;
         private IMapper<Book, BookViewModel> _bookmapper;
 
-        public SearchController(IRepo<Book> bookRepo, IRepo<Author> authorRepo, IMapper<Book, BookViewModel> bookmapper)
+        public SearchController(IRepo<Book> bookRepo, IMapper<Book, BookViewModel> bookmapper)
         {
             _bookRepo = bookRepo;
-            _authorRepo = authorRepo;
             _bookmapper = bookmapper;
         }
 
