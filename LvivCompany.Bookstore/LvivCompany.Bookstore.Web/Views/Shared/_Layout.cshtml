@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    @RenderSection("Styles", false)
+    @RenderSection("Styles", required: false)
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Lviv Bookstore Company</title>
@@ -31,7 +31,6 @@
                 </button>
                 <a class="navbar-brand" href="#">BookStore</a>
             </div>
-
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li class="container-fluid"><a asp-controller="Home" asp-action="Index">Home</a></li>
@@ -50,8 +49,6 @@
                     <li><a asp-controller="Order" asp-action="Order"><span class="glyphicon glyphicon-shopping-cart"></span> My Order</a></li>
                     <li class="part-log-view"> <form class="form-inline" asp-controller="Account" asp-action="LogOff" method="post">@await Html.PartialAsync("_PartialLogin") </form></li>
                 </ul>
-
-
 
 
 
@@ -92,7 +89,6 @@
                             <li> U-Z</li>
                         </ul>
                     </li>
-
                     <li data-toggle="collapse" data-target="#new" class="collapsed">
                         <a href="#"><i class="fa fa-car fa-lg"></i> Books <span class="arrow"></span></a>
                     </li>
@@ -113,19 +109,17 @@
     <div class="render-body">
         @RenderBody()
     </div>
-
     <div class="navbar  navbar-inverse navbar-fixed-bottom">
         <div class="container">
             <div class="navbar-text pull=left">
                 <p> SoftServe IT academy 2017</p>
             </div>
         </div>
-    </div>
-
+        </div>
    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    @RenderSection("Scripts", false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
