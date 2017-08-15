@@ -23,6 +23,7 @@ namespace LvivCompany.Bookstore.Web.Mapper
             tempModel.Price = entity.Price;
             tempModel.NumberOfPages = entity.NumberOfPages;
             tempModel.Year = entity.Year;
+            tempModel.Image = entity.Image;
             tempModel.Publisher = entity.Publisher.Name;
             tempModel.Amount = entity.Amount;
             tempModel.Category = entity.Category.Name;
