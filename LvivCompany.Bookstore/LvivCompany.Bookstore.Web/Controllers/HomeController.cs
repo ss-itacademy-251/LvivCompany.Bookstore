@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.DataAccess.IRepo;
+using LvivCompany.Bookstore.DataAccess.Repo;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using LvivCompany.Bookstore.Web.Config;
@@ -16,9 +16,9 @@ namespace LvivCompany.Bookstore.Web.Controllers
         private AppConfiguration Configuration;
        
         private IRepo<Book> _bookRepo;
-        private IMapper<Book, BookInfo> _bookmapper;
+        private IMapper<Book, BookViewModel> _bookmapper;
 
-        public HomeController(IRepo<Book> bookRepo, IMapper<Book, BookInfo> bookmapper, IOptionsSnapshot<AppConfiguration> configuration)
+        public HomeController(IRepo<Book> bookRepo, IMapper<Book, BookViewModel> bookmapper)
         {
             _bookRepo = bookRepo;
             _bookmapper = bookmapper;
@@ -30,6 +30,12 @@ namespace LvivCompany.Bookstore.Web.Controllers
         {
             var book = (await _bookRepo.GetAllAsync()).ToList();
             return View(new HomePageListViewModel() { Books = _bookmapper.Map(book)});
+        }
+        [HttpPost]
+        public IActionResult Index(long id)
+        {
+
+            return RedirectToAction("Index", "BookDetail", id);
         }
     }
 }

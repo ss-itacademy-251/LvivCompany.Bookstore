@@ -1,12 +1,12 @@
-﻿@model LvivCompany.Bookstore.Web.ViewModels.BookDetailViewModel
+﻿@model LvivCompany.Bookstore.Web.ViewModels.BookViewModel
 @section Styles {
     <link href="@Url.Content("~/css/BookDetailStyle.css")" rel="stylesheet" type="text/css" />
 }
-<form asp-controller="BookDetail" asp-action="BookDetailListView">
+<form asp-controller="Book" asp-action="BookPage">
     <div class="container">
         <div class="row">
             <div class="col-xs-4 item-photo">
-                <img src="@Model.Image" alt="book cover" />
+                <img src="@Model.ImageUrl" alt="book cover" />
             </div>
             <div class="col-xs-5">
                 <!-- Name -->
@@ -37,7 +37,7 @@
                 <!-- PUBLISHER -->
                 <li>
                     <label class="title-items">Publisher   </label>
-                    <span class="inf">@Model.Publisher</span>
+                    <span class="inf">@Model.PublisherName</span>
                 </li>
                 <!-- Year -->
                 <li>
