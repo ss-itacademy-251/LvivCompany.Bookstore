@@ -7,6 +7,8 @@ using LvivCompany.Bookstore.Web.ViewModels;
 using System.Linq;
 using System.Collections.Generic;
 using LvivCompany.Bookstore.Web.Mapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
@@ -14,16 +16,26 @@ namespace LvivCompany.Bookstore.Web.Controllers
     {
         private IRepo<Book> _bookRepo;
         private IMapper<Book, BookViewModel> _bookmapper;
+        private UserManager<User> _userManager;
 
-        public HomeController(IRepo<Book> bookRepo, IMapper<Book, BookViewModel> bookmapper)
+        public HomeController(IRepo<Book> bookRepo, IMapper<Book, BookViewModel> bookmapper ,UserManager<User> userManager)
         {
             _bookRepo = bookRepo;
             _bookmapper = bookmapper;
+            _userManager = userManager;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             List<Book> book = (await _bookRepo.GetAllAsync()).ToList();
+            return View(new HomePageListViewModel() { Books = _bookmapper.Map(book) });
+        }
+        [Authorize(Roles = "Seller")]
+        [HttpGet]
+        public async Task<IActionResult> SellersBook()
+        {
+            var id = (await _userManager.GetUserAsync(HttpContext.User));
+            List<Book> book = (await _bookRepo.GetAllAsync()).Where(b => b.SellerId == id.Id).ToList();
             return View(new HomePageListViewModel() { Books = _bookmapper.Map(book) });
         }
         [HttpPost]

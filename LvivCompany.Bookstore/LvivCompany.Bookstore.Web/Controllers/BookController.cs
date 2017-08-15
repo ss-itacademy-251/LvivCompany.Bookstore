@@ -2,6 +2,7 @@
 using LvivCompany.Bookstore.Entities;
 using LvivCompany.Bookstore.Web.Mapper;
 using LvivCompany.Bookstore.Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
@@ -31,6 +32,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             return View("BookPage", bookmapper.Map(book));
         }
 
+        [Authorize(Roles ="Seller")]
         [HttpGet]
         public async Task<IActionResult> AddBook()
         {
@@ -39,7 +41,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             model.ImageUrl = UploadFile.defaultBookImage;
             return View("AddBook", model);
         }
-
+        [Authorize(Roles = "Seller")]
         [HttpPost]
         public async Task<IActionResult> AddBook(BookViewModel model)
         {

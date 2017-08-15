@@ -68,10 +68,11 @@ namespace LvivCompany.Bookstore.Web
             services.AddSingleton(Configuration);
             services.AddTransient<IMapper<User, EditProfileViewModel>, ProfileMapper>();
             services.AddTransient<IMapper<User, RegisterViewModel>, RegisterMapper>();
+            services.AddTransient<IMapper<OrderDetail, OrderHistoryViewModel>, OrderHistoryMapper>();
 
             var serviceProvider = services.BuildServiceProvider();
             var context = serviceProvider.GetService<BookStoreContext>();
-            DbInitializer.Seed(context);
+           DbInitializer.Seed(context);
             return serviceProvider;
         }
 
@@ -92,7 +93,7 @@ namespace LvivCompany.Bookstore.Web
             app.UseStaticFiles();      
 
             app.UseAuthentication();
-            IdentityDbInitializer.Initialize(app.ApplicationServices, Configuration);
+           IdentityDbInitializer.Initialize(app.ApplicationServices, Configuration);
 
             app.UseMvc(routes =>
             {

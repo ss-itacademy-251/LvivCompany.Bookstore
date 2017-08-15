@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Http;
 using LvivCompany.Bookstore.Web.Mapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -27,9 +29,9 @@ namespace LvivCompany.Bookstore.Web.Controllers
             _profileMapper = profileMapper;
             _registerMapper = registerMapper;
         }
-
-
+       
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register()
         {
             RegisterViewModel model = new RegisterViewModel();
@@ -45,6 +47,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
             return View("Register", model);
         }
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -52,7 +55,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             if (ModelState.IsValid)
             {
                 User user = _registerMapper.Map(model);
-             
+
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -90,6 +93,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             model.AppRoles.Remove(itemToRemove);
             return View("Register", model);
         }
+        [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });
@@ -97,6 +101,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -122,7 +127,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             }
             return View(model);
         }
-
+        [Authorize(Roles = "Seller,Customer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
@@ -131,6 +136,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+        [Authorize(Roles = "Seller,Customer")]
         [HttpGet]
         public async Task<IActionResult> Profile()
         {
@@ -141,6 +147,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
             return View("Profile", model);
         }
+        [Authorize(Roles = "Seller,Customer")]
         [HttpGet]
         public async Task<IActionResult> Edit()
         {
@@ -151,6 +158,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
             return View("Edit", model);
         }
+        [Authorize(Roles = "Seller,Customer")]
         [HttpPost]
         public async Task<IActionResult> Edit(EditProfileViewModel model)
         {
