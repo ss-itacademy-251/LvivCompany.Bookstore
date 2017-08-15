@@ -26,14 +26,14 @@ namespace LvivCompany.Bookstore.Web.Controllers
    
         public async Task<IActionResult> Index(string SearchText)
         {
-            List<Book> book = (await _bookRepo.GetAllAsync()).ToList() ;
-            Author author = new Author();
+            List<Book> books = (await _bookRepo.GetAllAsync()).ToList();
             if (!string.IsNullOrEmpty(SearchText))
             {
-                var result = book.Where(s => s.Name.Contains(SearchText) );
+                var result = books.Where(s => (s.Name.ToLower().Contains(SearchText.ToLower()) 
+                || (s.BookAuthors.Select(x => x.Author).Any(v => (v.FirstName.ToLower().Contains(SearchText.ToLower()) || v.LastName.ToLower().Contains(SearchText.ToLower()) ))) ));
                 return View(new HomePageListViewModel() { Books = _bookmapper.Map(result.ToList()) });
             }
-            return View(new HomePageListViewModel() { Books = _bookmapper.Map(book) });
+            return View(new HomePageListViewModel() { Books = _bookmapper.Map(books) });
         }
     }
 }
