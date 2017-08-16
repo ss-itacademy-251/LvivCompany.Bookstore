@@ -30,9 +30,9 @@ namespace LvivCompany.Bookstore.Web
             var config = builder.Build();
 
             builder.AddAzureKeyVault(
-               $"https://{config["azureKeyVault:vault"]}.vault.azure.net/",
-               config["azureKeyVault:clientId"],
-               config["azureKeyVault:clientSecret"]);
+               $"https://{config["azureKeyVaultforDB:vault"]}.vault.azure.net/",
+               config["azureKeyVaultforDB:clientId"],
+               config["azureKeyVaultforDB:clientSecret"]);
 
             Configuration = builder.Build();
 
