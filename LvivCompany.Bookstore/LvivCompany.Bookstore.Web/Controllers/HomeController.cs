@@ -34,8 +34,8 @@ namespace LvivCompany.Bookstore.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> SellersBook()
         {
-            var id = (await _userManager.GetUserAsync(HttpContext.User));
-            List<Book> book = (await _bookRepo.GetAllAsync()).Where(b => b.SellerId == id.Id).ToList();
+            var currentUserId = (await _userManager.GetUserAsync(HttpContext.User)).Id;
+            List<Book> book = (await ((BookRepository)_bookRepo).GetBooksBySellerId(currentUserId)).ToList();
             return View(new HomePageListViewModel() { Books = _bookmapper.Map(book) });
         }
         [HttpPost]

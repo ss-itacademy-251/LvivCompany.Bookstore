@@ -30,8 +30,8 @@ namespace LvivCompany.Bookstore.Web.Mapper
             model.Amount = orderDetail.Amount;
             model.TotalPrice = orderDetail.Order.TotalPrice;
             model.OrderDateTime = orderDetail.Order.OrderDate;
-            model.Seller = GetUser(orderDetail.Book.SellerId).Result.UserName;
-            model.Customer = GetUser(orderDetail.Order.CustomerId).Result.UserName;
+            model.Seller = GetUser(orderDetail.Book.SellerId).GetAwaiter().GetResult().UserName;
+            model.Customer = GetUser(orderDetail.Order.CustomerId).GetAwaiter().GetResult().UserName;
             return model;
         }
         public OrderDetail Map(OrderHistoryViewModel model, OrderDetail orderDetail)
@@ -63,7 +63,6 @@ namespace LvivCompany.Bookstore.Web.Mapper
         public async Task<User> GetUser(long id)
         {
             User user = await _userManager.FindByIdAsync(id.ToString());
-
             return user;
         }
 

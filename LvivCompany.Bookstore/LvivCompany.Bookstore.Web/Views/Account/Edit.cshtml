@@ -20,9 +20,12 @@
 
 
 
-                    <img id="imgDisplayArea" class="avatar img-circle img-thumbnail img-responsive" />
+                    <img id="imgDisplayArea"  class="avatar img-circle img-thumbnail img-responsive" src="@Model.Photo"/>
                     <h6>Upload a different photo...</h6>
-                   <input asp-for="Photo" type="file" onchange="imagePreview(this)">
+                   <input asp-for="Image" type="file" onchange="imagePreview(this)">
+                    <div class="form-group">
+                        <input asp-for="Photo" type="hidden" />
+                    </div>
                 </div>
             </div>
 

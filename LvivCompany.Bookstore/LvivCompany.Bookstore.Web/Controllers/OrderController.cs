@@ -18,7 +18,6 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
         private IRepo<OrderDetail> _orderDetailsRepo;
         private IMapper<OrderDetail, OrderHistoryViewModel> _orderDetailmapper;
-      
         private IRepo<Book> _bookRepo;
         private UserManager<User> _userManager;
 
@@ -36,15 +35,15 @@ namespace LvivCompany.Bookstore.Web.Controllers
         public async Task<IActionResult> OrderHistory()
         {
             List<OrderDetail> details = new List<OrderDetail>();
-            var id = (await _userManager.GetUserAsync(HttpContext.User));
+            var currentUserId = (await _userManager.GetUserAsync(HttpContext.User)).Id;
             if (HttpContext.User.IsInRole("Seller"))
             {
-                details = (await _orderDetailsRepo.GetAllAsync()).Where(x => x.Book.SellerId == id.Id).ToList();
+                details = (await ((OrderDetailRepository)_orderDetailsRepo).GetAllAsyncBySellerId(currentUserId)).ToList();
 
             }
             if (HttpContext.User.IsInRole("Customer"))
             {
-                details = (await _orderDetailsRepo.GetAllAsync()).Where(x => x.Order.CustomerId == id.Id).ToList();
+                details = (await ((OrderDetailRepository)_orderDetailsRepo).GetAllAsyncByCustomerId(currentUserId)).ToList(); 
 
             }
 

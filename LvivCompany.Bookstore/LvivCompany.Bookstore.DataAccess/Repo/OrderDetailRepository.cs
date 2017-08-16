@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace LvivCompany.Bookstore.DataAccess.Repo
 {
@@ -30,6 +31,17 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
         {
             return context.OrderDetails
                 .FirstOrDefaultAsync(x => x.Id == id);
+        }
+        public async Task<IEnumerable<OrderDetail>> GetAllAsyncByCustomerId(long id)
+        {
+            IEnumerable<OrderDetail> result = (from orderdetail in context.OrderDetails where orderdetail.Order.CustomerId == id select orderdetail).Include(x => x.Book).Include(x => x.Order);
+            return await Task.FromResult<IEnumerable<OrderDetail>>(result);
+
+        }
+        public async Task<IEnumerable<OrderDetail>> GetAllAsyncBySellerId(long id)
+        { 
+            IEnumerable<OrderDetail> result = (from orderdetail in context.OrderDetails where orderdetail.Book.SellerId == id select orderdetail).Include(x => x.Book).Include(x => x.Order);
+            return await Task.FromResult<IEnumerable<OrderDetail>>(result);
         }
     }
 }

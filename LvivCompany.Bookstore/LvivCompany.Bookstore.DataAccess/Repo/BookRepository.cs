@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace LvivCompany.Bookstore.DataAccess.Repo
 {
@@ -28,6 +29,11 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
               .Include(x => x.BookAuthors)
               .ThenInclude(x => x.Author)
               .FirstOrDefaultAsync(x => x.Id == id);
+        }
+        public async Task<IEnumerable<Book>> GetBooksBySellerId(long id)
+        {
+           IEnumerable<Book> result = (from books in context.Books where books.SellerId == id select books).Include(x => x.Publisher).Include(x => x.BookAuthors).ThenInclude(x=>x.Author).Include(x=>x.Category);
+            return await Task.FromResult<IEnumerable<Book>>(result);
         }
     }
 }

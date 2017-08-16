@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Http;
 using LvivCompany.Bookstore.Web.Mapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Configuration;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
@@ -20,18 +21,20 @@ namespace LvivCompany.Bookstore.Web.Controllers
         private RoleManager<IdentityRole<long>> _roleManager;
         private IMapper<User, EditProfileViewModel> _profileMapper;
         private IMapper<User, RegisterViewModel> _registerMapper;
+        private IConfiguration _configuration;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole<long>> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole<long>> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper,IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _profileMapper = profileMapper;
             _registerMapper = registerMapper;
+            _configuration = configuration;
         }
        
         [HttpGet]
-        [AllowAnonymous]
+        [AllowAnonymous]   
         public IActionResult Register()
         {
             RegisterViewModel model = new RegisterViewModel();
@@ -164,8 +167,12 @@ namespace LvivCompany.Bookstore.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await _userManager.GetUserAsync(HttpContext.User);
 
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+                if (model.Image != null)
+                {
+                    user.Photo = await UploadFile.RetrieveFilePath(model.Image, _configuration);
+                }
                 user = _profileMapper.Map(model, user);
                 await _userManager.UpdateAsync(user);
 

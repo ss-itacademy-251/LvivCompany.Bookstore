@@ -21,7 +21,7 @@ namespace LvivCompany.Bookstore.Web.Mapper
             tempUser.Address2 = model.Address2;
             tempUser.PhoneNumber = model.PhoneNumber;
             tempUser.Email = model.Email;
-            tempUser.UserName = model.Email;
+            tempUser.UserName = model.Email;          
             return tempUser;
         }
         public User Map(EditProfileViewModel model,User tempUser)
@@ -45,6 +45,7 @@ namespace LvivCompany.Bookstore.Web.Mapper
             model.FirstName = user.FirstName;
             model.LastName = user.LastName;
             model.PhoneNumber = user.PhoneNumber;
+            model.Photo = user.Photo;
             return model;
         }
         public List<EditProfileViewModel> Map(List<User> entity)
