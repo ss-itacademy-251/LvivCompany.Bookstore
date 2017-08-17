@@ -21,6 +21,8 @@
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0-preview2-final" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.0-preview2-25405-01" />
     <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="2.0.0-preview2-final" />
+    <PackageReference Include="System.Net.Http" Version="4.3.2" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,5 +40,4 @@
     <ProjectReference Include="..\LvivCompany.Bookstore.DataAccess\LvivCompany.Bookstore.DataAccess.csproj" />
     <ProjectReference Include="..\LvivCompany.Bookstore.Entities\LvivCompany.Bookstore.Entities.csproj" />
   </ItemGroup>
-
 </Project>

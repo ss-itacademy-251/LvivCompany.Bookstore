@@ -27,7 +27,7 @@ namespace LvivCompany.Bookstore.DataAccess
                     {
                         var result = await roleManager.CreateAsync(new IdentityRole<long> { Name = role });
                     }
-                }               
+                }
             }
         }
     }
