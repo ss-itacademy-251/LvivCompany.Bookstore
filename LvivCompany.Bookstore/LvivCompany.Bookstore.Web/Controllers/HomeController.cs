@@ -3,7 +3,6 @@ using LvivCompany.Bookstore.Entities;
 using LvivCompany.Bookstore.DataAccess.Repo;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using LvivCompany.Bookstore.Web.Config;
 using LvivCompany.Bookstore.Web.ViewModels;
 using LvivCompany.Bookstore.Web.Mapper;
 using System.Collections.Generic;
