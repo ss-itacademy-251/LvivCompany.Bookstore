@@ -183,8 +183,6 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 User user = await _userManager.GetUserAsync(HttpContext.User);
                 if (user != null)
                 {
-                    if (ModelState.IsValid)
-                    {
                         IdentityResult result =
                                                await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
                         if (result.Succeeded)
@@ -198,8 +196,10 @@ namespace LvivCompany.Bookstore.Web.Controllers
                                 ModelState.AddModelError(string.Empty, error.Description);
                             }
                         }
-                    }
-
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "User is not found");
                 }
             }
             return View(model);
