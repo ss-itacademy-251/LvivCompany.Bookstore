@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using System.Linq.Expressions;
+using System;
 
 namespace LvivCompany.Bookstore.DataAccess.Repo
 {
@@ -31,15 +33,15 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
               .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public async Task<IEnumerable<Book>> GetBySearch(string text)
+        public override async Task<IEnumerable<Book>> Search(Expression<Func<Book, bool>> filter)
         {
-
-                IEnumerable<Book> result = (from books in context.Books where books.Name.Contains(text) select books)
+            IQueryable<Book> query = context.Set<Book>();
+            query = query.Where(filter)
                 .Include(x => x.Publisher)
                 .Include(x => x.Category)
                 .Include(x => x.BookAuthors)
                 .ThenInclude(x => x.Author);
-                return await Task.FromResult<IEnumerable<Book>>(result);
+            return await query.ToListAsync();
         }
 
     }

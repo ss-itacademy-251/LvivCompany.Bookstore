@@ -15,7 +15,6 @@ namespace LvivCompany.Bookstore.Web.Controllers
     {
         private IRepo<Book> _bookRepo;
         private IMapper<Book, BookViewModel> _bookmapper;
-        //private string noResult="no result";
 
         public SearchController(IRepo<Book> bookRepo, IMapper<Book, BookViewModel> bookmapper)
         {
@@ -25,8 +24,8 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
         public async Task<IActionResult> Index(string SearchText)
         {
-                var result = (await ((BookRepository)_bookRepo).GetBySearch(SearchText)).ToList();
-                return View(new HomePageListViewModel() { Books = _bookmapper.Map(result) });
+            List<Book> books = (await (_bookRepo.Search(x => x.Name.Contains(SearchText)))).ToList();
+            return View(new HomePageListViewModel() { Books = _bookmapper.Map(books) });
         }
     }
 }
