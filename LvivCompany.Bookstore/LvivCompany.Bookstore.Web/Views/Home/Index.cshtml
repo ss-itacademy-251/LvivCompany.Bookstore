@@ -10,7 +10,8 @@
 
         <div class="col-md-3 col-sm-6">
             <span class="thumbnail">
-                <img src="@book.ImageUrl" alt="book cover">
+                
+                <img src="@book.ImageUrl" class="img-grid" alt="book cover"/>
                 <h4 >@book.Name</h4>
                 <hr class="line">
                 <div class="row">
@@ -32,4 +33,7 @@
         </div>
     </form>
 
-
+@section Styles
+    {
+    <link href="~/css/site.css" rel="stylesheet" type="text/css" />
+}

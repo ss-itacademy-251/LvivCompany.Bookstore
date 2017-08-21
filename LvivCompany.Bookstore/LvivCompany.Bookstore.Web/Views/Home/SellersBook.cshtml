@@ -11,7 +11,7 @@
 
             <div class="col-md-2 col-sm-2">
                 <span class="thumbnail">
-                    <img src="@book.ImageUrl" alt="book cover">
+                    <img src="@book.ImageUrl" class="img-slr-grid" alt="book cover">
                     <h4>@book.Name</h4>
 
                     <div class="row">
@@ -32,3 +32,7 @@
 
     </div>
 </div>
+@section Styles
+    {
+    <link href="~/css/site.css" rel="stylesheet" type="text/css" />
+}

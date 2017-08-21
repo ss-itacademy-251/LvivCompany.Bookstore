@@ -41,3 +41,14 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
+.img-grid {
+    height: 250px !important;
+}
+
+.img-slr-grid {
+    height: 200px !important;
+}
+
+.img-profile {
+    height: 350px !important;
+}

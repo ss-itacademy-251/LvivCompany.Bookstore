@@ -38,12 +38,12 @@ namespace LvivCompany.Bookstore.Web.Controllers
             var currentUserId = (await _userManager.GetUserAsync(HttpContext.User)).Id;
             if (HttpContext.User.IsInRole("Seller"))
             {
-                details = (await ((OrderDetailRepository)_orderDetailsRepo).GetAllAsyncBySellerId(currentUserId)).ToList();
+                details = (await _orderDetailsRepo.Get(x => x.Book.SellerId == currentUserId)).ToList(); 
 
             }
             if (HttpContext.User.IsInRole("Customer"))
             {
-                details = (await ((OrderDetailRepository)_orderDetailsRepo).GetAllAsyncByCustomerId(currentUserId)).ToList(); 
+               details = (await _orderDetailsRepo.Get(x => x.Order.CustomerId == currentUserId)).ToList();
 
             }
 

@@ -20,7 +20,7 @@
 
 
 
-                    <img id="imgDisplayArea"  class="avatar img-circle img-thumbnail img-responsive" src="@Model.Photo"/>
+                    <img id="imgDisplayArea"  class="avatar img-circle img-thumbnail img-profile" src="@Model.Photo"/>
                     <h6>Upload a different photo...</h6>
                    <input asp-for="Image" type="file" onchange="imagePreview(this)">
                     <div class="form-group">
@@ -92,3 +92,7 @@
     </div>
 </div>
 
+@section Styles
+    {
+    <link href="~/css/site.css" rel="stylesheet" type="text/css" />
+}

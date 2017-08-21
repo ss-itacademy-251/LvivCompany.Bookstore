@@ -70,7 +70,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                         {
 
                             await _signInManager.SignInAsync(user, false);
-                            return RedirectToAction("Login", "Account");
+                            return RedirectToAction("Index", "Home");
                         }
                     }
 

@@ -64,7 +64,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 }
 
                 await repoBook.CreateAsync(book);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("SellersBook", "Home");
             }
 
             model.ImageUrl = UploadFile.defaultBookImage;
@@ -93,7 +93,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                     book.ImageUrl = await UploadFile.RetrieveFilePath(model.Image, configuration);
                 }
                 await repoBook.UpdateAsync(book);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("SellersBook", "Home");
             }
             await PopulateCategoriesSelectList(model);
             return View(model);

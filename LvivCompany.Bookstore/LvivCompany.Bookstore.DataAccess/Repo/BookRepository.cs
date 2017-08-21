@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
+using System;
+using System.Linq.Expressions;
 
 namespace LvivCompany.Bookstore.DataAccess.Repo
 {
@@ -30,10 +32,16 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
               .ThenInclude(x => x.Author)
               .FirstOrDefaultAsync(x => x.Id == id);
         }
-        public async Task<IEnumerable<Book>> GetBooksBySellerId(long id)
+      
+        public override async Task<IEnumerable<Book>> Get(Expression<Func<Book, bool>> filter)
         {
-           IEnumerable<Book> result = (from books in context.Books where books.SellerId == id select books).Include(x => x.Publisher).Include(x => x.BookAuthors).ThenInclude(x=>x.Author).Include(x=>x.Category);
-            return await Task.FromResult<IEnumerable<Book>>(result);
+            IQueryable<Book> query = context.Set<Book>();
+            query = query.Where(filter).Include(x => x.Category)
+              .Include(x => x.Publisher)
+              .Include(x => x.BookAuthors)
+              .ThenInclude(x => x.Author);
+          
+            return await query.ToListAsync();
         }
     }
 }
