@@ -1,0 +1,17 @@
+﻿@model HomePageListViewModel
+
+<div asp-controller="Search" asp-action="Index" >
+    @if (Model.Books.Count == 0)
+    {
+        <div>
+            <h2>
+                Sorry, no results found :(
+            </h2>
+        </div>
+    }
+    else
+    {
+    @Html.Partial("BookList")
+    }
+</div>
+

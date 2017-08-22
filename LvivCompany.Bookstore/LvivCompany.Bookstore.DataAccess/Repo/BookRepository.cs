@@ -32,16 +32,17 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
               .ThenInclude(x => x.Author)
               .FirstOrDefaultAsync(x => x.Id == id);
         }
-      
+
         public override async Task<IEnumerable<Book>> Get(Expression<Func<Book, bool>> filter)
         {
             IQueryable<Book> query = context.Set<Book>();
-            query = query.Where(filter).Include(x => x.Category)
-              .Include(x => x.Publisher)
-              .Include(x => x.BookAuthors)
-              .ThenInclude(x => x.Author);
-          
+            query = query.Where(filter)
+                .Include(x => x.Publisher)
+                .Include(x => x.Category)
+                .Include(x => x.BookAuthors)
+                .ThenInclude(x => x.Author);
             return await query.ToListAsync();
         }
+
     }
 }
