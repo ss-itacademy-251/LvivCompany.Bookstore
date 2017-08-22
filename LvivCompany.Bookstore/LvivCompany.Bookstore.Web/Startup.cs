@@ -20,7 +20,7 @@ namespace LvivCompany.Bookstore.Web
 
         public Startup(IHostingEnvironment env)
         {
-           
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -59,6 +59,7 @@ namespace LvivCompany.Bookstore.Web
             services.AddScoped<IMapper<User, EditProfileViewModel>, ProfileMapper>();
             services.AddScoped<IMapper<OrderDetail, OrderHistoryViewModel>, OrderHistoryMapper>();
             services.AddScoped<IMapper<User, RegisterViewModel>, RegisterMapper>();
+            services.AddScoped<IMapper<OrderDetail, OrderViewModel>, OrderMapper>();
             var serviceProvider = services.BuildServiceProvider();
             var context = serviceProvider.GetService<BookStoreContext>();
             DbInitializer.Seed(context);
@@ -71,17 +72,18 @@ namespace LvivCompany.Bookstore.Web
             loggerFactory.AddDebug();
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage(); 
+                app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.UseStaticFiles();      
             app.UseStaticFiles();      
             app.UseAuthentication();
             IdentityDbInitializer.Initialize(app.ApplicationServices, Configuration);
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
