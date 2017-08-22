@@ -12,6 +12,7 @@ namespace LvivCompany.Bookstore.Web
     public static class UploadFile
     {
         public const string defaultBookImage = @"https://lv251bookstore.blob.core.windows.net/images/0GZLLAU3RD.gif";
+        public const string defaultProfileImage = @"https://lv251bookstore.blob.core.windows.net/images/1F0BQ2MX38.png";
         private static async Task<string> UploadFileToBlob(IFormFile file, string fileName, IConfiguration configuration)
         {
             var test = configuration["ContainerCS"];

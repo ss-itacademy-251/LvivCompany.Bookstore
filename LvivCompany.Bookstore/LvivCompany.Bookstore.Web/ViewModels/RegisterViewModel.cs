@@ -42,7 +42,7 @@ namespace LvivCompany.Bookstore.Web.ViewModels
        
         public List<SelectListItem> AppRoles { get; set; }
 
-        public IFormFile Photo { get; set; }
+        public string Photo { get; set; }
         [Display(Name = "Role")]
         [Required]
         public long AppRoleId { get; set; }

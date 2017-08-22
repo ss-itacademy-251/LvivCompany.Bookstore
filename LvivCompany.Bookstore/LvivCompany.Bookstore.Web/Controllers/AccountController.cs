@@ -59,7 +59,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             if (ModelState.IsValid)
             {
                 User user = _registerMapper.Map(model);
-
+                user.Photo = UploadFile.defaultProfileImage;
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -151,7 +151,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
             model = _profileMapper.Map(currentUser);
-
+            
             return View("Profile", model);
         }
 
@@ -163,7 +163,6 @@ namespace LvivCompany.Bookstore.Web.Controllers
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
 
             model = _profileMapper.Map(currentUser);
-
             return View("Edit", model);
         }
 
@@ -175,11 +174,11 @@ namespace LvivCompany.Bookstore.Web.Controllers
             {
 
                 var user = await _userManager.GetUserAsync(HttpContext.User);
+                user = _profileMapper.Map(model, user);
                 if (model.Image != null)
                 {
                     user.Photo = await UploadFile.RetrieveFilePath(model.Image, _configuration);
                 }
-                user = _profileMapper.Map(model, user);
                 await _userManager.UpdateAsync(user);
 
                 return RedirectToAction("Profile", "Account");

@@ -1,13 +1,5 @@
 ﻿@model  RegisterViewModel
 
-@section Styles
-
-    {
-    <link href="@Url.Content("~/css/RegLogStyle.css")" rel="stylesheet" type="text/css" />
-}
-
-
-
 <form method="post" asp-controller="Account" asp-action="Register">
 
     <div asp-validation-summary="ModelOnly"></div>
@@ -109,5 +101,8 @@
         </div>
     </div>
 </form>
+@section Styles
 
-
+    {
+    <link href="@Url.Content("~/css/RegLogStyle.css")" rel="stylesheet" type="text/css" />
+}

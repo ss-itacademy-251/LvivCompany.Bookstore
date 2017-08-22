@@ -9,10 +9,10 @@
                     <hr class="line">
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
-                            <p>@book.Price</p>
+                            <p>@(book.Price +" $")</p>
                         </div>
                         <div class="col-md-6 col-sm-6">
-                            <a asp-controller="Book" asp-action="BookPage" asp-route-id="@book.Id">View Details</a>
+                            <a class="btn btn-success" asp-controller="Book" asp-action="BookPage" asp-route-id="@book.Id">View Details</a>
                         </div>
                     </div>
                 </span>

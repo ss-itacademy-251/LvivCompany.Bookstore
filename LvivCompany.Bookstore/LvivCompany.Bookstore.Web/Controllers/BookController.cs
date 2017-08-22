@@ -72,6 +72,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Seller")]
         [HttpGet]
         public async Task<IActionResult> EditBook(long id)
         {
@@ -81,6 +82,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             return View("EditBook", model);
         }
 
+        [Authorize(Roles = "Seller")]
         [HttpPost]
         public async Task<IActionResult> EditBook(long id, EditBookViewModel model)
         {

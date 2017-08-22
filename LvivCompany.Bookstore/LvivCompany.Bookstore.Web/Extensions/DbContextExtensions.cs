@@ -1,5 +1,4 @@
 ﻿using LvivCompany.Bookstore.DataAccess;
-using LvivCompany.Bookstore.Entities;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
