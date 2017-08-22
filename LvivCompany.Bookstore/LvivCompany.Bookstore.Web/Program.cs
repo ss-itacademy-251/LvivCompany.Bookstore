@@ -22,6 +22,10 @@ namespace LvivCompany.Bookstore.Web
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
+                .ConfigureLogging((hostingContext, logging) =>
+                {
+                    logging.AddConfiguration(hostingContext.Configuration.GetSection("Logging"));                   
+                })
                 .UseStartup<Startup>()
                 .Build();
     }

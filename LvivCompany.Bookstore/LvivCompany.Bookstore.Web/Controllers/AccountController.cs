@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Http;
 using LvivCompany.Bookstore.Web.Mapper;
+using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
@@ -18,9 +20,11 @@ namespace LvivCompany.Bookstore.Web.Controllers
         private RoleManager<IdentityRole<long>> _roleManager;
         private IMapper<User, EditProfileViewModel> _profileMapper;
         private IMapper<User, RegisterViewModel> _registerMapper;
+        private readonly ILogger<AccountController> _logger;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole<long>> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole<long>> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper, ILogger<AccountController> logger)
         {
+            _logger = logger;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
@@ -62,7 +66,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                         IdentityResult roleResult = await _userManager.AddToRoleAsync(user, approle.Name);
                         if (roleResult.Succeeded)
                         {
-
+                            Log.Information("Registered new user {User} role {Role}", user.UserName, approle.Name);
                             await _signInManager.SignInAsync(user, false);
                             return RedirectToAction("Login", "Account");
                         }
@@ -105,6 +109,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                     await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
+                    Log.Information("Log in User {User}", model.Email);
 
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
@@ -160,7 +165,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
                 user = _profileMapper.Map(model, user);
                 await _userManager.UpdateAsync(user);
-
+                Log.Information("Edited user {User}", user.Email);
                 return RedirectToAction("Profile", "Account");
 
             }
