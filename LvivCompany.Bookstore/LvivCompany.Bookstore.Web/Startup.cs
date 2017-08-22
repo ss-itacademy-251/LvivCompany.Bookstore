@@ -82,7 +82,7 @@ namespace LvivCompany.Bookstore.Web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {                       
-            //loggerFactory.AddSerilog();
+            loggerFactory.AddSerilog();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage(); 
