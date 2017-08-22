@@ -20,7 +20,7 @@ namespace LvivCompany.Bookstore.Web
 
         public Startup(IHostingEnvironment env)
         {
-           
+
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -54,6 +54,8 @@ namespace LvivCompany.Bookstore.Web
 
             services.AddMvc();
 
+            services.AddSession();
+
             services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionToDb")));
 
             services.AddTransient<IRepo<Book>, BookRepository>();
@@ -69,6 +71,7 @@ namespace LvivCompany.Bookstore.Web
             services.AddSingleton(Configuration);
             services.AddTransient<IMapper<User, EditProfileViewModel>, ProfileMapper>();
             services.AddTransient<IMapper<User, RegisterViewModel>, RegisterMapper>();
+            services.AddTransient<IMapper<OrderDetail, OrderViewModel>, OrderMapper>();
 
             var serviceProvider = services.BuildServiceProvider();
             var context = serviceProvider.GetService<BookStoreContext>();
@@ -83,18 +86,19 @@ namespace LvivCompany.Bookstore.Web
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage(); 
+                app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseStaticFiles();      
+            app.UseStaticFiles();
 
             app.UseAuthentication();
             IdentityDbInitializer.Initialize(app.ApplicationServices, Configuration);
 
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

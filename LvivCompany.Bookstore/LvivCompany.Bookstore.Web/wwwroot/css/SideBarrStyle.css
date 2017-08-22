@@ -205,3 +205,7 @@ font-family:'Franklin Goothic'
 .part-log-view {
     margin-top:10px;
 }
+
+.item-in-cart {
+    background-color: #337ab7;
+}
