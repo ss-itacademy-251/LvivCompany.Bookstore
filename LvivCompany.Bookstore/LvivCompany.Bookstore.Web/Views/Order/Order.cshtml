@@ -24,8 +24,7 @@
                 </div>
 
                 <!-- BEGIN PRODUCTS -->
-                @{decimal totalPrice = 0;
-                    int quantity = 1;}
+                @{decimal totalPrice = 0;}
 
                 @if (Model.Models.Count == 0)
                 {
@@ -47,7 +46,7 @@
                                 </div>
                                 <div class="col-xs-4">
                                     <div class="col-xs-3">
-                                        <input type="text" class="form-control input-group" value=@quantity>
+                                        <input type="text" class="form-control input-group" value="1">
                                     </div>
                                     <div class="col-xs-3 text-right">
                                         <h6 class="strong">@item.Price.ToString(" 0.00")<span class="text-muted"> $</span></h6>
