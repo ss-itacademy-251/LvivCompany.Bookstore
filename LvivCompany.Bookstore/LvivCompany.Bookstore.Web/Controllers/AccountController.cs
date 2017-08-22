@@ -183,9 +183,41 @@ namespace LvivCompany.Bookstore.Web.Controllers
             {
                 return View(model);
             }
-
-
         }
-
+        [HttpGet]
+        public async Task<IActionResult> ChangePassword()
+        {
+            ChangePasswordViewModel model = new ChangePasswordViewModel();
+            return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = await _userManager.GetUserAsync(HttpContext.User);
+                if (user != null)
+                {
+                        IdentityResult result =
+                                               await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                        if (result.Succeeded)
+                        {
+                            return RedirectToAction("Profile", "Account");
+                        }
+                        else
+                        {
+                            foreach (var error in result.Errors)
+                            {
+                                ModelState.AddModelError(string.Empty, error.Description);
+                            }
+                        }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "User is not found");
+                }
+            }
+            return View(model);
+        }
     }
 }
