@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using LvivCompany.Bookstore.Entities;
+﻿using LvivCompany.Bookstore.Entities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+
 namespace LvivCompany.Bookstore.DataAccess
 {
 
@@ -27,10 +26,8 @@ namespace LvivCompany.Bookstore.DataAccess
                     {
                         var result = await roleManager.CreateAsync(new IdentityRole<long> { Name = role });
                     }
-                }               
+                }
             }
         }
     }
 }
-
-

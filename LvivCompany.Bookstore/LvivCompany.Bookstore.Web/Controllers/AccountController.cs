@@ -23,7 +23,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
         private IMapper<User, RegisterViewModel> _registerMapper;
         private IConfiguration _configuration;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole<long>> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper,IConfiguration configuration)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole<long>> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper, IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -32,9 +32,9 @@ namespace LvivCompany.Bookstore.Web.Controllers
             _registerMapper = registerMapper;
             _configuration = configuration;
         }
-       
+
         [HttpGet]
-        [AllowAnonymous]   
+        [AllowAnonymous]
         public IActionResult Register()
         {
             RegisterViewModel model = new RegisterViewModel();
@@ -50,6 +50,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
             return View("Register", model);
         }
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -96,6 +97,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             model.AppRoles.Remove(itemToRemove);
             return View("Register", model);
         }
+
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
@@ -130,6 +132,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             }
             return View(model);
         }
+
         [Authorize(Roles = "Seller,Customer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -139,6 +142,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
         [Authorize(Roles = "Seller,Customer")]
         [HttpGet]
         public async Task<IActionResult> Profile()
@@ -150,6 +154,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
             return View("Profile", model);
         }
+
         [Authorize(Roles = "Seller,Customer")]
         [HttpGet]
         public async Task<IActionResult> Edit()
@@ -161,6 +166,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
             return View("Edit", model);
         }
+
         [Authorize(Roles = "Seller,Customer")]
         [HttpPost]
         public async Task<IActionResult> Edit(EditProfileViewModel model)
@@ -184,12 +190,13 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 return View(model);
             }
         }
+
         [HttpGet]
-        public async Task<IActionResult> ChangePassword()
+        public IActionResult ChangePassword()
         {
-            ChangePasswordViewModel model = new ChangePasswordViewModel();
-            return View(model);
+            return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
@@ -198,19 +205,19 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 User user = await _userManager.GetUserAsync(HttpContext.User);
                 if (user != null)
                 {
-                        IdentityResult result =
-                                               await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
-                        if (result.Succeeded)
+                    IdentityResult result =
+                                           await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Profile", "Account");
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
                         {
-                            return RedirectToAction("Profile", "Account");
+                            ModelState.AddModelError(string.Empty, error.Description);
                         }
-                        else
-                        {
-                            foreach (var error in result.Errors)
-                            {
-                                ModelState.AddModelError(string.Empty, error.Description);
-                            }
-                        }
+                    }
                 }
                 else
                 {

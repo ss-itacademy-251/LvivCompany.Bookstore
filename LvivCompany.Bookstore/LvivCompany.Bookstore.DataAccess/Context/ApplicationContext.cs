@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using LvivCompany.Bookstore.Entities;
 using Microsoft.AspNetCore.Identity;
-using LvivCompany.Bookstore.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
-namespace LvivCompany.Bookstore.Entities
+namespace LvivCompany.Bookstore.DataAccess
 {
     public class ApplicationContext : IdentityDbContext<User, IdentityRole<long>, long>
     {
