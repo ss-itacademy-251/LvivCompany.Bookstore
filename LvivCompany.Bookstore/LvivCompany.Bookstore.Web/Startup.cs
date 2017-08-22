@@ -57,6 +57,7 @@ namespace LvivCompany.Bookstore.Web
             services.AddSingleton(Configuration);
             services.AddSingleton(Environment);
             services.AddScoped<IMapper<User, EditProfileViewModel>, ProfileMapper>();
+            services.AddScoped<IMapper<OrderDetail, OrderHistoryViewModel>, OrderHistoryMapper>();
             services.AddScoped<IMapper<User, RegisterViewModel>, RegisterMapper>();
             var serviceProvider = services.BuildServiceProvider();
             var context = serviceProvider.GetService<BookStoreContext>();
@@ -80,7 +81,7 @@ namespace LvivCompany.Bookstore.Web
 
             app.UseStaticFiles();      
             app.UseAuthentication();
-            IdentityDbInitializer.Initialize(app.ApplicationServices, Configuration);
+           IdentityDbInitializer.Initialize(app.ApplicationServices, Configuration);
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

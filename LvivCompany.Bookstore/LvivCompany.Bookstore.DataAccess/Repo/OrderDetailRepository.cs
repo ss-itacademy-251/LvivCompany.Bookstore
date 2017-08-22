@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
+using System;
+using System.Linq.Expressions;
 
 namespace LvivCompany.Bookstore.DataAccess.Repo
 {
@@ -31,5 +34,11 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
             return context.OrderDetails
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
+        public override async Task<IEnumerable<OrderDetail>> Get(Expression<Func<OrderDetail, bool>> filter)
+        {
+            IQueryable<OrderDetail> query = context.Set<OrderDetail>();
+            query = query.Where(filter).Include(x => x.Book).Include(x => x.Order);
+            return await query.ToListAsync();
+         }
     }
 }
