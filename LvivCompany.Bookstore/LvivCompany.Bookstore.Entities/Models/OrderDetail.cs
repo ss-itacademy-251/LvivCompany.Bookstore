@@ -18,7 +18,6 @@ namespace LvivCompany.Bookstore.Entities
 
         [ForeignKey("OrderId")]
         public Order Order { get; set; }
-
-
+        
     }
 }

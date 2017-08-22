@@ -14,67 +14,57 @@
 
                 <ul class="list-info">
                     <!-- Author -->
-                <li>
+                    <li>
                         <label class="title-items">Author   </label>
                         <ul>
-                        @foreach (var author in @Model.Authors)
-                        {
-                           <li> <span class="inf">@author.FullName</span></li>
-                        }
+                            @foreach (var author in @Model.Authors)
+                            {
+                                <li> <span class="inf">@author.FullName</span></li>
+                            }
                         </ul>
-                </li>
+                    </li>
 
-                <!-- Category -->
-                <li>
-                    <label class="title-items">Category   </label>
-                    <span class="inf">@Model.Category</span>
-                </li>
-                <!-- NumberOfPages -->
-                <li>
-                    <label class="title-items">Number Of Pages   </label>
-                    <span class="inf">@Model.NumberOfPages</span>
-                </li>
-                <!-- PUBLISHER -->
-                <li>
-                    <label class="title-items">Publisher   </label>
-                    <span class="inf">@Model.PublisherName</span>
-                </li>
-                <!-- Year -->
-                <li>
-                    <label class="title-items">Year   </label>
-                    <span class="inf">@Model.Year</span>
-                </li>
-                <!-- Seller -->
-                <li>
-                    <label class="title-items">Seller   </label>
-                    <span class="inf">SellerName</span>
-                </li>
-                <!-- Amount -->
-                <li>
-                    <label class="title-items">Amount   </label>
-                    <span class="inf">@Model.Amount<br></span>
-                </li>
-                <!-- Price -->
-                <li>
-                    <label class="title-items">Price</label>
-                    <span class="inf">@Model.Price</span>
-                </li>
-                <!-- Amount to buy-->
-                <li>
-                    <div class="section amount">
-                        <label class="title-attr">Amount To Order</label>
-                        <div>
-                            <div class="btn-minus"><span class="glyphicon glyphicon-minus"></span></div>
-                            <input value="1" />
-                            <div class="btn-plus"><span class="glyphicon glyphicon-plus"></span></div>
-                        </div>
-                    </div>
-                </li>
+                    <!-- Category -->
+                    <li>
+                        <label class="title-items">Category   </label>
+                        <span class="inf">@Model.Category</span>
+                    </li>
+                    <!-- NumberOfPages -->
+                    <li>
+                        <label class="title-items">Number Of Pages   </label>
+                        <span class="inf">@Model.NumberOfPages</span>
+                    </li>
+                    <!-- PUBLISHER -->
+                    <li>
+                        <label class="title-items">Publisher   </label>
+                        <span class="inf">@Model.PublisherName</span>
+                    </li>
+                    <!-- Year -->
+                    <li>
+                        <label class="title-items">Year   </label>
+                        <span class="inf">@Model.Year</span>
+                    </li>
+                    <!-- Seller -->
+                    <li>
+                        <label class="title-items">Seller   </label>
+                        <span class="inf">SellerName</span>
+                    </li>
+                    <!-- Amount -->
+                    <li>
+                        <label class="title-items">Amount   </label>
+                        <span class="inf">@Model.Amount<br></span>
+                    </li>
+                    <!-- Price -->
+                    <li>
+                        <label class="title-items">Price</label>
+                        <span class="inf">$ @Model.Price</span>
+                    </li>
+
                 </ul>
 
                 <!-- Add to Order -->
                 <div class="section amount">
-                    <button class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Order </button>
+                    <button class="btn btn-success" asp-controller="Order" asp-action="Order" asp-route-id="@Model.Id"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Order </button>
                 </div>
             </div>
 
@@ -83,13 +73,11 @@
                 <div class="description">
                     <p class="line">
                         <span class="inf">
-                          @Model.Description
-                            </span>
+                            @Model.Description
+                        </span>
                     </p>
                 </div>
             </div>
         </div>
     </div>
 </form>
-
-
