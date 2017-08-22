@@ -1,14 +1,10 @@
-﻿
-<div class="container">
+﻿<div class="container">
     <div class="row">
-        <!-- BEGIN PRODUCTS -->
-
         @foreach (var book in @Model.Books)
         {
-
             <div class="col-md-3 col-sm-6">
                 <span class="thumbnail">
-                    <img src="@book.ImageUrl" alt="book cover">
+                    <img src="@book.ImageUrl" class="img-grid" alt="book cover">
                     <h4>@book.Name</h4>
                     <hr class="line">
                     <div class="row">
@@ -21,10 +17,10 @@
                     </div>
                 </span>
             </div>
-
-
         }
-
-        <!-- END PRODUCTS -->
     </div>
 </div>
+@section Styles
+    {
+    <link href="~/css/site.css" rel="stylesheet" type="text/css" />
+}

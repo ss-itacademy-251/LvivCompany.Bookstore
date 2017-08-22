@@ -6,7 +6,7 @@
 {
     if (User.IsInRole("Customer"))
     {
-        <a  class="btn btn-link btn-group" asp-controller="Order" asp-action="Order"><span class="glyphicon glyphicon-shopping-cart"></span> My Order</a>
+        <li><a asp-controller="Order" asp-action="Order"><span class="glyphicon glyphicon-shopping-cart"></span> My Order <span class="badge item-in-cart">@Context.Request.Cookies["Count"]</span></a></li>
     }
         <a  class="btn btn-link btn-group" asp-controller="Account" asp-action="Profile"><span class="glyphicon glyphicon-user"> @_UserManager.GetUserName(User)</span> </a>
       <button class="btn btn-link btn-group " asp-controller="Account" asp-action="LogOff"/><span class="glyphicon glyphicon-log-out"> LogOut</span>

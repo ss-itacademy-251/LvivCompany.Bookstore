@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -17,25 +16,19 @@ namespace LvivCompany.Bookstore.Web.Controllers
     [Authorize(Roles = "Customer,Seller")]
     public class OrderController : Controller
     {
+        private IMapper<OrderDetail, OrderHistoryViewModel> _orderDetailmapper;
         private IRepo<OrderDetail> _orderDetailsRepo;
         private IMapper<OrderDetail, OrderViewModel> _ordermapper;
         private IRepo<Book> _bookRepo;
         private UserManager<User> _userManager;
 
-        public OrderController(IRepo<OrderDetail> orderDetailsRepo, IMapper<OrderDetail, OrderViewModel> ordermapper, UserManager<User> userManager, IRepo<Book> bookRepo)
-
-        private IRepo<OrderDetail> _orderDetailsRepo;
-        private IMapper<OrderDetail, OrderHistoryViewModel> _orderDetailmapper;
-        private IRepo<Book> _bookRepo;
-        private UserManager<User> _userManager;
-
-
-        public OrderController(IRepo<OrderDetail> orderDetailsRepo, IMapper<OrderDetail, OrderHistoryViewModel> orderDetailsmapper, UserManager<User> userManager, IRepo<Book> bookRepo)
+        public OrderController(IRepo<OrderDetail> orderDetailsRepo, IMapper<OrderDetail, OrderViewModel> ordermapper, IMapper<OrderDetail, OrderHistoryViewModel> orderDetailsmapper, UserManager<User> userManager, IRepo<Book> bookRepo)
         {
             _orderDetailsRepo = orderDetailsRepo;
             _orderDetailmapper = orderDetailsmapper;
             _userManager = userManager;
             _bookRepo = bookRepo;
+            _ordermapper = ordermapper;
      
         }
         [Authorize(Roles ="Customer,Seller")]
@@ -57,16 +50,9 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
             return View(new ListOrderHistoryViewModel() { orders = _orderDetailmapper.Map(details) });
         }
+
         [HttpGet]
         [Authorize(Roles ="Customer")]
-        public IActionResult Order()
-        {
-            _orderDetailsRepo = orderDetailsRepo;
-            _userManager = userManager;
-            _bookRepo = bookRepo;
-            _ordermapper = ordermapper;
-        }
-
         public async Task<IActionResult> Order(long id)
         {
             List<OrderViewModel> list = new List<OrderViewModel>();
@@ -110,7 +96,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             return listOrder;
         }
 
-        public async Task<IActionResult> RemoveFromOrder(long id)
+        public IActionResult RemoveFromOrder(long id)
         {
             List<OrderViewModel> list = new List<OrderViewModel>();
             if (HttpContext.Session.GetString("order") != null)

@@ -45,6 +45,7 @@ namespace LvivCompany.Bookstore.Web
                .AddDefaultTokenProviders();
             services.AddScoped<RoleManager<IdentityRole<long>>, RoleManager<IdentityRole<long>>>();
             services.AddMvc();
+            services.AddSession();
             services.AddScoped<IRepo<Book>, BookRepository>();
             services.AddScoped<IRepo<Author>, AuthorRepository>();
             services.AddScoped<IRepo<Category>, CategoryRepository>();
@@ -79,7 +80,6 @@ namespace LvivCompany.Bookstore.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseStaticFiles();      
             app.UseStaticFiles();      
             app.UseAuthentication();
             IdentityDbInitializer.Initialize(app.ApplicationServices, Configuration);

@@ -14,19 +14,15 @@
             <div class="form-group col-md-10">
                 <a class="btn btn-primary btn-block " asp-controller="Account" asp-action="Edit">Edit Information</a>
                 <a class=" btn btn-primary btn-block " asp-controller="Order" asp-action="OrderHistory">Orders history</a>
+                <a class=" btn btn-primary btn-block " asp-controller="Account" asp-action="ChangePassword"> Change Password</a>
                 @if (User.IsInRole("Seller"))
             {
                     <a class=" btn btn-primary btn-block" asp-controller="Book" asp-action="AddBook">Add new book</a>
-                        <a class=" btn btn-primary btn-block" asp-controller="Home" asp-action="SellersBook">My Books</a>
+                    <a class=" btn btn-primary btn-block" asp-controller="Home" asp-action="SellersBook">My Books</a>
 
                 }
             </div>
-
-
-
-            <a class=" btn btn-success" asp-controller="Account" asp-action="ChangePassword"> Change Password</a>
         </div>
-
         <div class="col-md-6 col-sm-6 col-xs-12 personal-info">
             <div class="panel panel-default ">
                 <div class=" panel-heading">
