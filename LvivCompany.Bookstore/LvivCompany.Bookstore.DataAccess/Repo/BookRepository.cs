@@ -33,7 +33,7 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
               .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public override async Task<IEnumerable<Book>> Search(Expression<Func<Book, bool>> filter)
+        public override async Task<IEnumerable<Book>> Get(Expression<Func<Book, bool>> filter)
         {
             IQueryable<Book> query = context.Set<Book>();
             query = query.Where(filter)

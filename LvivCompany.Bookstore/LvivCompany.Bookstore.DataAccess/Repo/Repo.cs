@@ -57,7 +57,7 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
             return SaveAsync();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> Search(Expression<Func<TEntity, bool>> filter)
+        public virtual async Task<IEnumerable<TEntity>> Get(Expression<Func<TEntity, bool>> filter)
          {
              IQueryable<TEntity> query = context.Set<TEntity>();
              query = query.Where(filter);
