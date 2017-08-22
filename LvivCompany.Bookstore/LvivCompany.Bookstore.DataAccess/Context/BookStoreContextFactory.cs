@@ -8,7 +8,7 @@ namespace LvivCompany.Bookstore.DataAccess
         public BookStoreContext CreateDbContext(string[] args)
         {
             var builder = new DbContextOptionsBuilder<BookStoreContext>();
-            builder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=bookstoreDb;Trusted_Connection=True;MultipleActiveResultSets=true");
+            builder.UseSqlServer(@"Server=DESKTOP-FT28TFQ;Database=bookstoreDb;Trusted_Connection=True;MultipleActiveResultSets=true");
             return new BookStoreContext(builder.Options);
         }
     }
