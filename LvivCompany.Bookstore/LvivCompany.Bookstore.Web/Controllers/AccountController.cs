@@ -66,7 +66,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                         IdentityResult roleResult = await _userManager.AddToRoleAsync(user, approle.Name);
                         if (roleResult.Succeeded)
                         {
-                            Log.Information("Registered new user {User} role {Role}", user.UserName, approle.Name);
+                            _logger.LogInformation("Registered new user {@User}", new { FirstName = user.FirstName, LastName = user.LastName,UserName = user.UserName, AppRole=approle.Name, PhoneNumber=user.PhoneNumber });
                             await _signInManager.SignInAsync(user, false);
                             return RedirectToAction("Login", "Account");
                         }
@@ -108,9 +108,8 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 var result =
                     await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
-                {
-                    Log.Information("Log in User {User}", model.Email);
-
+                {                   
+                    _logger.LogInformation("Log in User {@User}", new { Email = model.Email });
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
                         return Redirect(model.ReturnUrl);
@@ -118,12 +117,12 @@ namespace LvivCompany.Bookstore.Web.Controllers
                     else
                     {
                         return RedirectToAction("Index", "Home");
-                    }
+                    }                   
                 }
                 else
                 {
                     ModelState.AddModelError("", "Email  or password is incorrect");
-                }
+                }                
             }
             return View(model);
         }
@@ -134,6 +133,8 @@ namespace LvivCompany.Bookstore.Web.Controllers
         {
 
             await _signInManager.SignOutAsync();
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            _logger.LogInformation("User {@User} logged off", new { UserName = currentUser.UserName});
             return RedirectToAction("Index", "Home");
         }
         [HttpGet]
@@ -165,7 +166,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
                 user = _profileMapper.Map(model, user);
                 await _userManager.UpdateAsync(user);
-                Log.Information("Edited user {User}", user.Email);
+                _logger.LogInformation("Edited user {@User}", new { FirstName = user.FirstName, LastName=user.LastName, Email = user.Email });
                 return RedirectToAction("Profile", "Account");
 
             }
