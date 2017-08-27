@@ -35,7 +35,7 @@ namespace LvivCompany.Bookstore.Web
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddDbContexts(Environment, Configuration);
-            services.AddIdentity<User, IdentityRole<long>>(o =>
+            services.AddIdentity<User, Role>(o =>
             {
                 o.Password.RequireNonAlphanumeric = false;
                 o.Password.RequiredLength = 6;
@@ -43,7 +43,7 @@ namespace LvivCompany.Bookstore.Web
             })
                .AddEntityFrameworkStores<ApplicationContext>()
                .AddDefaultTokenProviders();
-            services.AddScoped<RoleManager<IdentityRole<long>>, RoleManager<IdentityRole<long>>>();
+            services.AddScoped<RoleManager<Role>>();
             services.AddMvc();
             services.AddSession();
             services.AddScoped<IRepo<Book>, BookRepository>();
