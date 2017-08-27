@@ -19,13 +19,13 @@ namespace LvivCompany.Bookstore.DataAccess
             };
             using (var scope = services.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<long>>>();
+                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
                 var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
                 foreach (string role in roles)
                 {
                     if (!await roleManager.RoleExistsAsync(role))
                     {
-                        var result = await roleManager.CreateAsync(new IdentityRole<long> { Name = role });
+                        var result = await roleManager.CreateAsync(new Role { Name = role });
                     }
                 }               
             }

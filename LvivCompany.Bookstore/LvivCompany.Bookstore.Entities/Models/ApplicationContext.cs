@@ -8,7 +8,7 @@ using LvivCompany.Bookstore.Entities;
 
 namespace LvivCompany.Bookstore.Entities
 {
-    public class ApplicationContext : IdentityDbContext<User, IdentityRole<long>, long>
+    public class ApplicationContext : IdentityDbContext<User, Role, long>
     {
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
