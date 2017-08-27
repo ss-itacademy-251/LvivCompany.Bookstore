@@ -4,13 +4,12 @@ using LvivCompany.Bookstore.Entities;
 using LvivCompany.Bookstore.Web.Mapper;
 using LvivCompany.Bookstore.Web.ViewModels;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
-using Microsoft.AspNetCore.Identity;
 
 namespace LvivCompany.Bookstore.Web
 {
@@ -35,7 +34,7 @@ namespace LvivCompany.Bookstore.Web
             Configuration = builder.Build();
         }
 
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionToIdentityDb")));
@@ -69,11 +68,6 @@ namespace LvivCompany.Bookstore.Web
             services.AddSingleton(Configuration);
             services.AddTransient<IMapper<User, EditProfileViewModel>, ProfileMapper>();
             services.AddTransient<IMapper<User, RegisterViewModel>, RegisterMapper>();
-
-            var serviceProvider = services.BuildServiceProvider();
-            var context = serviceProvider.GetService<BookStoreContext>();
-            DbInitializer.Seed(context);
-            return serviceProvider;
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -93,7 +87,6 @@ namespace LvivCompany.Bookstore.Web
             app.UseStaticFiles();      
 
             app.UseAuthentication();
-            IdentityDbInitializer.Initialize(app.ApplicationServices, Configuration);
 
             app.UseMvc(routes =>
             {
