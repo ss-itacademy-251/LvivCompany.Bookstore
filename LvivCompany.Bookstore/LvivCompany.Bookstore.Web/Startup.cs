@@ -32,7 +32,7 @@ namespace LvivCompany.Bookstore.Web
             Environment = env;
         }
 
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContexts(Environment, Configuration);
             services.AddIdentity<User, Role>(o =>
@@ -61,10 +61,10 @@ namespace LvivCompany.Bookstore.Web
             services.AddScoped<IMapper<OrderDetail, OrderHistoryViewModel>, OrderHistoryMapper>();
             services.AddScoped<IMapper<User, RegisterViewModel>, RegisterMapper>();
             services.AddScoped<IMapper<OrderDetail, OrderViewModel>, OrderMapper>();
-            var serviceProvider = services.BuildServiceProvider();
-            var context = serviceProvider.GetService<BookStoreContext>();
-            DbInitializer.Seed(context);
-            return serviceProvider;
+            //var serviceProvider = services.BuildServiceProvider();
+            //var context = serviceProvider.GetService<BookStoreContext>();
+            //DbInitializer.Seed(context);
+            //return serviceProvider;
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
@@ -82,7 +82,7 @@ namespace LvivCompany.Bookstore.Web
             }
             app.UseStaticFiles();      
             app.UseAuthentication();
-            IdentityDbInitializer.Initialize(app.ApplicationServices, Configuration);
+            
             app.UseSession();
             app.UseMvc(routes =>
             {

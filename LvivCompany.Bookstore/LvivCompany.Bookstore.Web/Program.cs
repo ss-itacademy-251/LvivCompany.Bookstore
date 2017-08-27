@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using LvivCompany.Bookstore.DataAccess;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.DependencyInjection;
+using System.IO;
 
 namespace LvivCompany.Bookstore.Web
 {
@@ -14,10 +10,20 @@ namespace LvivCompany.Bookstore.Web
     {
         public static void Main(string[] args)
         {
-           BuildWebHost(args).Run();
+            var host = BuildWebHost(args);
+
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var contextToDb = services.GetRequiredService<BookStoreContext>();
+                DbInitializer.Seed(contextToDb);
+                IdentityDbInitializer.Initialize(services);
+            }
+
+            host.Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
+            public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
