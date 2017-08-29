@@ -90,9 +90,11 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 {
                     book.ImageUrl = await UploadFile.RetrieveFilePath(model.Image, configuration);
                 }
+
                 await repoBook.UpdateAsync(book);
                 return RedirectToAction("Index", "Home");
             }
+
             await PopulateCategoriesSelectList(model);
             return View(model);
         }
