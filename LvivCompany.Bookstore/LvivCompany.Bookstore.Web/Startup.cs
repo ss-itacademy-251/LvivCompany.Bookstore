@@ -64,6 +64,7 @@ namespace LvivCompany.Bookstore.Web
             services.AddTransient<IRepo<Status>, StatusRepository>();
 
             services.AddTransient<IMapper<Book, BookViewModel>, BookMapper>();
+            services.AddTransient<IMapper<Book, EditBookViewModel>, EditBookMapper>();
             services.AddSingleton(Configuration);
             services.AddTransient<IMapper<User, EditProfileViewModel>, ProfileMapper>();
             services.AddTransient<IMapper<User, RegisterViewModel>, RegisterMapper>();
