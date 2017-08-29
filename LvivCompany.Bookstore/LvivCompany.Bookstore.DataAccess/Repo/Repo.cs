@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
+using System.Linq.Expressions;
+using System;
 
 namespace LvivCompany.Bookstore.DataAccess.Repo
 {
@@ -53,5 +56,12 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
             context.Entry(item).State = EntityState.Deleted;
             return SaveAsync();
         }
-    }
+
+        public virtual async Task<IEnumerable<TEntity>> Get(Expression<Func<TEntity, bool>> filter)
+         {
+             IQueryable<TEntity> query = context.Set<TEntity>();
+             query = query.Where(filter);
+             return await query.ToListAsync();
+         }
+}
 }

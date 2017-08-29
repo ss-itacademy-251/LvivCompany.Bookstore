@@ -26,11 +26,6 @@ namespace LvivCompany.Bookstore.Web.Controllers
             List<Book> book = (await _bookRepo.GetAllAsync()).ToList();
             return View(new HomePageListViewModel() { Books = _bookmapper.Map(book) });
         }
-        [HttpPost]
-        public IActionResult Index(long id)
-        {
 
-            return RedirectToAction("Index", "BookDetail", id);
-        }
     }
 }
