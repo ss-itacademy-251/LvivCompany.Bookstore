@@ -1,35 +1,7 @@
 @model HomePageListViewModel
 
- <form asp-controller="Home" asp-action="Index" method="post">
-        <div class="container">
-            <div class="row">
-    <!-- BEGIN PRODUCTS -->
-
-    @foreach (var book in @Model.Books)
-    {
-
-        <div class="col-md-3 col-sm-6">
-            <span class="thumbnail">
-                <img src="@book.ImageUrl" alt="book cover">
-                <h4 >@book.Name</h4>
-                <hr class="line">
-                <div class="row">
-                    <div class="col-md-6 col-sm-6">
-                        <p>@book.Price</p>
-                    </div>
-                    <div class="col-md-6 col-sm-6">
-         <a asp-controller="BookDetail" asp-action="Index" asp-route-id="@book.Id" >View Details</a>
-                    </div>
-                </div>
-            </span>
-        </div>
-
-
-    }
-                
-                <!-- END PRODUCTS -->
-            </div>
-        </div>
-    </form>
+<div asp-controller="Home" asp-action="Index">
+    @Html.Partial("BookList")
+</div>
 
 

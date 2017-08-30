@@ -42,7 +42,9 @@
                 <ul class="nav navbar-nav navbar-right ">
 
                     <li>
-                        <input class="search-input" /> <a class="a-input" href=""><span class="glyphicon glyphicon-search"></span> </a>
+                        <form asp-controller="Search" asp-action="Index">
+                            <input class="search-input" name="SearchText" /> <a class="a-input" href=""><span class="glyphicon glyphicon-search"></span> </a>
+                        </form>
                     </li>
                     <li><a asp-controller="Order" asp-action="Order"><span class="glyphicon glyphicon-shopping-cart"></span> My Order</a></li>
                     <li class="part-log-view"> <form class="form-inline" asp-controller="Account" asp-action="LogOff" method="post">@await Html.PartialAsync("_PartialLogin") </form></li>

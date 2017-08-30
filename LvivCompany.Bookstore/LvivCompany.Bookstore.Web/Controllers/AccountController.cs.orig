@@ -161,14 +161,14 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 return View(model);
             }
         }
-
+<<<<<<< HEAD
+=======
         [HttpGet]
         public async Task<IActionResult> ChangePassword()
         {
             ChangePasswordViewModel model = new ChangePasswordViewModel();
             return View(model);
         }
-
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
@@ -196,8 +196,8 @@ namespace LvivCompany.Bookstore.Web.Controllers
                     ModelState.AddModelError(string.Empty, "User is not found");
                 }
             }
-
             return View(model);
         }
+>>>>>>> develop
     }
 }

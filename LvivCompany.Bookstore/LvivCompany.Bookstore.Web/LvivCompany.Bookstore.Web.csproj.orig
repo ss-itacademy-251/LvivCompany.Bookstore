@@ -18,8 +18,12 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="2.0.0-preview2-final" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta004" PrivateAssets="All" />
   </ItemGroup>
+<<<<<<< HEAD
+  <ItemGroup> 
+=======
 
   <ItemGroup>
+>>>>>>> develop
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
   <ItemGroup>
