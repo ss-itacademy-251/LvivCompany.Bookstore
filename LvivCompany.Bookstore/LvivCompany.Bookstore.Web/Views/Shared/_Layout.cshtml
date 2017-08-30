@@ -19,6 +19,7 @@
     <link href="../Style/Carouselstyle.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,700&subset=latin-ext" rel="stylesheet">
+    <link href="~/css/site.css" rel="stylesheet" />
 </head>
 <body class="bdy-main">
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -41,7 +42,9 @@
                 <ul class="nav navbar-nav navbar-right ">
 
                     <li>
-                        <input class="search-input" /> <a class="a-input" href=""><span class="glyphicon glyphicon-search"></span> </a>
+                        <form asp-controller="Search" asp-action="Index">
+                            <input class="search-input" name="SearchText" /> <a class="a-input" href=""><span class="glyphicon glyphicon-search"></span> </a>
+                        </form>
                     </li>
                     
                     <li class="part-log-view"> <form class="form-inline" asp-controller="Account" asp-action="LogOff" method="post">@await Html.PartialAsync("_PartialLogin") </form></li>

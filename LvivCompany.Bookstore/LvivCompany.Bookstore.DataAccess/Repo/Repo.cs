@@ -6,12 +6,13 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
+
 namespace LvivCompany.Bookstore.DataAccess.Repo
 {
     public abstract class Repo<TEntity> : IRepo<TEntity> where TEntity : BaseEntity
     {
         protected BookStoreContext context;
-        
+
         public Repo(BookStoreContext context)
         {
             this.context = context;
@@ -56,13 +57,13 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
             context.Entry(item).State = EntityState.Deleted;
             return SaveAsync();
         }
-        public virtual async Task <IEnumerable<TEntity>> Get( Expression<Func<TEntity, bool>> filter )
-        {
-            IQueryable<TEntity> query = context.Set<TEntity>();
 
-         
-                query = query.Where(filter);
-                return await query.ToListAsync();
+
+        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter)
+        {
+            return  context
+                .Set<TEntity>()
+                .Where(filter);
         }
     }
 }

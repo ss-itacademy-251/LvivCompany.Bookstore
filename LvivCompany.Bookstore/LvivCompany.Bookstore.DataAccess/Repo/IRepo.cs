@@ -1,7 +1,6 @@
 ﻿using LvivCompany.Bookstore.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Linq;
 using System.Linq.Expressions;
 using System;
 
@@ -15,7 +14,7 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
         Task UpdateAsync(TEntity item);
         Task DeleteAsync<T>(long id) where T : BaseEntity, new();
         Task DeleteAsync(TEntity item);
-        Task<IEnumerable<TEntity>> Get(Expression<Func<TEntity,bool>> filter);
+       IEnumerable<TEntity> Get(Expression<Func<TEntity,bool>> filter);
         Task SaveAsync();
     }
 }

@@ -34,11 +34,12 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
             return context.OrderDetails
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
-        public override async Task<IEnumerable<OrderDetail>> Get(Expression<Func<OrderDetail, bool>> filter)
+        public override IEnumerable<OrderDetail> Get(Expression<Func<OrderDetail, bool>> filter)
         {
-            IQueryable<OrderDetail> query = context.Set<OrderDetail>();
-            query = query.Where(filter).Include(x => x.Book).Include(x => x.Order);
-            return await query.ToListAsync();
-         }
+            return context.Set<OrderDetail>()
+                .Where(filter)
+                .Include(x => x.Book)
+                .Include(x => x.Order);
+        }
     }
 }
