@@ -1,4 +1,6 @@
-﻿using LvivCompany.Bookstore.DataAccess;
+﻿using System;
+using System.Linq;
+using LvivCompany.Bookstore.DataAccess;
 using LvivCompany.Bookstore.DataAccess.Repo;
 using LvivCompany.Bookstore.Entities;
 using LvivCompany.Bookstore.Web.Mapper;
@@ -6,6 +8,7 @@ using LvivCompany.Bookstore.Web.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +22,6 @@ namespace LvivCompany.Bookstore.Web
 
         public Startup(IHostingEnvironment env)
         {
-           
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -38,7 +40,6 @@ namespace LvivCompany.Bookstore.Web
         {
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionToIdentityDb")));
-
 
             services.AddIdentity<User, Role>(o =>
             {
@@ -77,14 +78,15 @@ namespace LvivCompany.Bookstore.Web
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage(); 
+                app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseStaticFiles();      
+
+            app.UseStaticFiles();
 
             app.UseAuthentication();
 
