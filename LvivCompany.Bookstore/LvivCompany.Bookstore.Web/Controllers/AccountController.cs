@@ -163,7 +163,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ChangePassword()
+        public IActionResult ChangePassword()
         {
             ChangePasswordViewModel model = new ChangePasswordViewModel();
             return View(model);

@@ -1,8 +1,8 @@
-﻿using LvivCompany.Bookstore.DataAccess;
+﻿using System.IO;
+using LvivCompany.Bookstore.DataAccess;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using System.IO;
 
 namespace LvivCompany.Bookstore.Web
 {
