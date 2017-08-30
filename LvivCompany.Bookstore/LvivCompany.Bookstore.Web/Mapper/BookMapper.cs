@@ -1,7 +1,7 @@
-﻿using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.Web.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using LvivCompany.Bookstore.Entities;
+using LvivCompany.Bookstore.Web.ViewModels;
 
 namespace LvivCompany.Bookstore.Web.Mapper
 {
@@ -48,7 +48,6 @@ namespace LvivCompany.Bookstore.Web.Mapper
                 AddedDate = DateTime.UtcNow,
                 Name = model.PublisherName
             };
-
             Book book = new Book()
             {
                 AddedDate = DateTime.UtcNow,
@@ -93,6 +92,7 @@ namespace LvivCompany.Bookstore.Web.Mapper
             {
                 models.Add(Map(item));
             }
+
             return models;
         }
 
@@ -103,6 +103,7 @@ namespace LvivCompany.Bookstore.Web.Mapper
             {
                 books.Add(Map(item));
             }
+
             return books;
         }
     }
