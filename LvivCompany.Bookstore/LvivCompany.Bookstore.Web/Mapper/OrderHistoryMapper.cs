@@ -34,37 +34,38 @@ namespace LvivCompany.Bookstore.Web.Mapper
             model.Customer = GetUser(orderDetail.Order.CustomerId).GetAwaiter().GetResult().UserName;
             return model;
         }
+
         public OrderDetail Map(OrderHistoryViewModel model, OrderDetail orderDetail)
         {
             return orderDetail;
         }
+
         public List<OrderHistoryViewModel> Map(List<OrderDetail> entity)
         {
-
             List<OrderHistoryViewModel> models = new List<OrderHistoryViewModel>();
             foreach (var item in entity)
             {
                 models.Add(Map(item));
             }
-            return models;
 
+            return models;
         }
+
         public List<OrderDetail> Map(List<OrderHistoryViewModel> entity)
         {
-
             List<OrderDetail> models = new List<OrderDetail>();
             foreach (var item in entity)
             {
                 models.Add(Map(item));
             }
-            return models;
 
+            return models;
         }
+
         public async Task<User> GetUser(long id)
         {
             User user = await _userManager.FindByIdAsync(id.ToString());
             return user;
         }
-
     }
 }

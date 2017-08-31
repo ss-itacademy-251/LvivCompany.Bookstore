@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using LvivCompany.Bookstore.Web.ViewModels;
 using LvivCompany.Bookstore.Entities;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Http;
 using LvivCompany.Bookstore.Web.Mapper;
+using LvivCompany.Bookstore.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 using Microsoft.Extensions.Configuration;
 
 namespace LvivCompany.Bookstore.Web.Controllers
@@ -23,7 +24,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
         private IMapper<User, RegisterViewModel> _registerMapper;
         private IConfiguration _configuration;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole<long>> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper,IConfiguration configuration)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole<long>> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper, IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -32,9 +33,9 @@ namespace LvivCompany.Bookstore.Web.Controllers
             _registerMapper = registerMapper;
             _configuration = configuration;
         }
-       
+
         [HttpGet]
-        [AllowAnonymous]   
+        [AllowAnonymous]
         public IActionResult Register()
         {
             RegisterViewModel model = new RegisterViewModel();
@@ -43,18 +44,17 @@ namespace LvivCompany.Bookstore.Web.Controllers
             {
                 Text = r.Name,
                 Value = r.Id.ToString()
-
             }).ToList();
             var itemToRemove = model.AppRoles.Single(r => r.Text == "Admin");
             model.AppRoles.Remove(itemToRemove);
 
             return View("Register", model);
         }
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-
             if (ModelState.IsValid)
             {
                 User user = _registerMapper.Map(model);
@@ -68,34 +68,30 @@ namespace LvivCompany.Bookstore.Web.Controllers
                         IdentityResult roleResult = await _userManager.AddToRoleAsync(user, approle.Name);
                         if (roleResult.Succeeded)
                         {
-
                             await _signInManager.SignInAsync(user, false);
                             return RedirectToAction("Index", "Home");
                         }
                     }
-
                 }
                 else
                 {
-
                     foreach (var error in result.Errors)
                     {
-
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
-
                 }
             }
+
             model.AppRoles = _roleManager.Roles.Select(r => new SelectListItem
             {
                 Text = r.Name,
                 Value = r.Id.ToString()
-
             }).ToList();
             var itemToRemove = model.AppRoles.Single(r => r.Text == "Admin");
             model.AppRoles.Remove(itemToRemove);
             return View("Register", model);
         }
+
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
@@ -109,11 +105,9 @@ namespace LvivCompany.Bookstore.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result =
-                    await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
                         return Redirect(model.ReturnUrl);
@@ -128,28 +122,29 @@ namespace LvivCompany.Bookstore.Web.Controllers
                     ModelState.AddModelError("", "Email  or password is incorrect");
                 }
             }
+
             return View(model);
         }
+
         [Authorize(Roles = "Seller,Customer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
         {
-
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
         [Authorize(Roles = "Seller,Customer")]
         [HttpGet]
         public async Task<IActionResult> Profile()
         {
             EditProfileViewModel model = new EditProfileViewModel();
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-
             model = _profileMapper.Map(currentUser);
-
             return View("Profile", model);
         }
+
         [Authorize(Roles = "Seller,Customer")]
         [HttpGet]
         public async Task<IActionResult> Edit()
@@ -161,35 +156,37 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
             return View("Edit", model);
         }
+
         [Authorize(Roles = "Seller,Customer")]
         [HttpPost]
         public async Task<IActionResult> Edit(EditProfileViewModel model)
         {
             if (ModelState.IsValid)
             {
-
                 var user = await _userManager.GetUserAsync(HttpContext.User);
                 if (model.Image != null)
                 {
                     user.Photo = await UploadFile.RetrieveFilePath(model.Image, _configuration);
                 }
+
                 user = _profileMapper.Map(model, user);
                 await _userManager.UpdateAsync(user);
 
                 return RedirectToAction("Profile", "Account");
-
             }
             else
             {
                 return View(model);
             }
         }
+
         [HttpGet]
         public async Task<IActionResult> ChangePassword()
         {
             ChangePasswordViewModel model = new ChangePasswordViewModel();
             return View(model);
         }
+
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
@@ -217,6 +214,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                     ModelState.AddModelError(string.Empty, "User is not found");
                 }
             }
+
             return View(model);
         }
     }

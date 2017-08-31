@@ -1,12 +1,7 @@
-﻿
-<div class="container">
+﻿<div class="container">
     <div class="row">
-        <!-- BEGIN PRODUCTS -->
-
         @foreach (var book in @Model.Books)
-        {
-
-            <div class="col-md-3 col-sm-6">
+        {<div class="col-md-3 col-sm-6">
                 <span class="thumbnail">
                     <img src="@book.ImageUrl" class="img-grid" alt="book cover">
                     <h4>@book.Name</h4>
@@ -20,11 +15,6 @@
                         </div>
                     </div>
                 </span>
-            </div>
-
-
-        }
-
-        <!-- END PRODUCTS -->
+            </div>}
     </div>
 </div>

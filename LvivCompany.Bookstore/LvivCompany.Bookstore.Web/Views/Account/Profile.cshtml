@@ -17,11 +17,8 @@
                 <a class=" btn btn-primary btn-block"  asp-controller="Account" asp-action="ChangePassword"> Change Password</a>
 
                 @if (User.IsInRole("Seller"))
-            {
-                    <a class=" btn btn-primary btn-block" asp-controller="Book" asp-action="AddBook">Add new book</a>
-                        <a class=" btn btn-primary btn-block" asp-controller="Home" asp-action="SellersBook">My Books</a>
-
-                }
+            {<a class=" btn btn-primary btn-block" asp-controller="Book" asp-action="AddBook">Add new book</a>
+                        <a class=" btn btn-primary btn-block" asp-controller="Home" asp-action="SellersBook">My Books</a>}
             </div>
 
 

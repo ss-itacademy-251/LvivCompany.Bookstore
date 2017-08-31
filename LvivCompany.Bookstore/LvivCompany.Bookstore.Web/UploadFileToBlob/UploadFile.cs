@@ -1,17 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using Microsoft.WindowsAzure.Storage;
+using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace LvivCompany.Bookstore.Web
 {
     public static class UploadFile
     {
         public const string defaultBookImage = @"https://lv251bookstore.blob.core.windows.net/images/0GZLLAU3RD.gif";
+
         private static async Task<string> UploadFileToBlob(IFormFile file, string fileName, IConfiguration configuration)
         {
             var test = configuration["ContainerCS"];
@@ -24,6 +25,7 @@ namespace LvivCompany.Bookstore.Web
             {
                 await blockBlob.UploadFromStreamAsync(fileStream);
             }
+
             return blockBlob.Uri.AbsoluteUri;
         }
 

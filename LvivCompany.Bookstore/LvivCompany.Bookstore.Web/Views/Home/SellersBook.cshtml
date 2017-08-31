@@ -7,9 +7,7 @@
     <div class="row">
 
         @foreach (var book in @Model.Books)
-            {
-
-            <div class="col-md-2 col-sm-2">
+            {<div class="col-md-2 col-sm-2">
                 <span class="thumbnail">
                     <img src="@book.ImageUrl" class="img-grid" alt="book cover">
                     <h4>@book.Name</h4>
@@ -25,10 +23,6 @@
                         </div>
                     </div>
                 </span>
-            </div>
-
-
-        }
-
+            </div>}
     </div>
 </div>

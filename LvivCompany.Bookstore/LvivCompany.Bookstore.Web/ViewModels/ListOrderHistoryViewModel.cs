@@ -7,6 +7,6 @@ namespace LvivCompany.Bookstore.Web.ViewModels
 {
     public class ListOrderHistoryViewModel
     {
-        public List<OrderHistoryViewModel> orders { get; set; }
+        public List<OrderHistoryViewModel> Orders { get; set; }
     }
 }

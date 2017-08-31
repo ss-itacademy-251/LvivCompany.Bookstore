@@ -1,4 +1,6 @@
-﻿using LvivCompany.Bookstore.DataAccess.Repo;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using LvivCompany.Bookstore.DataAccess.Repo;
 using LvivCompany.Bookstore.Entities;
 using LvivCompany.Bookstore.Web.Mapper;
 using LvivCompany.Bookstore.Web.ViewModels;
@@ -7,8 +9,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
@@ -46,6 +46,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             model.ImageUrl = UploadFile.defaultBookImage;
             return View("AddBook", model);
         }
+
         [Authorize(Roles = "Seller")]
         [HttpPost]
         public async Task<IActionResult> AddBook(BookViewModel model)
@@ -92,9 +93,11 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 {
                     book.ImageUrl = await UploadFile.RetrieveFilePath(model.Image, configuration);
                 }
+
                 await repoBook.UpdateAsync(book);
                 return RedirectToAction("SellersBook", "Home");
             }
+
             await PopulateCategoriesSelectList(model);
             return View(model);
         }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LvivCompany.Bookstore.Web.ViewModels
 {
     public class ChangePasswordViewModel
-    { 
+    {
         [Required]
         [DataType(DataType.Password)]
         public string NewPassword { get; set; }
@@ -21,6 +21,5 @@ namespace LvivCompany.Bookstore.Web.ViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         public string PasswordConfirm { get; set; }
-
     }
 }

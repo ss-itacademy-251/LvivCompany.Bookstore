@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -23,8 +23,6 @@ namespace LvivCompany.Bookstore.Web.ViewModels
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
-
-
         [Required]
         [RegularExpression("[0-9]{10}")]
         [Display(Name = "Phone Number")]
@@ -40,6 +38,5 @@ namespace LvivCompany.Bookstore.Web.ViewModels
 
         [Display(Name = "Address 2")]
         public string Address2 { get; set; }
-     
     }
 }

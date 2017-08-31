@@ -1,17 +1,18 @@
-﻿using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.Web.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LvivCompany.Bookstore.Entities;
+using LvivCompany.Bookstore.Web.ViewModels;
 
 namespace LvivCompany.Bookstore.Web.Mapper
 {
-    public class ProfileMapper:IMapper<User,EditProfileViewModel>
+    public class ProfileMapper : IMapper<User, EditProfileViewModel>
     {
         public ProfileMapper()
         {
         }
+
         public User Map(EditProfileViewModel model)
         {
             User tempUser = new User();
@@ -21,12 +22,12 @@ namespace LvivCompany.Bookstore.Web.Mapper
             tempUser.Address2 = model.Address2;
             tempUser.PhoneNumber = model.PhoneNumber;
             tempUser.Email = model.Email;
-            tempUser.UserName = model.Email;          
+            tempUser.UserName = model.Email;
             return tempUser;
         }
-        public User Map(EditProfileViewModel model,User tempUser)
+
+        public User Map(EditProfileViewModel model, User tempUser)
         {
-            
             tempUser.FirstName = model.FirstName;
             tempUser.LastName = model.LastName;
             tempUser.Address1 = model.Address1;
@@ -36,6 +37,7 @@ namespace LvivCompany.Bookstore.Web.Mapper
             tempUser.UserName = model.Email;
             return tempUser;
         }
+
         public EditProfileViewModel Map(User user)
         {
             EditProfileViewModel model = new EditProfileViewModel();
@@ -48,27 +50,27 @@ namespace LvivCompany.Bookstore.Web.Mapper
             model.Photo = user.Photo;
             return model;
         }
+
         public List<EditProfileViewModel> Map(List<User> entity)
         {
-
             List<EditProfileViewModel> models = new List<EditProfileViewModel>();
             foreach (var item in entity)
             {
                 models.Add(Map(item));
             }
-            return models;
 
+            return models;
         }
+
         public List<User> Map(List<EditProfileViewModel> entity)
         {
-
             List<User> models = new List<User>();
             foreach (var item in entity)
             {
                 models.Add(Map(item));
             }
-            return models;
 
+            return models;
         }
     }
 }
