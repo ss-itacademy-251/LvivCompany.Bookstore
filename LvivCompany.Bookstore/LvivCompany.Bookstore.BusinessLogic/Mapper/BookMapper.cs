@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.Web.ViewModels;
+using LvivCompany.Bookstore.BusinessLogic.ViewModels;
 
-namespace LvivCompany.Bookstore.Web.Mapper
+namespace LvivCompany.Bookstore.BusinessLogic.Mapper
 {
     public class BookMapper : IMapper<Book, BookViewModel>
     {

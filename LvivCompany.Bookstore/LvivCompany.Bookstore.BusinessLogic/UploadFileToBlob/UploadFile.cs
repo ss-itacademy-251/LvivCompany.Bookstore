@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
-namespace LvivCompany.Bookstore.Web
+namespace LvivCompany.Bookstore.BusinessLogic
 {
     public static class UploadFile
     {

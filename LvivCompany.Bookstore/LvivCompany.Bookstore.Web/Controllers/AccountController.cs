@@ -1,9 +1,8 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
+using LvivCompany.Bookstore.BusinessLogic.Mapper;
+using LvivCompany.Bookstore.BusinessLogic.ViewModels;
 using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.Web.Mapper;
-using LvivCompany.Bookstore.Web.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
