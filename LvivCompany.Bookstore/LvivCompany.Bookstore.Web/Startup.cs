@@ -1,4 +1,5 @@
 ﻿using System;
+using LvivCompany.Bookstore.BusinessLogic;
 using LvivCompany.Bookstore.BusinessLogic.Mapper;
 using LvivCompany.Bookstore.BusinessLogic.ViewModels;
 using LvivCompany.Bookstore.DataAccess;
@@ -67,7 +68,8 @@ namespace LvivCompany.Bookstore.Web
             services.AddSingleton(Configuration);
             services.AddTransient<IMapper<User, EditProfileViewModel>, ProfileMapper>();
             services.AddTransient<IMapper<User, RegisterViewModel>, RegisterMapper>();
-
+            services.AddScoped<BookServices>();
+            services.AddScoped<HomeServices>();
             var serviceProvider = services.BuildServiceProvider();
             var context = serviceProvider.GetService<BookStoreContext>();
             DbInitializer.Seed(context);
