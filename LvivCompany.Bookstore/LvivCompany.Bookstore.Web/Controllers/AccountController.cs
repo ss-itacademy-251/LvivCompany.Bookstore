@@ -15,11 +15,11 @@ namespace LvivCompany.Bookstore.Web.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private RoleManager<IdentityRole<long>> _roleManager;
+        private RoleManager<Role> _roleManager;
         private IMapper<User, EditProfileViewModel> _profileMapper;
         private IMapper<User, RegisterViewModel> _registerMapper;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole<long>> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<Role> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -54,7 +54,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    IdentityRole<long> approle = await _roleManager.FindByIdAsync(model.AppRoleId.ToString());
+                    Role approle = await _roleManager.FindByIdAsync(model.AppRoleId.ToString());
                     if (approle != null)
                     {
                         IdentityResult roleResult = await _userManager.AddToRoleAsync(user, approle.Name);
@@ -163,7 +163,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ChangePassword()
+        public IActionResult ChangePassword()
         {
             ChangePasswordViewModel model = new ChangePasswordViewModel();
             return View(model);
