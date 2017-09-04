@@ -70,6 +70,7 @@ namespace LvivCompany.Bookstore.Web
             services.AddTransient<IMapper<User, RegisterViewModel>, RegisterMapper>();
             services.AddScoped<BookServices>();
             services.AddScoped<HomeServices>();
+            services.AddScoped<SearchServices>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

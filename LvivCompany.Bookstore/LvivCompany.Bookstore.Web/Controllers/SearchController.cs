@@ -1,29 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LvivCompany.Bookstore.BusinessLogic.Mapper;
-using LvivCompany.Bookstore.BusinessLogic.ViewModels;
-using LvivCompany.Bookstore.DataAccess.Repo;
-using LvivCompany.Bookstore.Entities;
+﻿using System.Threading.Tasks;
+using LvivCompany.Bookstore.BusinessLogic;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
     public class SearchController : Controller
     {
-        private IRepo<Book> _bookRepo;
-        private IMapper<Book, BookViewModel> _bookmapper;
+        private SearchServices services;
 
-        public SearchController(IRepo<Book> bookRepo, IMapper<Book, BookViewModel> bookmapper)
+        public SearchController(SearchServices services)
         {
-            _bookRepo = bookRepo;
-            _bookmapper = bookmapper;
+            this.services = services;
         }
 
         public async Task<IActionResult> Index(string searchText)
         {
-            List<Book> books = (await _bookRepo.Get(x => x.Name.Contains(searchText))).ToList();
-            return View(new HomePageListViewModel() { Books = _bookmapper.Map(books) });
+            return View(await services.GetViewModelForHomePage(searchText));
         }
     }
 }
