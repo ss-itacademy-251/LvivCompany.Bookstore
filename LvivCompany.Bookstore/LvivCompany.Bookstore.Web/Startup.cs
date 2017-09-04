@@ -18,6 +18,7 @@ namespace LvivCompany.Bookstore.Web
     public class Startup
     {
         public IConfiguration Configuration { get; }
+
         public IHostingEnvironment Environment { get; }
 
         public Startup(IHostingEnvironment env)
@@ -35,7 +36,7 @@ namespace LvivCompany.Bookstore.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContexts(Environment, Configuration);
+            services.AddDbContexts(Configuration);
             services.AddIdentity<User, Role>(o =>
             {
                 o.Password.RequireNonAlphanumeric = false;
@@ -74,6 +75,7 @@ namespace LvivCompany.Bookstore.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
             app.UseStaticFiles();
 
             app.UseAuthentication();
