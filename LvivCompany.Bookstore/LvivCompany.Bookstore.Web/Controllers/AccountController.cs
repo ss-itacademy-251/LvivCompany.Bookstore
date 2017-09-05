@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using LvivCompany.Bookstore.Web.ViewModels;
 using LvivCompany.Bookstore.Entities;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.AspNetCore.Http;
 using LvivCompany.Bookstore.Web.Mapper;
+using LvivCompany.Bookstore.Web.ViewModels;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
@@ -28,7 +28,6 @@ namespace LvivCompany.Bookstore.Web.Controllers
             _registerMapper = registerMapper;
         }
 
-
         [HttpGet]
         public IActionResult Register()
         {
@@ -38,21 +37,20 @@ namespace LvivCompany.Bookstore.Web.Controllers
             {
                 Text = r.Name,
                 Value = r.Id.ToString()
-
             }).ToList();
             var itemToRemove = model.AppRoles.Single(r => r.Text == "Admin");
             model.AppRoles.Remove(itemToRemove);
 
             return View("Register", model);
         }
+
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-
             if (ModelState.IsValid)
             {
                 User user = _registerMapper.Map(model);
-             
+
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -62,34 +60,30 @@ namespace LvivCompany.Bookstore.Web.Controllers
                         IdentityResult roleResult = await _userManager.AddToRoleAsync(user, approle.Name);
                         if (roleResult.Succeeded)
                         {
-
                             await _signInManager.SignInAsync(user, false);
                             return RedirectToAction("Login", "Account");
                         }
                     }
-
                 }
                 else
                 {
-
                     foreach (var error in result.Errors)
                     {
-
                         ModelState.AddModelError(string.Empty, error.Description);
                     }
-
                 }
             }
+
             model.AppRoles = _roleManager.Roles.Select(r => new SelectListItem
             {
                 Text = r.Name,
                 Value = r.Id.ToString()
-
             }).ToList();
             var itemToRemove = model.AppRoles.Single(r => r.Text == "Admin");
             model.AppRoles.Remove(itemToRemove);
             return View("Register", model);
         }
+
         public IActionResult Login(string returnUrl = null)
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });
@@ -101,11 +95,9 @@ namespace LvivCompany.Bookstore.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result =
-                    await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
-
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
                         return Redirect(model.ReturnUrl);
@@ -120,6 +112,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                     ModelState.AddModelError("", "Email  or password is incorrect");
                 }
             }
+
             return View(model);
         }
 
@@ -127,20 +120,19 @@ namespace LvivCompany.Bookstore.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
         {
-
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
         [HttpGet]
         public async Task<IActionResult> Profile()
         {
             EditProfileViewModel model = new EditProfileViewModel();
             var currentUser = await _userManager.GetUserAsync(HttpContext.User);
-
             model = _profileMapper.Map(currentUser);
-
             return View("Profile", model);
         }
+
         [HttpGet]
         public async Task<IActionResult> Edit()
         {
@@ -151,6 +143,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
             return View("Edit", model);
         }
+
         [HttpPost]
         public async Task<IActionResult> Edit(EditProfileViewModel model)
         {
@@ -162,15 +155,49 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 await _userManager.UpdateAsync(user);
 
                 return RedirectToAction("Profile", "Account");
-
             }
             else
             {
                 return View(model);
             }
-
-
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ChangePassword()
+        {
+            ChangePasswordViewModel model = new ChangePasswordViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = await _userManager.GetUserAsync(HttpContext.User);
+                if (user != null)
+                {
+                        IdentityResult result =
+                                               await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                        if (result.Succeeded)
+                        {
+                            return RedirectToAction("Profile", "Account");
+                        }
+                        else
+                        {
+                            foreach (var error in result.Errors)
+                            {
+                                ModelState.AddModelError(string.Empty, error.Description);
+                            }
+                        }
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "User is not found");
+                }
+            }
+
+            return View(model);
+        }
     }
 }

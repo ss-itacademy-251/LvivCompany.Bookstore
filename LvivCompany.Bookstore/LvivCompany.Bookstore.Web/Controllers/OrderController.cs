@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.Web.ViewModels;
 using LvivCompany.Bookstore.DataAccess.Repo;
+using LvivCompany.Bookstore.Entities;
 using LvivCompany.Bookstore.Web.Mapper;
-using Microsoft.AspNetCore.Identity;
+using LvivCompany.Bookstore.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+
 using Newtonsoft.Json;
 
 namespace LvivCompany.Bookstore.Web.Controllers
@@ -73,7 +74,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             return listOrder;
         }
 
-        public async Task<IActionResult> RemoveFromOrder(long id)
+        public IActionResult RemoveFromOrder(long id)
         {
             List<OrderViewModel> list = new List<OrderViewModel>();
             if (HttpContext.Session.GetString("order") != null)

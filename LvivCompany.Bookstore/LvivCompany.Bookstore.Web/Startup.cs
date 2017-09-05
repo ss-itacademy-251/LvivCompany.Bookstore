@@ -1,16 +1,17 @@
-﻿using LvivCompany.Bookstore.DataAccess;
+﻿using System;
+using System.Linq;
+using LvivCompany.Bookstore.DataAccess;
 using LvivCompany.Bookstore.DataAccess.Repo;
 using LvivCompany.Bookstore.Entities;
 using LvivCompany.Bookstore.Web.Mapper;
 using LvivCompany.Bookstore.Web.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using System;
-using Microsoft.AspNetCore.Identity;
 
 namespace LvivCompany.Bookstore.Web
 {
@@ -39,7 +40,6 @@ namespace LvivCompany.Bookstore.Web
         {
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionToIdentityDb")));
-
 
             services.AddIdentity<User, IdentityRole<long>>(o =>
             {
@@ -93,10 +93,10 @@ namespace LvivCompany.Bookstore.Web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
             app.UseStaticFiles();
 
             app.UseAuthentication();
-            IdentityDbInitializer.Initialize(app.ApplicationServices, Configuration);
 
             app.UseSession();
             app.UseMvc(routes =>

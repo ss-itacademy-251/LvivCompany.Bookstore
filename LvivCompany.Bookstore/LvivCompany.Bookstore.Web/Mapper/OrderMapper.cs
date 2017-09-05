@@ -1,8 +1,8 @@
-﻿using LvivCompany.Bookstore.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LvivCompany.Bookstore.Entities;
 using LvivCompany.Bookstore.Web.ViewModels;
 
 namespace LvivCompany.Bookstore.Web.Mapper
@@ -40,6 +40,7 @@ namespace LvivCompany.Bookstore.Web.Mapper
             {
                 model.Add(Map(item));
             }
+
             return model;
         }
 
