@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace LvivCompany.Bookstore.Entities.Migrations
+namespace LvivCompany.Bookstore.DataAccess.Migrations.Application
 {
     public partial class initial : Migration
     {

@@ -1,10 +1,9 @@
-﻿using System;
-using System.Linq;
+﻿using LvivCompany.Bookstore.BusinessLogic;
+using LvivCompany.Bookstore.BusinessLogic.Mapper;
+using LvivCompany.Bookstore.BusinessLogic.ViewModels;
 using LvivCompany.Bookstore.DataAccess;
 using LvivCompany.Bookstore.DataAccess.Repo;
 using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.Web.Mapper;
-using LvivCompany.Bookstore.Web.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -68,6 +67,9 @@ namespace LvivCompany.Bookstore.Web
             services.AddSingleton(Configuration);
             services.AddTransient<IMapper<User, EditProfileViewModel>, ProfileMapper>();
             services.AddTransient<IMapper<User, RegisterViewModel>, RegisterMapper>();
+            services.AddScoped<BookServices>();
+            services.AddScoped<HomeServices>();
+            services.AddScoped<SearchServices>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

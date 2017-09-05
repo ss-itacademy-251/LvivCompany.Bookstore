@@ -1,48 +1,33 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using LvivCompany.Bookstore.DataAccess.Repo;
+﻿using System.Threading.Tasks;
+using LvivCompany.Bookstore.BusinessLogic;
+using LvivCompany.Bookstore.BusinessLogic.ViewModels;
 using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.Web.Mapper;
-using LvivCompany.Bookstore.Web.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Configuration;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
     public class BookController : Controller
     {
-        private IRepo<Book> repoBook;
-        private IRepo<Category> repoCategory;
-        private IMapper<Book, BookViewModel> bookmapper;
-        private IMapper<Book, EditBookViewModel> editBookMapper;
         private UserManager<User> userManager;
-        private IConfiguration configuration;
+        private BookServices services;
 
-        public BookController(IRepo<Book> repoBook, IRepo<Category> repoCategory, IMapper<Book, BookViewModel> bookmapper, IMapper<Book, EditBookViewModel> editBookMapper, IConfiguration configuration, UserManager<User> userManager)
+        public BookController(UserManager<User> userManager, BookServices services)
         {
-            this.repoBook = repoBook;
-            this.repoCategory = repoCategory;
-            this.bookmapper = bookmapper;
-            this.editBookMapper = editBookMapper;
             this.userManager = userManager;
-            this.configuration = configuration;
+            this.services = services;
         }
 
         public async Task<IActionResult> BookPage(long id)
         {
-            var book = await repoBook.GetAsync(id);
-            return View("BookPage", bookmapper.Map(book));
+            return View("BookPage", await services.GetViewModelForBookPageAsync(id));
         }
 
         [HttpGet]
         public async Task<IActionResult> AddBook()
         {
             BookViewModel model = new BookViewModel();
-            await PopulateCategoriesSelectList(model);
-            model.ImageUrl = UploadFile.defaultBookImage;
-            return View("AddBook", model);
+            return View("AddBook", await services.GetViewModelForAddBookPageAsync(model));
         }
 
         [HttpPost]
@@ -50,33 +35,17 @@ namespace LvivCompany.Bookstore.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Book book = bookmapper.Map(model);
-                book.SellerId = (await userManager.GetUserAsync(HttpContext.User)).Id;
-                if (model.Image != null)
-                {
-                    book.ImageUrl = await UploadFile.RetrieveFilePath(model.Image, configuration);
-                }
-                else
-                {
-                    book.ImageUrl = UploadFile.defaultBookImage;
-                }
-
-                await repoBook.CreateAsync(book);
+                await services.AddBookAsync(model, (await userManager.GetUserAsync(HttpContext.User)).Id);
                 return RedirectToAction("Index", "Home");
             }
 
-            model.ImageUrl = UploadFile.defaultBookImage;
-            await PopulateCategoriesSelectList(model);
-            return View(model);
+            return View(await services.GetViewModelForAddBookPageAsync(model));
         }
 
         [HttpGet]
         public async Task<IActionResult> EditBook(long id)
         {
-            Book book = await repoBook.GetAsync(id);
-            var model = editBookMapper.Map(book);
-            await PopulateCategoriesSelectList(model);
-            return View("EditBook", model);
+            return View("EditBook", await services.GetViewModelForEditBookPageAsync(id));
         }
 
         [HttpPost]
@@ -84,29 +53,12 @@ namespace LvivCompany.Bookstore.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                Book book = await repoBook.GetAsync(id);
-                book = editBookMapper.Map(model, book);
-                if (model.Image != null)
-                {
-                    book.ImageUrl = await UploadFile.RetrieveFilePath(model.Image, configuration);
-                }
-
-                await repoBook.UpdateAsync(book);
+                await services.EditBookAsync(id, model);
                 return RedirectToAction("Index", "Home");
             }
 
-            await PopulateCategoriesSelectList(model);
+            await services.PopulateCategoriesSelectListAsync(model);
             return View(model);
-        }
-
-        private async Task PopulateCategoriesSelectList(EditBookViewModel model)
-        {
-            var categoryList = await repoCategory.GetAllAsync();
-            model.Categories = categoryList.Select(c => new SelectListItem
-            {
-                Text = c.Name,
-                Value = c.Id.ToString()
-            }).ToList();
         }
     }
 }

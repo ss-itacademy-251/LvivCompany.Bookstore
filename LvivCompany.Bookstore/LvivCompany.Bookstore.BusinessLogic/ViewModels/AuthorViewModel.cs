@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace LvivCompany.Bookstore.Web.ViewModels
+namespace LvivCompany.Bookstore.BusinessLogic.ViewModels
 {
     public class AuthorViewModel
     {

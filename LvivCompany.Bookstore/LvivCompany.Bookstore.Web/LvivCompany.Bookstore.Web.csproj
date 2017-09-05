@@ -27,8 +27,10 @@
     <None Include="Views\Shared\_Layout.cshtml" />
     </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LvivCompany.Bookstore.BusinessLogic\LvivCompany.Bookstore.BusinessLogic.csproj" />
     <ProjectReference Include="..\LvivCompany.Bookstore.Entities\LvivCompany.Bookstore.Entities.csproj" />
     <ProjectReference Include="..\LvivCompany.Bookstore.DataAccess\LvivCompany.Bookstore.DataAccess.csproj" />
     <ProjectReference Include="..\LvivCompany.Bookstore.Entities\LvivCompany.Bookstore.Entities.csproj" />
   </ItemGroup>
+  <ProjectExtensions><VisualStudio><UserProperties bundleconfig_1json__JSONSchema="" /></VisualStudio></ProjectExtensions>
 </Project>
