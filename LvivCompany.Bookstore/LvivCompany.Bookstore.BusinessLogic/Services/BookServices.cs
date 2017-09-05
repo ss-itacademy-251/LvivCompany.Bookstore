@@ -35,7 +35,7 @@ namespace LvivCompany.Bookstore.BusinessLogic
         public async Task<BookViewModel> GetViewModelForAddBookPageAsync(BookViewModel model)
         {
             await PopulateCategoriesSelectListAsync(model);
-            model.ImageUrl = UploadFile.defaultBookImage;
+            model.ImageUrl = UploadFile.DefaultBookImage;
             return model;
         }
 
@@ -45,11 +45,11 @@ namespace LvivCompany.Bookstore.BusinessLogic
                 book.SellerId = sellerId;
                 if (model.Image != null)
                 {
-                    book.ImageUrl = await UploadFile.RetrieveFilePath(model.Image, configuration);
+                    book.ImageUrl = await new UploadFile().RetrieveFilePath(model.Image, configuration);
                 }
                 else
                 {
-                    book.ImageUrl = UploadFile.defaultBookImage;
+                    book.ImageUrl = UploadFile.DefaultBookImage;
                 }
 
                 await repoBook.CreateAsync(book);
@@ -69,7 +69,7 @@ namespace LvivCompany.Bookstore.BusinessLogic
                 book = editBookMapper.Map(model, book);
                 if (model.Image != null)
                 {
-                    book.ImageUrl = await UploadFile.RetrieveFilePath(model.Image, configuration);
+                    book.ImageUrl = await new UploadFile().RetrieveFilePath(model.Image, configuration);
                 }
 
                 await repoBook.UpdateAsync(book);
