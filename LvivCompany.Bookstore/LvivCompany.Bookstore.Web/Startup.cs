@@ -1,14 +1,10 @@
-﻿using System;
-using System.Linq;
-using LvivCompany.Bookstore.DataAccess;
-using LvivCompany.Bookstore.DataAccess.Repo;
+﻿using LvivCompany.Bookstore.DataAccess.Repo;
 using LvivCompany.Bookstore.Entities;
 using LvivCompany.Bookstore.Web.Mapper;
 using LvivCompany.Bookstore.Web.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -31,7 +27,6 @@ namespace LvivCompany.Bookstore.Web
             var config = builder.Build();
             builder.AddAzureKeyVaults(env, config);
             Configuration = builder.Build();
-            Environment = env;
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -57,7 +52,6 @@ namespace LvivCompany.Bookstore.Web
             services.AddScoped<IMapper<Book, BookViewModel>, BookMapper>();
             services.AddScoped<IMapper<Book, EditBookViewModel>, EditBookMapper>();
             services.AddSingleton(Configuration);
-            services.AddSingleton(Environment);
             services.AddScoped<IMapper<User, EditProfileViewModel>, ProfileMapper>();
             services.AddScoped<IMapper<User, RegisterViewModel>, RegisterMapper>();
         }
