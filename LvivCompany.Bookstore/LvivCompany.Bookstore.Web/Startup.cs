@@ -36,12 +36,12 @@ namespace LvivCompany.Bookstore.Web
             Configuration = builder.Build();
         }
 
-        public IServiceProvider ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionToIdentityDb")));
 
-            services.AddIdentity<User, IdentityRole<long>>(o =>
+            services.AddIdentity<User, Role>(o =>
             {
                 o.Password.RequireNonAlphanumeric = false;
                 o.Password.RequiredLength = 6;
@@ -50,7 +50,7 @@ namespace LvivCompany.Bookstore.Web
                .AddEntityFrameworkStores<ApplicationContext>()
                .AddDefaultTokenProviders();
 
-            services.AddScoped<RoleManager<IdentityRole<long>>, RoleManager<IdentityRole<long>>>();
+            services.AddScoped<RoleManager<Role>>();
 
             services.AddMvc();
 
@@ -72,11 +72,6 @@ namespace LvivCompany.Bookstore.Web
             services.AddTransient<IMapper<User, EditProfileViewModel>, ProfileMapper>();
             services.AddTransient<IMapper<User, RegisterViewModel>, RegisterMapper>();
             services.AddTransient<IMapper<OrderDetail, OrderViewModel>, OrderMapper>();
-
-            var serviceProvider = services.BuildServiceProvider();
-            var context = serviceProvider.GetService<BookStoreContext>();
-            DbInitializer.Seed(context);
-            return serviceProvider;
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
