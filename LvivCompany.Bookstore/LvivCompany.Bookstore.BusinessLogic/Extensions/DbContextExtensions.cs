@@ -1,10 +1,9 @@
 ﻿using LvivCompany.Bookstore.DataAccess;
-using LvivCompany.Bookstore.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace LvivCompany.Bookstore.Web
+namespace LvivCompany.Bookstore.BusinessLogic
 {
     public static class DbContextExtensions
     {
