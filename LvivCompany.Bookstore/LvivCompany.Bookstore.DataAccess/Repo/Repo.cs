@@ -60,16 +60,16 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
 
         public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter)
         {
-            return  context
+            return context
                 .Set<TEntity>()
                 .Where(filter);
         }
-    }
-public virtual async Task<IEnumerable<TEntity>> GetPageAsync(Expression<Func<TEntity, bool>> filter, int countOfPage, int page)
+        public virtual async Task<IEnumerable<TEntity>> GetPageAsync(Expression<Func<TEntity, bool>> filter, int countOfPage, int page)
         {
             IQueryable<TEntity> query = context.Set<TEntity>();
-            query = query.Where(filter).Skip<TEntity>((page-1)*countOfPage).Take<TEntity>(countOfPage);
+            query = query.Where(filter).Skip<TEntity>((page - 1) * countOfPage).Take<TEntity>(countOfPage);
             return await query.ToListAsync();
 
         }
+    }
 }

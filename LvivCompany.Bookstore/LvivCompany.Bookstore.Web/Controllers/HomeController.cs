@@ -1,5 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using LvivCompany.Bookstore.BusinessLogic;
+using LvivCompany.Bookstore.BusinessLogic.Mapper;
+using LvivCompany.Bookstore.BusinessLogic.ViewModels;
+using LvivCompany.Bookstore.DataAccess.Repo;
 using LvivCompany.Bookstore.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,10 +20,12 @@ namespace LvivCompany.Bookstore.Web.Controllers
         private HomeServices services;
         private UserManager<User> _userManager;
 
-        public HomeController(HomeServices services, UserManager<User> userManager)
+        public HomeController(HomeServices services, UserManager<User> userManager, IRepo<Book> bookRepo, IMapper<Book, BookViewModel> bookmapper)
         {
             this.services = services;
             _userManager = userManager;
+            _bookmapper = bookmapper;
+            _bookRepo = bookRepo;
         }
 
         [HttpGet]
@@ -31,13 +38,12 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
             List<Book> book = (await _bookRepo.GetPageAsync(x => x.Id > 0, CountOfBook, page)).ToList();
 
-            if (book.Count < CountOfBook)
+            if (book.Count < CountOfBook - 1)
             {
                 return View(model: new HomePageListViewModel() { Books = _bookmapper.Map(book), PageNumber = page, ExistNext = false });
             }
 
             return View(model: new HomePageListViewModel() { Books = _bookmapper.Map(book), PageNumber = page, ExistNext = true });
-            return View(await services.GetViewModelForHomePage());
         }
 
         [Authorize(Roles = "Seller")]
