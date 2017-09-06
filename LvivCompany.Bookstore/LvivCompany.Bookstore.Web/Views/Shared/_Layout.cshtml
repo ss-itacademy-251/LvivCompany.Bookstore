@@ -39,7 +39,7 @@
 
                     <li>
                         <form asp-controller="Search" asp-action="Index">
-                            <input class="search-input" name="SearchText" /> <input type="submit" value="Search" />
+                            <input class="search-input" asp- name="SearchText" /> <input type="submit" value="Search" />
                         </form>
                     </li>
                     <li class="part-log-view"> <form class="form-inline" asp-controller="Account" asp-action="LogOff" method="post">@await Html.PartialAsync("_PartialLogin") </form></li>

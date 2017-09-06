@@ -1,7 +1,7 @@
 @model HomePageListViewModel
 
 <div asp-controller="Home" asp-action="Index">
-    @Html.Partial("BookList")
+    @Html.Partial("_BookList")
 </div>
 
 <ul class="pager">
@@ -14,12 +14,7 @@
     <li class="next">
         @if (Model.ExistNext == true)
         {
-              <a  asp-controller="Home" asp-action="Index" asp-route-page="@(Model.PageNumber+1)">Next>></a>
+              <a  asp-controller="Home" asp-action="Index" asp-route-page="@(Model.PageNumber+1)">Next >></a>
         }
     </li>
-   
 </ul>
-
-
-
-

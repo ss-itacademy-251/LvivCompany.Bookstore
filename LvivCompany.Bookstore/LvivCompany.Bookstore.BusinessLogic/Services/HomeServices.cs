@@ -2,8 +2,10 @@
 using LvivCompany.Bookstore.BusinessLogic.ViewModels;
 using LvivCompany.Bookstore.DataAccess.Repo;
 using LvivCompany.Bookstore.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace LvivCompany.Bookstore.BusinessLogic
@@ -19,26 +21,14 @@ namespace LvivCompany.Bookstore.BusinessLogic
             _bookmapper = bookmapper;
         }
 
-        public async Task<HomePageListViewModel> GetViewModelForHomePage()
-        {
-            List<Book> book = (await _bookRepo.GetAllAsync()).ToList();
-            return new HomePageListViewModel() { Books = _bookmapper.Map(book) };
-        }
-
-        public HomePageListViewModel GetSellersBook(long userId)
-        {
-            var currentUserId = userId;
-            List<Book> book = _bookRepo.Get(x => x.SellerId == currentUserId).ToList();
-            return new HomePageListViewModel() { Books = _bookmapper.Map(book) };
-        }
-        public async Task<HomePageListViewModel> GetBooksPageAsync(int page ,int CountOfBook)
+        public async Task<HomePageListViewModel> GetBooksPageAsync(int page, int CountOfBook, Expression<Func<Book, bool>> filter)
         {
             if (page == 0)
             {
                 page = 1;
             }
 
-            List<Book> book = (await _bookRepo.GetPageAsync(x => x.Id > 0, CountOfBook, page)).ToList();
+            List<Book> book = (await _bookRepo.GetPageAsync(filter, CountOfBook, page)).ToList();
 
             if (book.Count < CountOfBook - 1)
             {

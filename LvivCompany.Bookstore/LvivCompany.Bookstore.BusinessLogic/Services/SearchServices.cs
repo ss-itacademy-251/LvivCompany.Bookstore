@@ -4,7 +4,6 @@ using LvivCompany.Bookstore.DataAccess.Repo;
 using LvivCompany.Bookstore.Entities;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace LvivCompany.Bookstore.BusinessLogic
 {

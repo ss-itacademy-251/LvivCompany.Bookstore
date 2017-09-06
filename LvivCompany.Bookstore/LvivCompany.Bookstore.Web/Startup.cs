@@ -17,8 +17,6 @@ namespace LvivCompany.Bookstore.Web
     {
         public IConfiguration Configuration { get; }
 
-        public IHostingEnvironment Environment { get; }
-
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
