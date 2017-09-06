@@ -1,41 +1,34 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
     <AssetTargetFallback>%3bnet461%3bportable-net45+win8</AssetTargetFallback>
+    <CodeAnalysisRuleSet>stylecop.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="Data\**" />
-    <Compile Remove="Models\**" />
-    <Content Remove="Data\**" />
-    <Content Remove="Models\**" />
-    <EmbeddedResource Remove="Data\**" />
     <EmbeddedResource Remove="Models\**" />
     <None Remove="Data\**" />
     <None Remove="Models\**" />
   </ItemGroup>
- 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0-preview2-final" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.0-preview2-25405-01" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="2.0.0-preview2-final" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.4.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="2.0.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta004" PrivateAssets="All" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="wwwroot\js\" />
   </ItemGroup>
-
-
-  <ItemGroup>    
+  <ItemGroup>
     <None Include="Views\Shared\_Layout.cshtml" />
-  </ItemGroup>
-
+    </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\LvivCompany.Bookstore.Entities\LvivCompany.Bookstore.Entities.csproj" />
     <ProjectReference Include="..\LvivCompany.Bookstore.DataAccess\LvivCompany.Bookstore.DataAccess.csproj" />
     <ProjectReference Include="..\LvivCompany.Bookstore.Entities\LvivCompany.Bookstore.Entities.csproj" />
   </ItemGroup>
-
 </Project>

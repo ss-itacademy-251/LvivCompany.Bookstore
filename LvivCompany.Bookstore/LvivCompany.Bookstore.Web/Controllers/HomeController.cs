@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.DataAccess.Repo;
-using LvivCompany.Bookstore.DataAccess;
-using System.Threading.Tasks;
-using LvivCompany.Bookstore.Web.ViewModels;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Collections.Generic;
+using System.Threading.Tasks;
+using LvivCompany.Bookstore.DataAccess;
+using LvivCompany.Bookstore.DataAccess.Repo;
+using LvivCompany.Bookstore.Entities;
 using LvivCompany.Bookstore.Web.Mapper;
+using LvivCompany.Bookstore.Web.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
@@ -20,6 +20,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             _bookRepo = bookRepo;
             _bookmapper = bookmapper;
         }
+
         [HttpGet]
         public async Task<IActionResult> Index(int page )
         {
@@ -36,6 +37,5 @@ namespace LvivCompany.Bookstore.Web.Controllers
             }
             return View(model: new HomePageListViewModel() { Books = _bookmapper.Map(book), PageNumber = page, ExistNext = true});
         }
-
     }
 }

@@ -8,7 +8,6 @@ using LvivCompany.Bookstore.Web.Mapper;
 using LvivCompany.Bookstore.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
-
 namespace LvivCompany.Bookstore.Web.Controllers
 {
     public class SearchController : Controller
@@ -22,9 +21,9 @@ namespace LvivCompany.Bookstore.Web.Controllers
             _bookmapper = bookmapper;
         }
 
-        public async Task<IActionResult> Index(string SearchText)
+        public async Task<IActionResult> Index(string searchText)
         {
-            List<Book> books = (await (_bookRepo.Get(x => x.Name.Contains(SearchText)))).ToList();
+            List<Book> books = (await _bookRepo.Get(x => x.Name.Contains(searchText))).ToList();
             return View(new HomePageListViewModel() { Books = _bookmapper.Map(books) });
         }
     }
