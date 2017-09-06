@@ -19,9 +19,9 @@ namespace LvivCompany.Bookstore.BusinessLogic
             _bookmapper = bookmapper;
         }
 
-        public async Task<HomePageListViewModel> GetViewModelForHomePage(string searchText)
+        public HomePageListViewModel GetViewModelForHomePage(string searchText)
         {
-            List<Book> books = (await _bookRepo.Get(x => x.Name.Contains(searchText))).ToList();
+            List<Book> books = (_bookRepo.Get(x => x.Name.Contains(searchText))).ToList();
             return new HomePageListViewModel() { Books = _bookmapper.Map(books) };
         }
     }

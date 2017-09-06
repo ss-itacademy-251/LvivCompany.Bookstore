@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LvivCompany.Bookstore.Web.ViewModels
+namespace LvivCompany.Bookstore.BusinessLogic.ViewModels
 {
     public class OrderHistoryViewModel
     {

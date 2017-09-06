@@ -1,19 +1,14 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using LvivCompany.Bookstore.BusinessLogic;
 using LvivCompany.Bookstore.BusinessLogic.Mapper;
 using LvivCompany.Bookstore.BusinessLogic.ViewModels;
 using LvivCompany.Bookstore.Entities;
-<<<<<<< HEAD
-=======
-using LvivCompany.Bookstore.Web.Mapper;
-using LvivCompany.Bookstore.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
->>>>>>> feature/UsersOfice
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
 using Microsoft.Extensions.Configuration;
 
 namespace LvivCompany.Bookstore.Web.Controllers
@@ -28,7 +23,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
         private IMapper<User, RegisterViewModel> _registerMapper;
         private IConfiguration _configuration;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole<long>> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper, IConfiguration configuration)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<Role> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper, IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -62,7 +57,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             if (ModelState.IsValid)
             {
                 User user = _registerMapper.Map(model);
-
+                user.Photo = new PathsToDefaultImages(_configuration).DefaultProfileImage;
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -170,7 +165,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 var user = await _userManager.GetUserAsync(HttpContext.User);
                 if (model.Image != null)
                 {
-                    user.Photo = await UploadFile.RetrieveFilePath(model.Image, _configuration);
+                    user.Photo = await new UploadFile().RetrieveFilePath(model.Image, _configuration);
                 }
 
                 user = _profileMapper.Map(model, user);
@@ -199,19 +194,19 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 User user = await _userManager.GetUserAsync(HttpContext.User);
                 if (user != null)
                 {
-                        IdentityResult result =
-                                               await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
-                        if (result.Succeeded)
+                    IdentityResult result =
+                                           await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                    if (result.Succeeded)
+                    {
+                        return RedirectToAction("Profile", "Account");
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
                         {
-                            return RedirectToAction("Profile", "Account");
+                            ModelState.AddModelError(string.Empty, error.Description);
                         }
-                        else
-                        {
-                            foreach (var error in result.Errors)
-                            {
-                                ModelState.AddModelError(string.Empty, error.Description);
-                            }
-                        }
+                    }
                 }
                 else
                 {

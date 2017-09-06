@@ -35,7 +35,7 @@ namespace LvivCompany.Bookstore.BusinessLogic
         public async Task<BookViewModel> GetViewModelForAddBookPageAsync(BookViewModel model)
         {
             await PopulateCategoriesSelectListAsync(model);
-            model.ImageUrl = UploadFile.DefaultBookImage;
+            model.ImageUrl = new PathsToDefaultImages(configuration).DefaultBookImage;
             return model;
         }
 
@@ -49,7 +49,7 @@ namespace LvivCompany.Bookstore.BusinessLogic
                 }
                 else
                 {
-                    book.ImageUrl = UploadFile.DefaultBookImage;
+                    book.ImageUrl = new PathsToDefaultImages(configuration).DefaultBookImage;
                 }
 
                 await repoBook.CreateAsync(book);

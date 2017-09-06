@@ -58,7 +58,6 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
             return SaveAsync();
         }
 
-
         public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter)
         {
             return  context

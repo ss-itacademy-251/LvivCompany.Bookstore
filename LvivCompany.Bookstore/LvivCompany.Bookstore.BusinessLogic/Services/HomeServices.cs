@@ -24,5 +24,12 @@ namespace LvivCompany.Bookstore.BusinessLogic
             List<Book> book = (await _bookRepo.GetAllAsync()).ToList();
             return new HomePageListViewModel() { Books = _bookmapper.Map(book) };
         }
+
+        public HomePageListViewModel GetSellersBook(long userId)
+        {
+            var currentUserId = userId;
+            List<Book> book = _bookRepo.Get(x => x.SellerId == currentUserId).ToList();
+            return new HomePageListViewModel() { Books = _bookmapper.Map(book) };
+        }
     }
 }

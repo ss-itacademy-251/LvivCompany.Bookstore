@@ -33,10 +33,8 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
               .FirstOrDefaultAsync(x => x.Id == id);
         }
 
-        public override  IEnumerable<Book> Get(Expression<Func<Book, bool>> filter)
+        public override IEnumerable<Book> Get(Expression<Func<Book, bool>> filter)
         {
-           
-        
             return context.Set<Book>()
                 .Where(filter)
                 .Include(x => x.Publisher)
@@ -44,6 +42,5 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
                 .Include(x => x.BookAuthors)
                 .ThenInclude(x => x.Author);
         }
-
     }
 }

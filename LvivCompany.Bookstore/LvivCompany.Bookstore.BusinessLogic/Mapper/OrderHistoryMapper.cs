@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.Web.ViewModels;
+using LvivCompany.Bookstore.BusinessLogic.ViewModels;
 using Microsoft.AspNetCore.Identity;
 
-namespace LvivCompany.Bookstore.Web.Mapper
+namespace LvivCompany.Bookstore.BusinessLogic.Mapper
 {
     public class OrderHistoryMapper : IMapper<OrderDetail, OrderHistoryViewModel>
     {

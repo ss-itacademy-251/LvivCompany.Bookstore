@@ -13,9 +13,9 @@ namespace LvivCompany.Bookstore.Web.Controllers
             this.services = services;
         }
 
-        public async Task<IActionResult> Index(string searchText)
+        public IActionResult Index(string searchText)
         {
-            return View(await services.GetViewModelForHomePage(searchText));
+            return View(services.GetViewModelForHomePage(searchText));
         }
     }
 }
