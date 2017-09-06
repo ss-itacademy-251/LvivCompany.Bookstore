@@ -1,14 +1,10 @@
-﻿using System;
-using System.Linq;
-using LvivCompany.Bookstore.DataAccess;
-using LvivCompany.Bookstore.DataAccess.Repo;
+﻿using LvivCompany.Bookstore.DataAccess.Repo;
 using LvivCompany.Bookstore.Entities;
 using LvivCompany.Bookstore.Web.Mapper;
 using LvivCompany.Bookstore.Web.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -19,6 +15,8 @@ namespace LvivCompany.Bookstore.Web
     {
         public IConfiguration Configuration { get; }
 
+        public IHostingEnvironment Environment { get; }
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -27,19 +25,13 @@ namespace LvivCompany.Bookstore.Web
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             var config = builder.Build();
-            builder.AddAzureKeyVault(
-            $"https://{config["azureKeyVault:vault"]}.vault.azure.net/",
-            config["azureKeyVault:clientId"],
-            config["azureKeyVault:clientSecret"]);
-
+            builder.AddAzureKeyVaults(env, config);
             Configuration = builder.Build();
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionToIdentityDb")));
-
+            services.AddDbContexts(Configuration);
             services.AddIdentity<User, Role>(o =>
             {
                 o.Password.RequireNonAlphanumeric = false;
@@ -48,33 +40,26 @@ namespace LvivCompany.Bookstore.Web
             })
                .AddEntityFrameworkStores<ApplicationContext>()
                .AddDefaultTokenProviders();
-
             services.AddScoped<RoleManager<Role>>();
-
             services.AddMvc();
-
-            services.AddDbContext<BookStoreContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnectionToDb")));
-
-            services.AddTransient<IRepo<Book>, BookRepository>();
-            services.AddTransient<IRepo<Author>, AuthorRepository>();
-            services.AddTransient<IRepo<Category>, CategoryRepository>();
-            services.AddTransient<IRepo<Order>, OrderRepository>();
-            services.AddTransient<IRepo<OrderDetail>, OrderDetailRepository>();
-            services.AddTransient<IRepo<Publisher>, PublisherRepository>();
-            services.AddTransient<IRepo<Status>, StatusRepository>();
-
-            services.AddTransient<IMapper<Book, BookViewModel>, BookMapper>();
-            services.AddTransient<IMapper<Book, EditBookViewModel>, EditBookMapper>();
+            services.AddScoped<IRepo<Book>, BookRepository>();
+            services.AddScoped<IRepo<Author>, AuthorRepository>();
+            services.AddScoped<IRepo<Category>, CategoryRepository>();
+            services.AddScoped<IRepo<Order>, OrderRepository>();
+            services.AddScoped<IRepo<OrderDetail>, OrderDetailRepository>();
+            services.AddScoped<IRepo<Publisher>, PublisherRepository>();
+            services.AddScoped<IRepo<Status>, StatusRepository>();
+            services.AddScoped<IMapper<Book, BookViewModel>, BookMapper>();
+            services.AddScoped<IMapper<Book, EditBookViewModel>, EditBookMapper>();
             services.AddSingleton(Configuration);
-            services.AddTransient<IMapper<User, EditProfileViewModel>, ProfileMapper>();
-            services.AddTransient<IMapper<User, RegisterViewModel>, RegisterMapper>();
+            services.AddScoped<IMapper<User, EditProfileViewModel>, ProfileMapper>();
+            services.AddScoped<IMapper<User, RegisterViewModel>, RegisterMapper>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -88,7 +73,6 @@ namespace LvivCompany.Bookstore.Web
             app.UseStaticFiles();
 
             app.UseAuthentication();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
