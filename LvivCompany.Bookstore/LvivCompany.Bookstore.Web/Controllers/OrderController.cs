@@ -6,15 +6,9 @@ using LvivCompany.Bookstore.BusinessLogic.ViewModels;
 using LvivCompany.Bookstore.DataAccess.Repo;
 using LvivCompany.Bookstore.Entities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.Web.ViewModels;
-using LvivCompany.Bookstore.DataAccess.Repo;
-using LvivCompany.Bookstore.Web.Mapper;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
 namespace LvivCompany.Bookstore.Web.Controllers
@@ -28,7 +22,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
         private IRepo<Book> _bookRepo;
         private UserManager<User> _userManager;
 
-        public OrderController(IRepo<OrderDetail> orderDetailsRepo, IMapper<OrderDetail, OrderViewModel> _ordermapper, IMapper<OrderDetail, OrderHistoryViewModel> orderDetailsmapper, UserManager<User> userManager, IRepo<Book> bookRepo)
+        public OrderController(IRepo<OrderDetail> orderDetailsRepo, IMapper<OrderDetail, OrderViewModel> ordermapper, IMapper<OrderDetail, OrderHistoryViewModel> orderDetailsmapper, UserManager<User> userManager, IRepo<Book> bookRepo)
         {
             _orderDetailsRepo = orderDetailsRepo;
             _orderDetailmapper = orderDetailsmapper;

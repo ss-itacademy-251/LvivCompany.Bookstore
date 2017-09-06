@@ -1,11 +1,9 @@
 ﻿using LvivCompany.Bookstore.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LvivCompany.Bookstore.Web.ViewModels;
+using LvivCompany.Bookstore.BusinessLogic.ViewModels;
 
-namespace LvivCompany.Bookstore.Web.Mapper
+namespace LvivCompany.Bookstore.BusinessLogic.Mapper
 {
     public class OrderMapper : IMapper<OrderDetail, OrderViewModel>
     {
