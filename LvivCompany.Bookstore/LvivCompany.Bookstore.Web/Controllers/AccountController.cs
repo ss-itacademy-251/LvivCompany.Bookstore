@@ -19,7 +19,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
-        private RoleManager<IdentityRole<long>> _roleManager;
+        private RoleManager<Role> _roleManager;
         private IMapper<User, EditProfileViewModel> _profileMapper;
         private IMapper<User, RegisterViewModel> _registerMapper;
         private IConfiguration _configuration;
@@ -62,7 +62,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    IdentityRole<long> approle = await _roleManager.FindByIdAsync(model.AppRoleId.ToString());
+                    Role approle = await _roleManager.FindByIdAsync(model.AppRoleId.ToString());
                     if (approle != null)
                     {
                         IdentityResult roleResult = await _userManager.AddToRoleAsync(user, approle.Name);
@@ -181,7 +181,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ChangePassword()
+        public IActionResult ChangePassword()
         {
             ChangePasswordViewModel model = new ChangePasswordViewModel();
             return View(model);
