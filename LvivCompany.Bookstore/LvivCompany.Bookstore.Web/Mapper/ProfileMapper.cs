@@ -47,6 +47,7 @@ namespace LvivCompany.Bookstore.Web.Mapper
             model.FirstName = user.FirstName;
             model.LastName = user.LastName;
             model.PhoneNumber = user.PhoneNumber;
+            model.Photo = user.Photo;
             return model;
         }
 

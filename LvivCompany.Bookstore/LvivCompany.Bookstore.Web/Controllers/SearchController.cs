@@ -23,7 +23,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
         public async Task<IActionResult> Index(string searchText)
         {
-            List<Book> books = (await _bookRepo.Get(x => x.Name.Contains(searchText))).ToList();
+            List<Book> books = _bookRepo.Get(x => x.Name.Contains(searchText)).ToList();
             return View(new HomePageListViewModel() { Books = _bookmapper.Map(books) });
         }
     }

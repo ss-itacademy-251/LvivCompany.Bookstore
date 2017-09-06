@@ -6,11 +6,7 @@
  }
 
 
-@section Styles
 
-    {
-    <link href="@Url.Content("~/css/RegLogStyle.css")" rel="stylesheet" type="text/css" />
-}
 
 <div class="container " style="padding-top: 0px;">
     <div class="row">
@@ -20,9 +16,12 @@
 
 
 
-                    <img id="imgDisplayArea" class="avatar img-circle img-thumbnail img-responsive" />
+                    <img id="imgDisplayArea"  class="avatar img-circle img-thumbnail img-profile" src="@Model.Photo"/>
                     <h6>Upload a different photo...</h6>
-                   <input asp-for="Photo" type="file" onchange="imagePreview(this)">
+                   <input asp-for="Image" type="file" onchange="imagePreview(this)">
+                    <div class="form-group">
+                        <input asp-for="Photo" type="hidden" />
+                    </div>
                 </div>
             </div>
 
@@ -88,4 +87,3 @@
         </form>
     </div>
 </div>
-

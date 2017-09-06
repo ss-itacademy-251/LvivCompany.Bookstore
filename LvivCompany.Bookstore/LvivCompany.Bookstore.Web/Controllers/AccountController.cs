@@ -4,13 +4,17 @@ using System.Threading.Tasks;
 using LvivCompany.Bookstore.Entities;
 using LvivCompany.Bookstore.Web.Mapper;
 using LvivCompany.Bookstore.Web.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
+using Microsoft.Extensions.Configuration;
+
 namespace LvivCompany.Bookstore.Web.Controllers
 {
+    [Authorize]
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -18,17 +22,20 @@ namespace LvivCompany.Bookstore.Web.Controllers
         private RoleManager<Role> _roleManager;
         private IMapper<User, EditProfileViewModel> _profileMapper;
         private IMapper<User, RegisterViewModel> _registerMapper;
+        private IConfiguration _configuration;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<Role> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<Role> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper, IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _profileMapper = profileMapper;
             _registerMapper = registerMapper;
+            _configuration = configuration;
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register()
         {
             RegisterViewModel model = new RegisterViewModel();
@@ -44,6 +51,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             return View("Register", model);
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -61,7 +69,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                         if (roleResult.Succeeded)
                         {
                             await _signInManager.SignInAsync(user, false);
-                            return RedirectToAction("Login", "Account");
+                            return RedirectToAction("Index", "Home");
                         }
                     }
                 }
@@ -84,6 +92,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             return View("Register", model);
         }
 
+        [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });
@@ -91,6 +100,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -116,6 +126,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             return View(model);
         }
 
+        [Authorize(Roles = "Seller,Customer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
@@ -124,6 +135,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize(Roles = "Seller,Customer")]
         [HttpGet]
         public async Task<IActionResult> Profile()
         {
@@ -133,6 +145,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             return View("Profile", model);
         }
 
+        [Authorize(Roles = "Seller,Customer")]
         [HttpGet]
         public async Task<IActionResult> Edit()
         {
@@ -144,12 +157,17 @@ namespace LvivCompany.Bookstore.Web.Controllers
             return View("Edit", model);
         }
 
+        [Authorize(Roles = "Seller,Customer")]
         [HttpPost]
         public async Task<IActionResult> Edit(EditProfileViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
+                if (model.Image != null)
+                {
+                    user.Photo = await UploadFile.RetrieveFilePath(model.Image, _configuration);
+                }
 
                 user = _profileMapper.Map(model, user);
                 await _userManager.UpdateAsync(user);

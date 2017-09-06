@@ -32,7 +32,9 @@ namespace LvivCompany.Bookstore.Web.ViewModels
         [Display(Name = "Address 1")]
         public string Address1 { get; set; }
 
-        public IFormFile Photo { get; set; }
+        public IFormFile Image { get; set; }
+
+        public string Photo { get; set; }
 
         [Display(Name = "Address 2")]
         public string Address2 { get; set; }
