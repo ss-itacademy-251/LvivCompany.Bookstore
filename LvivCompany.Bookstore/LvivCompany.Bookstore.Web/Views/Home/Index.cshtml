@@ -3,14 +3,23 @@
 <div asp-controller="Home" asp-action="Index">
     @Html.Partial("BookList")
 </div>
-@if (Model.PageNumber > 1)
-{
-<a class="btn btn-plus" asp-controller="Home" asp-action="Index" asp-route-page="@(Model.PageNumber - 1)"> Previous</a>
-}
-@if (Model.ExistNext == true)
-{
-    <a class="btn btn-plus" asp-controller="Home" asp-action="Index" asp-route-page="@(Model.PageNumber+1)"> Next</a>
-}
+
+<ul class="pager">
+ <li class="previous" >
+     @if (Model.PageNumber > 1)
+     {
+         <a asp-controller="Home" asp-action="Index" asp-route-page="@(Model.PageNumber - 1)"> << Previous</a>
+     }
+     </li>  
+    <li class="next">
+        @if (Model.ExistNext == true)
+        {
+              <a  asp-controller="Home" asp-action="Index" asp-route-page="@(Model.PageNumber+1)">Next>></a>
+        }
+    </li>
+   
+</ul>
+
 
 
 

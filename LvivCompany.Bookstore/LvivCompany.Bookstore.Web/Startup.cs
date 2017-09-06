@@ -58,8 +58,7 @@ namespace LvivCompany.Bookstore.Web
             services.AddSingleton(Configuration);
             services.AddScoped<IMapper<User, EditProfileViewModel>, ProfileMapper>();
             services.AddScoped<IMapper<User, RegisterViewModel>, RegisterMapper>();
-            services.AddScoped<IMapper<User, EditProfileViewModel>, ProfileMapper>();
-            services.AddScoped<IMapper<User, RegisterViewModel>, RegisterMapper>();
+            services.AddScoped<IMapper<OrderDetail, OrderViewModel>, OrderMapper>();
             services.AddScoped<BookServices>();
             services.AddScoped<HomeServices>();
             services.AddScoped<SearchServices>();

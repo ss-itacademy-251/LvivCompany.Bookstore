@@ -31,19 +31,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(int page)
         {
-            if (page == 0)
-            {
-                page = 1;
-            }
-
-            List<Book> book = (await _bookRepo.GetPageAsync(x => x.Id > 0, CountOfBook, page)).ToList();
-
-            if (book.Count < CountOfBook - 1)
-            {
-                return View(model: new HomePageListViewModel() { Books = _bookmapper.Map(book), PageNumber = page, ExistNext = false });
-            }
-
-            return View(model: new HomePageListViewModel() { Books = _bookmapper.Map(book), PageNumber = page, ExistNext = true });
+            return View(await services.GetBooksPageAsync(page, CountOfBook));
         }
 
         [Authorize(Roles = "Seller")]
