@@ -12,9 +12,10 @@ namespace LvivCompany.Bookstore.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private const int CountOfBook = 8;
         private IRepo<Book> _bookRepo;
         private IMapper<Book, BookViewModel> _bookmapper;
-        private const int countOfBook = 8;
+
         public HomeController(IRepo<Book> bookRepo, IMapper<Book, BookViewModel> bookmapper)
         {
             _bookRepo = bookRepo;
@@ -22,20 +23,21 @@ namespace LvivCompany.Bookstore.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int page )
+        public async Task<IActionResult> Index(int page)
         {
-            if (page==0)
+            if (page == 0)
             {
                 page = 1;
             }
 
-            List<Book> book = (await _bookRepo.GetPageAsync(x => x.Id > 0, countOfBook, page)).ToList();
+            List<Book> book = (await _bookRepo.GetPageAsync(x => x.Id > 0, CountOfBook, page)).ToList();
 
-            if (book.Count<countOfBook)
+            if (book.Count < CountOfBook)
             {
-                return View(model: new HomePageListViewModel() { Books = _bookmapper.Map(book), PageNumber = page, ExistNext = false});
+                return View(model: new HomePageListViewModel() { Books = _bookmapper.Map(book), PageNumber = page, ExistNext = false });
             }
-            return View(model: new HomePageListViewModel() { Books = _bookmapper.Map(book), PageNumber = page, ExistNext = true});
+
+            return View(model: new HomePageListViewModel() { Books = _bookmapper.Map(book), PageNumber = page, ExistNext = true });
         }
     }
 }
