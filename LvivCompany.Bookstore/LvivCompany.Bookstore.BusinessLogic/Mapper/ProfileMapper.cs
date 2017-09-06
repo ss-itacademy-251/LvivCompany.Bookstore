@@ -44,6 +44,7 @@ namespace LvivCompany.Bookstore.BusinessLogic.Mapper
             model.FirstName = user.FirstName;
             model.LastName = user.LastName;
             model.PhoneNumber = user.PhoneNumber;
+            model.Photo = user.Photo;
             return model;
         }
 

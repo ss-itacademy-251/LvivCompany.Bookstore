@@ -1,17 +1,25 @@
-﻿<div class="container">
+﻿
+@model HomePageListViewModel
+
+
+<h1>My Books</h1>
+<div class="container">
     <div class="row">
+
         @foreach (var book in @Model.Books)
-        {<div class="col-md-3 col-sm-6">
+            {<div class="col-md-2 col-sm-2">
                 <span class="thumbnail">
                     <img src="@book.ImageUrl" class="img-grid" alt="book cover">
                     <h4>@book.Name</h4>
-                    <hr class="line">
+
                     <div class="row">
                         <div class="col-md-6 col-sm-6">
                             <p>@book.Price</p>
                         </div>
                         <div class="col-md-6 col-sm-6">
-                            <a asp-controller="Book" asp-action="BookPage" asp-route-id="@book.Id">View Details</a>
+
+                            <a class="btn btn-info btn-block" asp-controller="Book" asp-action="EditBook" asp-route-id="@book.Id">Edit</a>
+                            <a class="btn btn-danger btn-block">Delete</a>
                         </div>
                     </div>
                 </span>

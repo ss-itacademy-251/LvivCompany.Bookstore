@@ -54,11 +54,17 @@ namespace LvivCompany.Bookstore.Web
             services.AddScoped<IMapper<Book, BookViewModel>, BookMapper>();
             services.AddScoped<IMapper<Book, EditBookViewModel>, EditBookMapper>();
             services.AddSingleton(Configuration);
+<<<<<<< HEAD
             services.AddScoped<IMapper<User, EditProfileViewModel>, ProfileMapper>();
             services.AddScoped<IMapper<User, RegisterViewModel>, RegisterMapper>();
             services.AddScoped<BookServices>();
             services.AddScoped<HomeServices>();
             services.AddScoped<SearchServices>();
+=======
+            services.AddTransient<IMapper<User, EditProfileViewModel>, ProfileMapper>();
+            services.AddTransient<IMapper<User, RegisterViewModel>, RegisterMapper>();
+            services.AddScoped<IMapper<OrderDetail, OrderHistoryViewModel>, OrderHistoryMapper>();
+>>>>>>> feature/UsersOfice
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)

@@ -1,10 +1,11 @@
 ﻿using LvivCompany.Bookstore.Entities;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
 using System.Linq.Expressions;
-using System;
+using System.Threading.Tasks;
+
 
 namespace LvivCompany.Bookstore.DataAccess.Repo
 {
@@ -57,11 +58,12 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
             return SaveAsync();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> Get(Expression<Func<TEntity, bool>> filter)
-         {
-             IQueryable<TEntity> query = context.Set<TEntity>();
-             query = query.Where(filter);
-             return await query.ToListAsync();
-         }
-}
+
+        public virtual IEnumerable<TEntity> Get(Expression<Func<TEntity, bool>> filter)
+        {
+            return  context
+                .Set<TEntity>()
+                .Where(filter);
+        }
+    }
 }

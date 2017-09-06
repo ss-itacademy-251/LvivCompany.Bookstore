@@ -2,6 +2,7 @@
 using LvivCompany.Bookstore.BusinessLogic;
 using LvivCompany.Bookstore.BusinessLogic.ViewModels;
 using LvivCompany.Bookstore.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,6 +24,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             return View("BookPage", await services.GetViewModelForBookPageAsync(id));
         }
 
+        [Authorize(Roles ="Seller")]
         [HttpGet]
         public async Task<IActionResult> AddBook()
         {
@@ -30,13 +32,14 @@ namespace LvivCompany.Bookstore.Web.Controllers
             return View("AddBook", await services.GetViewModelForAddBookPageAsync(model));
         }
 
+        [Authorize(Roles = "Seller")]
         [HttpPost]
         public async Task<IActionResult> AddBook(BookViewModel model)
         {
             if (ModelState.IsValid)
             {
                 await services.AddBookAsync(model, (await userManager.GetUserAsync(HttpContext.User)).Id);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("SellersBook", "Home");
             }
 
             return View(await services.GetViewModelForAddBookPageAsync(model));
@@ -54,7 +57,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             if (ModelState.IsValid)
             {
                 await services.EditBookAsync(id, model);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("SellersBook", "Home");
             }
 
             await services.PopulateCategoriesSelectListAsync(model);

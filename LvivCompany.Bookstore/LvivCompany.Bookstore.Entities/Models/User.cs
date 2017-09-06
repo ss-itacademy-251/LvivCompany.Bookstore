@@ -12,7 +12,7 @@ namespace LvivCompany.Bookstore.Entities
         public string LastName { get; set; }
         public string Address1 { get; set; }
         public string Address2 { get; set; }
-        public byte[] Photo { get; set; }
+        public string Photo { get; set; }
 
     }
 }
