@@ -9,6 +9,9 @@ namespace LvivCompany.Bookstore.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private const int CountOfBook = 8;
+        private IRepo<Book> _bookRepo;
+        private IMapper<Book, BookViewModel> _bookmapper;
         private HomeServices services;
         private UserManager<User> _userManager;
 
@@ -19,8 +22,21 @@ namespace LvivCompany.Bookstore.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page)
         {
+            if (page == 0)
+            {
+                page = 1;
+            }
+
+            List<Book> book = (await _bookRepo.GetPageAsync(x => x.Id > 0, CountOfBook, page)).ToList();
+
+            if (book.Count < CountOfBook)
+            {
+                return View(model: new HomePageListViewModel() { Books = _bookmapper.Map(book), PageNumber = page, ExistNext = false });
+            }
+
+            return View(model: new HomePageListViewModel() { Books = _bookmapper.Map(book), PageNumber = page, ExistNext = true });
             return View(await services.GetViewModelForHomePage());
         }
 

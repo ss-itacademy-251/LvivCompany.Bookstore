@@ -16,5 +16,6 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
         Task DeleteAsync(TEntity item);
        IEnumerable<TEntity> Get(Expression<Func<TEntity,bool>> filter);
         Task SaveAsync();
+        Task<IEnumerable<TEntity>> GetPageAsync(Expression<Func<TEntity, bool>> filter,int countOfPage,int page);
     }
 }

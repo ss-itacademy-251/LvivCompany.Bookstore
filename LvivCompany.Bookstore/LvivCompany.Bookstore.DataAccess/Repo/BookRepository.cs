@@ -42,5 +42,15 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
                 .Include(x => x.BookAuthors)
                 .ThenInclude(x => x.Author);
         }
+        public override async Task<IEnumerable<Book>> GetPageAsync(Expression<Func<Book, bool>> filter, int countOfPage, int page)
+        {
+            IQueryable<Book> query = context.Set<Book>();
+            query = query.Where(filter).Skip<Book>((page - 1) * countOfPage).Take<Book>(countOfPage)
+                .Include(x => x.Publisher)
+                .Include(x => x.Category)
+                .Include(x => x.BookAuthors)
+                .ThenInclude(x => x.Author); 
+            return await query.ToListAsync();
+        }
     }
 }
