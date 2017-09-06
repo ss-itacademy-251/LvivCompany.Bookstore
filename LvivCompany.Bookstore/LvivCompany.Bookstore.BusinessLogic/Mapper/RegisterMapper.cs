@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using LvivCompany.Bookstore.BusinessLogic.ViewModels;
 using LvivCompany.Bookstore.Entities;
-using LvivCompany.Bookstore.Web.ViewModels;
 
-namespace LvivCompany.Bookstore.Web.Mapper
+namespace LvivCompany.Bookstore.BusinessLogic.Mapper
 {
     public class RegisterMapper : IMapper<User, RegisterViewModel>
     {

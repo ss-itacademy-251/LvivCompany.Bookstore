@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.ViewFeatures" Version="2.0.0" />
+    <PackageReference Include="WindowsAzure.Storage" Version="8.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LvivCompany.Bookstore.DataAccess\LvivCompany.Bookstore.DataAccess.csproj" />
+    <ProjectReference Include="..\LvivCompany.Bookstore.Entities\LvivCompany.Bookstore.Entities.csproj" />
+  </ItemGroup>
+
+</Project>

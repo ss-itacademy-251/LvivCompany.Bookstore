@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace LvivCompany.Bookstore.Web.ViewModels
+namespace LvivCompany.Bookstore.BusinessLogic.ViewModels
 {
     public class EditBookViewModel
     {

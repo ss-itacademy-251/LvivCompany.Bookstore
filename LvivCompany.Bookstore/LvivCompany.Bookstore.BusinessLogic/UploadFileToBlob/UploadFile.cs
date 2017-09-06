@@ -7,11 +7,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
-namespace LvivCompany.Bookstore.Web
+namespace LvivCompany.Bookstore.BusinessLogic
 {
-    public static class UploadFile
+    public class UploadFile
     {
-        public const string defaultBookImage = @"https://lv251bookstore.blob.core.windows.net/images/0GZLLAU3RD.gif";
+        public const string DefaultBookImage = @"https://lv251bookstore.blob.core.windows.net/images/0GZLLAU3RD.gif";
 
         private static async Task<string> UploadFileToBlob(IFormFile file, string fileName, IConfiguration configuration)
         {
@@ -37,7 +37,7 @@ namespace LvivCompany.Bookstore.Web
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
 
-        public static async Task<string> RetrieveFilePath(IFormFile file, IConfiguration configuration)
+        public async Task<string> RetrieveFilePath(IFormFile file, IConfiguration configuration)
         {
             string Extension = Path.GetExtension(file.FileName);
             var filesUrl = await UploadFileToBlob(file, RandomString(10) + Extension, configuration);
