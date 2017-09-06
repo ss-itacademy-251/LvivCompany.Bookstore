@@ -24,7 +24,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
         private IMapper<User, RegisterViewModel> _registerMapper;
         private IConfiguration _configuration;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole<long>> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper, IConfiguration configuration)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<Role> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper, IConfiguration configuration)
         {
             _userManager = userManager;
             _signInManager = signInManager;
