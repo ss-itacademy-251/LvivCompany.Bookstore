@@ -10,10 +10,8 @@
 
 <form method="post" asp-controller="Account" asp-action="Register">
 
-    <div asp-validation-summary="ModelOnly"></div>
-
     <div class="main-login main-center ">
-        <h2>Sing Up</h2>
+        <h2>Sign Up</h2>
         <div class="form-group">
             <label asp-for="Email"></label>
             <div class="input-group">
@@ -103,11 +101,10 @@
             <span class="danger error-msg" asp-validation-for="PasswordConfirm"></span>
         </div>
 
+        <div asp-validation-summary="ModelOnly" class="field-validation-error error-msg"></div>
 
         <div>
             <input type="submit" class="  btn-lg btn-success btn-block  " value="Submit" />
         </div>
     </div>
 </form>
-
-

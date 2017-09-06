@@ -44,11 +44,6 @@
                     <label class="title-items">Year   </label>
                     <span class="inf">@Model.Year</span>
                 </li>
-                <!-- Seller -->
-                <li>
-                    <label class="title-items">Seller   </label>
-                    <span class="inf">SellerName</span>
-                </li>
                 <!-- Amount -->
                 <li>
                     <label class="title-items">Amount   </label>
@@ -57,18 +52,7 @@
                 <!-- Price -->
                 <li>
                     <label class="title-items">Price</label>
-                    <span class="inf">@Model.Price</span>
-                </li>
-                <!-- Amount to buy-->
-                <li>
-                    <div class="section amount">
-                        <label class="title-attr">Amount To Order</label>
-                        <div>
-                            <div class="btn-minus"><span class="glyphicon glyphicon-minus"></span></div>
-                            <input value="1" />
-                            <div class="btn-plus"><span class="glyphicon glyphicon-plus"></span></div>
-                        </div>
-                    </div>
+                    <span class="inf">@(Model.Price + " $")</span>
                 </li>
                 </ul>
 
@@ -91,5 +75,3 @@
         </div>
     </div>
 </form>
-
-
