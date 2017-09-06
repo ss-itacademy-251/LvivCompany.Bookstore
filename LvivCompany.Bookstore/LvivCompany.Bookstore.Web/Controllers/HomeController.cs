@@ -14,17 +14,27 @@ namespace LvivCompany.Bookstore.Web.Controllers
     {
         private IRepo<Book> _bookRepo;
         private IMapper<Book, BookViewModel> _bookmapper;
-
+        private const int countOfBook = 8;
         public HomeController(IRepo<Book> bookRepo, IMapper<Book, BookViewModel> bookmapper)
         {
             _bookRepo = bookRepo;
             _bookmapper = bookmapper;
         }
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page )
         {
-            List<Book> book = (await _bookRepo.GetAllAsync()).ToList();
-            return View(new HomePageListViewModel() { Books = _bookmapper.Map(book) });
+            if (page==0)
+            {
+                page = 1;
+            }
+
+            List<Book> book = (await _bookRepo.GetPageAsync(x => x.Id > 0, countOfBook, page)).ToList();
+
+            if (book.Count<countOfBook)
+            {
+                return View(model: new HomePageListViewModel() { Books = _bookmapper.Map(book), PageNumber = page, ExistNext = false});
+            }
+            return View(model: new HomePageListViewModel() { Books = _bookmapper.Map(book), PageNumber = page, ExistNext = true});
         }
 
     }

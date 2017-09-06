@@ -7,5 +7,7 @@ namespace LvivCompany.Bookstore.Web.ViewModels
     {
         [Display(Name = "Books")]
         public List<BookViewModel> Books { get; set; }
+        public int PageNumber { get;  set; }
+        public bool ExistNext{ get; set; }
     }
 }
