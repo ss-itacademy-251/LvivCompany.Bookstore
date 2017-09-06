@@ -14,15 +14,15 @@
 
                 <ul class="list-info">
                     <!-- Author -->
-                <li>
+                    <li>
                         <label class="title-items">Author   </label>
                         <ul>
-                        @foreach (var author in @Model.Authors)
-                        {
-                           <li> <span class="inf">@author.FullName</span></li>
-                        }
+                            @foreach (var author in @Model.Authors)
+                            {
+                                <li> <span class="inf">@author.FullName</span></li>
+                            }
                         </ul>
-                </li>
+                    </li>
 
                 <!-- Category -->
                 <li>
@@ -58,7 +58,7 @@
 
                 <!-- Add to Order -->
                 <div class="section amount">
-                    <button class="btn btn-success"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Order </button>
+                    <button class="btn btn-success" asp-controller="Order" asp-action="Order" asp-route-id="@Model.Id"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Order </button>
                 </div>
             </div>
 
@@ -67,8 +67,8 @@
                 <div class="description">
                     <p class="line">
                         <span class="inf">
-                          @Model.Description
-                            </span>
+                            @Model.Description
+                        </span>
                     </p>
                 </div>
             </div>

@@ -54,6 +54,7 @@ namespace LvivCompany.Bookstore.Web
             services.AddScoped<IMapper<Book, BookViewModel>, BookMapper>();
             services.AddScoped<IMapper<Book, EditBookViewModel>, EditBookMapper>();
             services.AddScoped<IMapper<OrderDetail, OrderHistoryViewModel>, OrderHistoryMapper>();
+            services.AddSession();
             services.AddSingleton(Configuration);
             services.AddScoped<IMapper<User, EditProfileViewModel>, ProfileMapper>();
             services.AddScoped<IMapper<User, RegisterViewModel>, RegisterMapper>();
@@ -81,6 +82,7 @@ namespace LvivCompany.Bookstore.Web
             app.UseStaticFiles();
 
             app.UseAuthentication();
+            app.UseSession();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

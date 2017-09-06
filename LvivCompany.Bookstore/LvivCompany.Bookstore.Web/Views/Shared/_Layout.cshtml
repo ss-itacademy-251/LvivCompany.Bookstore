@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Lviv Bookstore Company</title>
     <meta charset="utf-8" />
-   
+
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/SideBarrStyle.css" rel="stylesheet" />
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
@@ -42,12 +42,9 @@
                             <input class="search-input" name="SearchText" /> <input type="submit" value="Search" />
                         </form>
                     </li>
-                    
+                    <li><a asp-controller="Order" asp-action="Order"><span class="glyphicon glyphicon-shopping-cart"></span> My Order <span class="badge item-in-cart">@Context.Request.Cookies["Count"]</span></a></li>
                     <li class="part-log-view"> <form class="form-inline" asp-controller="Account" asp-action="LogOff" method="post">@await Html.PartialAsync("_PartialLogin") </form></li>
                 </ul>
-
-
-
 
             </div>
         </div>
@@ -112,8 +109,8 @@
                 <p> SoftServe IT academy 2017</p>
             </div>
         </div>
-        </div>
-   
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
