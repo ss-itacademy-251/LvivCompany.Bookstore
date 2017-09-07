@@ -76,7 +76,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                        "Account",
                        new { userId = user.Id, code = code },
                        protocol: HttpContext.Request.Scheme);
-                            EmailService emailService = new EmailService();
+                            EmailService emailService = new EmailService(_configuration);
                             await emailService.SendEmailAsync(model.Email, "Confirm your account", model.FirstName + $" ,thank you for registration.\nConfirm registration by clicking on the link: <a href='{callbackUrl}'>Confirm Registration</a>");
                             await _signInManager.SignInAsync(user, false);
                             return RedirectToAction("Index", "Home");
