@@ -18,17 +18,19 @@ namespace LvivCompany.Bookstore.Web.Controllers
     [Authorize(Roles = "Customer,Seller")]
     public class OrderController : Controller
     {
+        private IRepo<Order> _orderRepo;
         private IRepo<OrderDetail> _orderDetailsRepo;
         private IMapper<OrderDetail, OrderViewModel> _ordermapper;
         private IRepo<Book> _bookRepo;
         private UserManager<User> _userManager;
 
-        public OrderController(IRepo<OrderDetail> orderDetailsRepo, IMapper<OrderDetail, OrderViewModel> ordermapper, UserManager<User> userManager, IRepo<Book> bookRepo)
+        public OrderController(IRepo<OrderDetail> orderDetailsRepo, IMapper<OrderDetail, OrderViewModel> ordermapper, UserManager<User> userManager, IRepo<Book> bookRepo, IRepo<Order> orderRepo)
         {
             _orderDetailsRepo = orderDetailsRepo;
             _userManager = userManager;
             _bookRepo = bookRepo;
             _ordermapper = ordermapper;
+            _orderRepo = orderRepo;
         }
 
         public async Task<IActionResult> Order(long id)
@@ -88,6 +90,33 @@ namespace LvivCompany.Bookstore.Web.Controllers
             HttpContext.Session.SetString("order", str);
 
             return RedirectToAction("Order", "Order");
+        }
+
+        public async Task<IActionResult> SubmitOrder()
+        {
+            List<OrderViewModel> list = new List<OrderViewModel>();
+            list = JsonConvert.DeserializeObject<List<OrderViewModel>>(HttpContext.Session.GetString("order"));
+            DateTime date = DateTime.Now;
+            User _user = await _userManager.GetUserAsync(HttpContext.User);
+            await _orderRepo.CreateAsync(new Order
+            {
+                StatusId = 1,
+                CustomerId = _user.Id,
+                AddedDate = date
+            });
+            long currOrderId = (await _orderRepo.Get(x => x.AddedDate == date)).FirstOrDefault().Id;
+            foreach (var item in list)
+            {
+                item.OrderId = currOrderId;
+                await _orderDetailsRepo.CreateAsync(_ordermapper.Map(item));
+            }
+
+            if (list != null)
+            {
+                HttpContext.Session.Clear();
+            }
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

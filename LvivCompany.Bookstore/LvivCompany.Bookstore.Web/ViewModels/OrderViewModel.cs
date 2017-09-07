@@ -21,6 +21,8 @@ namespace LvivCompany.Bookstore.Web.ViewModels
 
         public string ImageURL { get; set; }
 
-        public decimal TotalPrice { get; set; }
+        public decimal TotalPrice => Amount * Price;
+
+        public long OrderId { get; set; }
     }
 }

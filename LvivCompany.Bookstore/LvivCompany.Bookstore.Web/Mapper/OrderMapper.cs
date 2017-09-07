@@ -9,9 +9,15 @@ namespace LvivCompany.Bookstore.Web.Mapper
 {
     public class OrderMapper : IMapper<OrderDetail, OrderViewModel>
     {
-        public OrderDetail Map(OrderViewModel entity)
+        public OrderDetail Map(OrderViewModel model)
         {
-            throw new NotImplementedException();
+            OrderDetail entity = new OrderDetail
+            {
+                Amount = model.Amount,
+                BookId = model.BookId,
+                OrderId = model.OrderId
+            };
+            return entity;
         }
 
         public OrderViewModel Map(OrderDetail entity)
@@ -20,7 +26,7 @@ namespace LvivCompany.Bookstore.Web.Mapper
             {
                 BookId = entity.Book.Id,
                 BookName = entity.Book.Name,
-                Amount = entity.Amount,
+                Amount = entity.Amount + 1,
                 Price = entity.Book.Price,
                 Category = entity.Book.Category.Name,
                 ImageURL = entity.Book.ImageUrl
@@ -44,7 +50,7 @@ namespace LvivCompany.Bookstore.Web.Mapper
             return model;
         }
 
-        public List<OrderDetail> Map(List<OrderViewModel> entity)
+        public List<OrderDetail> Map(List<OrderViewModel> model)
         {
             throw new NotImplementedException();
         }
