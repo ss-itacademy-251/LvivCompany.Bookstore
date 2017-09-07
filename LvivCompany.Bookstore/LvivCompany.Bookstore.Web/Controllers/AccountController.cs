@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using LvivCompany.Bookstore.BusinessLogic;
 using LvivCompany.Bookstore.BusinessLogic.Mapper;
+using LvivCompany.Bookstore.BusinessLogic.Services;
 using LvivCompany.Bookstore.BusinessLogic.ViewModels;
 using LvivCompany.Bookstore.Entities;
 using Microsoft.AspNetCore.Authorization;
@@ -18,12 +19,13 @@ namespace LvivCompany.Bookstore.Web.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IEmailSender _emailSender;
         private RoleManager<Role> _roleManager;
         private IMapper<User, EditProfileViewModel> _profileMapper;
         private IMapper<User, RegisterViewModel> _registerMapper;
         private IConfiguration _configuration;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<Role> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper, IConfiguration configuration)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<Role> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper, IConfiguration configuration, IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -31,6 +33,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             _profileMapper = profileMapper;
             _registerMapper = registerMapper;
             _configuration = configuration;
+            _emailSender = emailSender;
         }
 
         [HttpGet]
@@ -67,6 +70,14 @@ namespace LvivCompany.Bookstore.Web.Controllers
                         IdentityResult roleResult = await _userManager.AddToRoleAsync(user, approle.Name);
                         if (roleResult.Succeeded)
                         {
+                            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                            var callbackUrl = Url.Action(
+                       "ConfirmEmail",
+                       "Account",
+                       new { userId = user.Id, code = code },
+                       protocol: HttpContext.Request.Scheme);
+                            EmailService emailService = new EmailService();
+                            await emailService.SendEmailAsync(model.Email, "Confirm your account", model.FirstName + $" ,thank you for registration.\nConfirm registration by clicking on the link: <a href='{callbackUrl}'>Confirm Registration</a>");
                             await _signInManager.SignInAsync(user, false);
                             return RedirectToAction("Index", "Home");
                         }
@@ -91,6 +102,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
             return View("Register", model);
         }
 
+        [HttpGet]
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
@@ -104,6 +116,17 @@ namespace LvivCompany.Bookstore.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = await _userManager.FindByNameAsync(model.Email);
+                var isRealPassword = await _userManager.CheckPasswordAsync(user, model.Password);
+                if (user != null && isRealPassword)
+                {
+                    if (!await _userManager.IsEmailConfirmedAsync(user))
+                    {
+                        ModelState.AddModelError("", "You didn`t confirm your email");
+                        return View(model);
+                    }
+                }
+
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
@@ -215,6 +238,25 @@ namespace LvivCompany.Bookstore.Web.Controllers
             }
 
             return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmEmail(string userId, string code)
+        {
+            if (userId == null || code == null)
+            {
+                return View("Error");
+            }
+
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
+            {
+                return View("Error");
+            }
+
+            var result = await _userManager.ConfirmEmailAsync(user, code);
+            return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using LvivCompany.Bookstore.BusinessLogic;
 using LvivCompany.Bookstore.BusinessLogic.Mapper;
+using LvivCompany.Bookstore.BusinessLogic.Services;
 using LvivCompany.Bookstore.BusinessLogic.ViewModels;
 using LvivCompany.Bookstore.DataAccess;
 using LvivCompany.Bookstore.DataAccess.Repo;
@@ -60,6 +61,7 @@ namespace LvivCompany.Bookstore.Web
             services.AddScoped<BookServices>();
             services.AddScoped<HomeServices>();
             services.AddScoped<SearchServices>();
+            services.AddScoped<IEmailSender, AuthMessageSender>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
