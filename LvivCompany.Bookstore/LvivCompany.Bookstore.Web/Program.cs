@@ -3,6 +3,7 @@ using LvivCompany.Bookstore.DataAccess;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace LvivCompany.Bookstore.Web
 {
@@ -27,6 +28,7 @@ namespace LvivCompany.Bookstore.Web
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
+                .ConfigureLogging(c => c.ClearProviders())
                 .UseStartup<Startup>()
                 .Build();
     }
