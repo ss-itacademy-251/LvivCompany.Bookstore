@@ -5,16 +5,19 @@ using LvivCompany.Bookstore.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
     public class BookController : Controller
     {
+        private readonly ILogger<BookController> _logger;
         private UserManager<User> userManager;
         private BookServices services;
 
-        public BookController(UserManager<User> userManager, BookServices services)
+        public BookController(UserManager<User> userManager, BookServices services, ILogger<BookController> logger)
         {
+            this._logger = logger;
             this.userManager = userManager;
             this.services = services;
         }
@@ -39,6 +42,8 @@ namespace LvivCompany.Bookstore.Web.Controllers
             if (ModelState.IsValid)
             {
                 await services.AddBookAsync(model, (await userManager.GetUserAsync(HttpContext.User)).Id);
+                var user = await userManager.GetUserAsync(HttpContext.User);
+                _logger.LogInformation("Seller {@User} add new book {@Book}", new { FirstName = user.FirstName, LastName = user.LastName, UserName = user.UserName }, new { Id=model.Id, Name=model.Name, Price=model.Price });
                 return RedirectToAction("SellersBook", "Home");
             }
 
@@ -57,6 +62,8 @@ namespace LvivCompany.Bookstore.Web.Controllers
             if (ModelState.IsValid)
             {
                 await services.EditBookAsync(id, model);
+                var user = await userManager.GetUserAsync(HttpContext.User);
+                _logger.LogInformation("Seller {@User} edit book {@Book}", new { FirstName = user.FirstName, LastName = user.LastName, UserName = user.UserName }, new { Id=model.Id, Name = model.Name, Price = model.Price });
                 return RedirectToAction("SellersBook", "Home");
             }
 

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace LvivCompany.Bookstore.Web.Controllers
 {
@@ -20,13 +21,15 @@ namespace LvivCompany.Bookstore.Web.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
+        private readonly ILogger<AccountController> _logger;
         private RoleManager<Role> _roleManager;
         private IMapper<User, EditProfileViewModel> _profileMapper;
         private IMapper<User, RegisterViewModel> _registerMapper;
         private IConfiguration _configuration;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<Role> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper, IConfiguration configuration, IEmailSender emailSender)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<Role> roleManager, IMapper<User, EditProfileViewModel> profileMapper, IMapper<User, RegisterViewModel> registerMapper, IConfiguration configuration, IEmailSender emailSender, ILogger<AccountController> logger)
         {
+            _logger = logger;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
@@ -70,6 +73,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                         IdentityResult roleResult = await _userManager.AddToRoleAsync(user, approle.Name);
                         if (roleResult.Succeeded)
                         {
+                            _logger.LogInformation("Registered new user {@User}", new { FirstName = user.FirstName, LastName = user.LastName, UserName = user.UserName, AppRole = approle.Name, PhoneNumber = user.PhoneNumber });
                             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                             var callbackUrl = Url.Action(
                        "ConfirmEmail",
@@ -130,6 +134,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
+                    _logger.LogInformation("Log in User {@User}", new { Email = model.Email });
                     if (!string.IsNullOrEmpty(model.ReturnUrl) && Url.IsLocalUrl(model.ReturnUrl))
                     {
                         return Redirect(model.ReturnUrl);
@@ -154,6 +159,8 @@ namespace LvivCompany.Bookstore.Web.Controllers
         public async Task<IActionResult> LogOff()
         {
             await _signInManager.SignOutAsync();
+            var currentUser = await _userManager.GetUserAsync(HttpContext.User);
+            _logger.LogInformation("User {@User} logged off", new { UserName = currentUser.UserName });
             return RedirectToAction("Index", "Home");
         }
 
@@ -193,7 +200,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
                 user = _profileMapper.Map(model, user);
                 await _userManager.UpdateAsync(user);
-
+                _logger.LogInformation("User {@User} has changed his profile", new { UserName = user.UserName });
                 return RedirectToAction("Profile", "Account");
             }
             else
@@ -221,6 +228,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                                            await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
                     if (result.Succeeded)
                     {
+                        _logger.LogInformation("User {@User} has changed his password", new { UserName = user.UserName });
                         return RedirectToAction("Profile", "Account");
                     }
                     else
