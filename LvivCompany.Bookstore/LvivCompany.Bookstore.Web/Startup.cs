@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace LvivCompany.Bookstore.Web
 {
@@ -28,6 +29,9 @@ namespace LvivCompany.Bookstore.Web
             var config = builder.Build();
             builder.AddAzureKeyVaults(env, config);
             Configuration = builder.Build();
+            Log.Logger = new LoggerConfiguration()
+               .ReadFrom.Configuration(Configuration)
+               .CreateLogger();
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -66,8 +70,7 @@ namespace LvivCompany.Bookstore.Web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            loggerFactory.AddSerilog();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
