@@ -57,7 +57,14 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
                 if (!list.Any(x => x.BookId == book.Id))
                 {
+                    orderDetail.Amount++;
+
+                    // list.Select().Where(!list.Any(x => x.BookId == book.Id));
                     list.Add(_ordermapper.Map(orderDetail));
+                }
+                else
+                {
+                    list.Where(x => x.BookId == book.Id).ToList().ForEach(s => s.Quantity++);
                 }
 
                 return View(GetModelsFromSession(list));
@@ -92,17 +99,34 @@ namespace LvivCompany.Bookstore.Web.Controllers
             return RedirectToAction("Order", "Order");
         }
 
+        [HttpPost]
+        public IActionResult UpdateOrder()
+        {
+            return RedirectToAction("Order", "Order");
+        }
+
         public async Task<IActionResult> SubmitOrder()
         {
             List<OrderViewModel> list = new List<OrderViewModel>();
             list = JsonConvert.DeserializeObject<List<OrderViewModel>>(HttpContext.Session.GetString("order"));
             DateTime date = DateTime.Now;
             User _user = await _userManager.GetUserAsync(HttpContext.User);
+            decimal totalPrice = 0;
+
+            foreach (var item in list)
+            {
+                Book book = await _bookRepo.GetAsync(item.BookId);
+                totalPrice += item.TotalPrice;
+                book.Amount -= item.Quantity;
+            }
+
             await _orderRepo.CreateAsync(new Order
             {
                 StatusId = 1,
                 CustomerId = _user.Id,
-                AddedDate = date
+                AddedDate = date,
+                OrderDate = date,
+                TotalPrice = totalPrice
             });
             long currOrderId = (await _orderRepo.Get(x => x.AddedDate == date)).FirstOrDefault().Id;
             foreach (var item in list)

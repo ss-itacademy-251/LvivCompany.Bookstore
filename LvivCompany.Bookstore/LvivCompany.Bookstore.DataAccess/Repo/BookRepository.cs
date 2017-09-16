@@ -44,5 +44,9 @@ namespace LvivCompany.Bookstore.DataAccess.Repo
             return await query.ToListAsync();
         }
 
+        public override Task UpdateAsync(Book item)
+        {
+            return base.UpdateAsync(item);
+        }
     }
 }

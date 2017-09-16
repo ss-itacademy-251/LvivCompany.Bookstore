@@ -7,13 +7,15 @@ namespace LvivCompany.Bookstore.Web.ViewModels
 {
     public class OrderViewModel
     {
+        public int Amount { get; set; }
+
         public long Id { get; set; }
 
         public string BookName { get; set; }
 
         public long BookId { get; set; }
 
-        public int Amount { get; set; }
+        public int Quantity { get; set; }
 
         public decimal Price { get; set; }
 
@@ -21,7 +23,7 @@ namespace LvivCompany.Bookstore.Web.ViewModels
 
         public string ImageURL { get; set; }
 
-        public decimal TotalPrice => Amount * Price;
+        public decimal TotalPrice => Quantity * Price;
 
         public long OrderId { get; set; }
     }

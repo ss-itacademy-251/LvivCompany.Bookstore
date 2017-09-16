@@ -26,10 +26,11 @@ namespace LvivCompany.Bookstore.Web.Mapper
             {
                 BookId = entity.Book.Id,
                 BookName = entity.Book.Name,
-                Amount = entity.Amount + 1,
+                Quantity = entity.Amount,
                 Price = entity.Book.Price,
                 Category = entity.Book.Category.Name,
-                ImageURL = entity.Book.ImageUrl
+                ImageURL = entity.Book.ImageUrl,
+                Amount = entity.Book.Amount
             };
             return model;
         }
