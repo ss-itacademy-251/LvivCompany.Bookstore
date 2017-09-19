@@ -58,8 +58,6 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 if (!list.Any(x => x.BookId == book.Id))
                 {
                     orderDetail.Amount++;
-
-                    // list.Select().Where(!list.Any(x => x.BookId == book.Id));
                     list.Add(_ordermapper.Map(orderDetail));
                 }
                 else
@@ -99,9 +97,24 @@ namespace LvivCompany.Bookstore.Web.Controllers
             return RedirectToAction("Order", "Order");
         }
 
-        [HttpPost]
-        public IActionResult UpdateOrder()
+        public IActionResult UpdateOrder(int[] quantity)
         {
+            List<OrderViewModel> list = new List<OrderViewModel>();
+            if (HttpContext.Session.GetString("order") != null)
+            {
+                list = JsonConvert.DeserializeObject<List<OrderViewModel>>(HttpContext.Session.GetString("order"));
+            }
+
+            int temp = 0;
+            foreach (var item in list)
+            {
+                item.Quantity = quantity[temp];
+                temp++;
+            }
+
+            var str = JsonConvert.SerializeObject(list);
+            HttpContext.Session.SetString("order", str);
+
             return RedirectToAction("Order", "Order");
         }
 
@@ -140,7 +153,7 @@ namespace LvivCompany.Bookstore.Web.Controllers
                 HttpContext.Session.Clear();
             }
 
-            return RedirectToAction("Index", "Home");
+            return View();
         }
     }
 }

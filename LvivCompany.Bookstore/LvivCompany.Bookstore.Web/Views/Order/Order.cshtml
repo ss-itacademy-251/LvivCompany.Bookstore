@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="col-xs-4">
                                         <div class="col-xs-3">
-                                            <input asp-for="@Model.Models[i].Quantity" type="text" class="form-control input-group" />
+                                            <input type="number" name="quantity" value="@Model.Models[i].Quantity" class="form-control input-group" />
                                         </div>
                                         <div class="col-xs-3 text-right">
                                             <h6 class="strong">@Model.Models[i].Price.ToString(" 0.00")<span class="text-muted"> $</span></h6>
@@ -68,6 +68,12 @@
                                 </div>
 
                                 <div class="col-xs-3">
+                                    @if (Model.Models.Count != 0)
+                                    {
+                                        <button type="submit" class="btn btn-default btn-block glyphicon glyphicon-refresh ">
+                                            Update
+                                        </button>
+                                    }
                                 </div>
 
                                 <div class="col-xs-3">
@@ -88,9 +94,11 @@
                     <div class="row text-center">
                         <div class="col-xs-6">
                         </div>
+
                         <div class="col-xs-3">
                             <a class="btn btn-default btn-block" asp-controller="Home" asp-action="Index">
-                                <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
+                                Continue Shopping
+                                <span class="glyphicon glyphicon-shopping-cart"></span>
                             </a>
                         </div>
                         <div class="col-xs-3">
@@ -98,7 +106,8 @@
                             {
                                 <a class="btn btn-success btn-block" asp-controller="Order" asp-action="SubmitOrder">
                                     <i class="fa fa-circle-o-notch fa-spin"></i>
-                                    Checkout <span class="glyphicon glyphicon-play"></span>
+                                    Checkout
+                                    <span class="glyphicon glyphicon-play"></span>
                                 </a>
                             }
                         </div>
