@@ -3,7 +3,7 @@
                 | ViewContext.RouteData.Values["controller"].ToString() == "Search") &
                                         ViewContext.RouteData.Values["action"].ToString() == "Index")
 {<div class="col-md-6 col-sm-6">
-        <a class="btn btn-success" asp-controller="Book" asp-action="BookPage" asp-route-id="@Model">View Details</a>
+        <a class="btn btn-success btn-block" asp-controller="Book" asp-action="BookPage" asp-route-id="@Model">View Details</a>
     </div>}
 
 @if (ViewContext.RouteData.Values["controller"].ToString() == "Home" &

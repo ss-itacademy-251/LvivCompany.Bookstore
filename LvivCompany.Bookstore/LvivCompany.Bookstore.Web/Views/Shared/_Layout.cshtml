@@ -15,8 +15,20 @@
     <link href="../Style/Carouselstyle.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,700&subset=latin-ext" rel="stylesheet">
-    <link href="~/css/site.css" rel="stylesheet" />
+    <style>
+        h3 {
+            font-size: 18px;
+        }
+        .navbar .navbar-text
+        {
+            margin:0px;
+            padding:0px;
+            min-height:8px;
+            height:8px;
+        }
+    </style>
 </head>
+
 <body class="bdy-main">
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container-fluid">
@@ -25,21 +37,21 @@
                 <button type="button" class="navbar-toggle title-name" data-toggle="collapse" data-target="#myNavbar">
                     <span class="glyphicon glyphicon-th-large"></span>
                 </button>
-                <a class="navbar-brand" href="#">BookStore</a>
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index"><h3>Bookstore</h3></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="container-fluid"><a asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li class="container-fluid"><a href="#">Delivery</a></li>
-                    <li class="container-fluid"><a href="#">Help</a></li>
-                    <li class="container-fluid"><a asp-controller="About" asp-action="About">About us</a></li>
+                    <li class="container-fluid"><a asp-controller="Home" asp-action="Index"><h3>Home</h3></a></li>
+                    <li class="container-fluid"><a asp-controller="Home" asp-action="Delivery"><h3>Delivery</h3></a></li>
+                    <li class="container-fluid"><a asp-controller="Home" asp-action="Help"><h3>Help</h3></a></li>
+                    <li class="container-fluid"><a asp-controller="About" asp-action="About"><h3>About Us</h3></a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right ">
 
                     <li>
                         <form asp-controller="Search" asp-action="Index">
-                            <input class="search-input" asp- name="SearchText" /> <input type="submit" value="Search" />
+                            <h3><input class="search-input" name="SearchText" /> <input type="submit" value="Search" /></h3>
                         </form>
                     </li>
                     <li class="part-log-view"> <form class="form-inline" asp-controller="Account" asp-action="LogOff" method="post">@await Html.PartialAsync("_PartialLogin") </form></li>
@@ -49,49 +61,55 @@
         </div>
 
         <div class="nav-side-menu ">
-            <div class="brand">Brand Logo</div>
+            <div class="brand"></div>
             <i class="fa fa-bars fa-2x toggle-btn glyphicon glyphicon-chevron-down brand-logo" data-toggle="collapse" data-target="#menu-content"></i>
             <div class="menu-list">
                 <ul id="menu-content" class="menu-content collapse out">
                     <li>
                         <a href="#">
-                            <i class="fa fa-dashboard fa-lg"></i> Catalog
+                            <i class="fa fa-dashboard fa-lg"></i> <h4>Catalog</h4>
                         </a>
                     </li>
                     <li data-toggle="collapse" data-target="#products" class="collapsed active">
-                        <a href="#"><i class="fa fa-gift fa-lg"></i> Genres <span class="arrow"></span></a>
+                        <a href="#"><i class="fa fa-gift fa-lg"></i><h4>Genres<span class="arrow"></span></h4></a>
                     </li>
                     <li>
-                        <ul class="sub-menu collapse" id="products">
-                            <li><a href="#">Detectives</a></li>
-                            <li><a href="#">Historical</a></li>
-                            <li><a href="#">Thriller</a></li>
-                            <li><a href="#">Grief</a></li>
-                        </ul>
+                        <h4>
+                            <ul class="sub-menu collapse" id="products">
+                                <li><a href="#">Detectives</a></li>
+                                <li><a href="#">Historical</a></li>
+                                <li><a href="#">Thriller</a></li>
+                                <li><a href="#">Grief</a></li>
+                            </ul>
+                        </h4>
                     </li>
                     <li data-toggle="collapse" data-target="#service" class="collapsed">
-                        <a href="#"><i class="fa fa-globe fa-lg"></i>Author <span class="arrow"></span></a>
+                        <a href="#"><i class="fa fa-globe fa-lg"></i><h3>Authors<span class="arrow"></span></h3></a>
                     </li>
                     <li>
-                        <ul class="sub-menu collapse" id="service">
-                            <li> A-E</li>
-                            <li> F-J</li>
-                            <li> K-O</li>
-                            <li> P-T</li>
-                            <li> U-Z</li>
-                        </ul>
+                        <h4>
+                            <ul class="sub-menu collapse" id="service">
+                                <li>A-E</li>
+                                <li>F-J</li>
+                                <li>K-O</li>
+                                <li>P-T</li>
+                                <li>U-Z</li>
+                            </ul>
+                        </h4>
                     </li>
                     <li data-toggle="collapse" data-target="#new" class="collapsed">
-                        <a href="#"><i class="fa fa-car fa-lg"></i> Books <span class="arrow"></span></a>
+                        <a href="#"><i class="fa fa-car fa-lg"></i><h4>Books<span class="arrow"></span></h4></a>
                     </li>
                     <li>
-                        <ul class="sub-menu collapse" id="new">
-                            <li> A-E</li>
-                            <li> F-J</li>
-                            <li> K-O</li>
-                            <li> P-T</li>
-                            <li> U-Z</li>
-                        </ul>
+                        <h4>
+                            <ul class="sub-menu collapse" id="new">
+                                <li>A-E</li>
+                                <li>F-J</li>
+                                <li>K-O</li>
+                                <li>P-T</li>
+                                <li>U-Z</li>
+                            </ul>
+                        </h4>
                     </li>
                 </ul>
             </div>
@@ -104,8 +122,8 @@
 
     <div class="navbar  navbar-inverse navbar-fixed-bottom">
         <div class="container">
-            <div class="navbar-text pull=left">
-                <p> SoftServe IT academy 2017</p>
+            <div class="navbar-text pull-right">
+                <h3> SoftServe IT Academy 2017</h3>
             </div>
         </div>
     </div>
