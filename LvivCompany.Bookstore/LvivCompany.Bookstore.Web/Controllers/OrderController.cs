@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LvivCompany.Bookstore.BusinessLogic.Mapper;
@@ -16,22 +17,24 @@ namespace LvivCompany.Bookstore.Web.Controllers
     [Authorize(Roles = "Customer,Seller")]
     public class OrderController : Controller
     {
+        private IRepo<Order> _orderRepo;
         private IRepo<OrderDetail> _orderDetailsRepo;
         private IMapper<OrderDetail, OrderHistoryViewModel> _orderDetailmapper;
         private IMapper<OrderDetail, OrderViewModel> _ordermapper;
         private IRepo<Book> _bookRepo;
         private UserManager<User> _userManager;
 
-        public OrderController(IRepo<OrderDetail> orderDetailsRepo, IMapper<OrderDetail, OrderViewModel> ordermapper, IMapper<OrderDetail, OrderHistoryViewModel> orderDetailsmapper, UserManager<User> userManager, IRepo<Book> bookRepo)
+        public OrderController(IRepo<Order> orderRepo, IRepo<OrderDetail> orderDetailsRepo, IMapper<OrderDetail, OrderViewModel> ordermapper, IMapper<OrderDetail, OrderHistoryViewModel> orderDetailsmapper, UserManager<User> userManager, IRepo<Book> bookRepo)
         {
             _orderDetailsRepo = orderDetailsRepo;
             _orderDetailmapper = orderDetailsmapper;
             _userManager = userManager;
             _bookRepo = bookRepo;
             _ordermapper = ordermapper;
+            _orderRepo = orderRepo;
         }
 
-        [Authorize(Roles ="Customer,Seller")]
+        [Authorize(Roles = "Customer,Seller")]
         [HttpGet]
         public async Task<IActionResult> OrderHistory()
         {
@@ -44,14 +47,14 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
             if (HttpContext.User.IsInRole("Customer"))
             {
-               details = _orderDetailsRepo.Get(x => x.Order.CustomerId == currentUserId).ToList();
+                details = _orderDetailsRepo.Get(x => x.Order.CustomerId == currentUserId).ToList();
             }
 
             return View(new ListOrderHistoryViewModel() { Orders = _orderDetailmapper.Map(details) });
         }
 
         [HttpGet]
-        [Authorize(Roles ="Customer")]
+        [Authorize(Roles = "Customer")]
         public async Task<IActionResult> Order(long id)
         {
             List<OrderViewModel> list = new List<OrderViewModel>();
@@ -76,7 +79,12 @@ namespace LvivCompany.Bookstore.Web.Controllers
 
                 if (!list.Any(x => x.BookId == book.Id))
                 {
+                    orderDetail.Amount++;
                     list.Add(_ordermapper.Map(orderDetail));
+                }
+                else
+                {
+                    list.Where(x => x.BookId == book.Id).ToList().ForEach(s => s.Quantity++);
                 }
 
                 return View(GetModelsFromSession(list));
@@ -109,6 +117,65 @@ namespace LvivCompany.Bookstore.Web.Controllers
             HttpContext.Session.SetString("order", str);
 
             return RedirectToAction("Order", "Order");
+        }
+
+        public IActionResult UpdateOrder(int[] quantity)
+        {
+            List<OrderViewModel> list = new List<OrderViewModel>();
+            if (HttpContext.Session.GetString("order") != null)
+            {
+                list = JsonConvert.DeserializeObject<List<OrderViewModel>>(HttpContext.Session.GetString("order"));
+            }
+
+            int temp = 0;
+            foreach (var item in list)
+            {
+                item.Quantity = quantity[temp];
+                temp++;
+            }
+
+            var str = JsonConvert.SerializeObject(list);
+            HttpContext.Session.SetString("order", str);
+
+            return RedirectToAction("Order", "Order");
+        }
+
+        public async Task<IActionResult> SubmitOrder()
+        {
+            List<OrderViewModel> list = new List<OrderViewModel>();
+            list = JsonConvert.DeserializeObject<List<OrderViewModel>>(HttpContext.Session.GetString("order"));
+            DateTime date = DateTime.Now;
+            User _user = await _userManager.GetUserAsync(HttpContext.User);
+            decimal totalPrice = 0;
+
+            foreach (var item in list)
+            {
+                Book book = await _bookRepo.GetAsync(item.BookId);
+                totalPrice += item.TotalPrice;
+                book.Amount -= item.Quantity;
+            }
+
+            await _orderRepo.CreateAsync(new Order
+            {
+                StatusId = 1,
+                CustomerId = _user.Id,
+                AddedDate = date,
+                OrderDate = date,
+                TotalPrice = totalPrice
+            });
+            long currOrderId = _orderRepo.Get(x => x.AddedDate == date).FirstOrDefault().Id;
+            foreach (var item in list)
+            {
+                item.OrderId = currOrderId;
+                await _orderDetailsRepo.CreateAsync(_ordermapper.Map(item));
+            }
+
+            if (list != null)
+            {
+                HttpContext.Session.Clear();
+            }
+
+            return View();
         }
     }
 }
