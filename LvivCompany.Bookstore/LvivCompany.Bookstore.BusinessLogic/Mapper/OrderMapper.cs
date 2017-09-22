@@ -11,7 +11,7 @@ namespace LvivCompany.Bookstore.BusinessLogic.Mapper
         {
             OrderDetail entity = new OrderDetail
             {
-                Amount = model.Amount,
+                Amount = model.Quantity,
                 BookId = model.BookId,
                 OrderId = model.OrderId
             };
