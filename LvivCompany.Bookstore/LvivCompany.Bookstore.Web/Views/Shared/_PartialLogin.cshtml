@@ -4,21 +4,14 @@
 {
     if (User.IsInRole("Customer"))
     {
-        <a class="btn btn-link btn-group" asp-controller="Order" asp-action="Order">
-            <h3>
+        <a class="btn btn-link btn-group iconpadding" asp-controller="Order" asp-action="Order">
                 <span class="glyphicon glyphicon-shopping-cart"></span> My Order
-                @if (Convert.ToInt32(Context.Request.Cookies["Count"]) > 0)
-                {
-                    <span class="badge item-in-cart">
-                        @Context.Request.Cookies["Count"]
-                    </span>
-                }
-            </h3>
         </a>
     }
-    <a class="btn btn-link btn-group" asp-controller="Account" asp-action="Profile"><h3><span class="glyphicon glyphicon-user"> @_UserManager.GetUserName(User).Remove(_UserManager.GetUserName(User).LastIndexOf("@"))</span></h3></a>
-    <button class="btn btn-link btn-group " asp-controller="Account" asp-action="LogOff" />
-    <h3><span class="glyphicon glyphicon-log-out"></span> Sign Out</h3>}
+    <a class="btn btn-link btn-group iconpadding" asp-controller="Account" asp-action="Profile"><span class="glyphicon glyphicon-user"> @_UserManager.GetUserName(User).Remove(_UserManager.GetUserName(User).LastIndexOf("@"))</span></a>
+    <button class="btn btn-link btn-group iconpadding" asp-controller="Account" asp-action="LogOff" >
+    <span class="glyphicon glyphicon-log-out"></span> Sign Out</button>}
 else
-{<a class="btn btn-link btn-group" asp-controller="Account" asp-action="Register"><h3><span class="glyphicon glyphicon-user"></span> Sign Up</h3></a>
-    <a class="btn btn-link btn-group" asp-controller="Account" asp-action="Login"><h3><span class="glyphicon glyphicon-log-in"></span> Sign In</h3></a>}
+{<a class="btn btn-link btn-group iconpadding" asp-controller="Account" asp-action="Register"><span class="glyphicon glyphicon-user"></span> Sign Up</a>
+    <a class="btn btn-link btn-group iconpadding" asp-controller="Account" asp-action="Login"><span class="glyphicon glyphicon-log-in"></span> Sign In</a>}
+<link href="~/css/PartialLoginStyle.css" rel="stylesheet"/>

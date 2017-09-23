@@ -5,13 +5,13 @@
 <form method="post" asp-controller="Account" asp-action="Login"
       asp-route-returnUrl="@Model.ReturnUrl">
 
-    <div class="main-login main-center ">
+    <div class="main-login main-center fontsize">
         <h2>Sign In</h2>
         <div class="form-group">
             <label asp-for="Email"></label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope " aria-hidden="true"></i></span>
-                <input asp-for="Email" class="form-control" placeholder="Please input your mail" />
+                <input asp-for="Email" class="form-control fontsize" placeholder="Please input your mail" />
             </div>
             <span asp-validation-for="Email" class="field-validation-error error-msg" ></span>
         </div>
@@ -19,7 +19,7 @@
             <label asp-for="Password"></label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-eye-open " aria-hidden="true"></i></span>
-                <input asp-for="Password" class="form-control" placeholder="Enter your password" />
+                <input asp-for="Password" class="form-control fontsize" placeholder="Enter your password" />
             </div>
             <span asp-validation-for="Password" class="field-validation-error error-msg"></span>
         </div>
@@ -27,11 +27,12 @@
         <div asp-validation-summary="ModelOnly" class="field-validation-error error-msg"></div>
 
         <div>
-            <input type="submit" class="  btn-lg btn-block btn-success" value="Sign In" />
+            <input type="submit" class="fontsize btn-lg btn-block btn-success" value="Sign In" />
         </div>
         <div>
-            <label asp-for="RememberMe"></label><br />
-            <input asp-for="RememberMe" />
+            <br/>
+            <input width="20" asp-for="RememberMe" />
+            <label asp-for="RememberMe"></label>
         </div>
     </div>
 </form>

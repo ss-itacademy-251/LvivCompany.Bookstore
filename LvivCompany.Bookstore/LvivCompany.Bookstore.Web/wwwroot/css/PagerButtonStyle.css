@@ -1,0 +1,13 @@
+﻿.pagerfont {font-size: 18px;
+}
+.glyphicon-backward::before {
+    margin-right: 10px !important;
+}
+.glyphicon-forward::before {
+    margin-left: 10px !important;
+}
+.hyperlinkwidth
+{
+    height:35px;
+    width:130px;
+}

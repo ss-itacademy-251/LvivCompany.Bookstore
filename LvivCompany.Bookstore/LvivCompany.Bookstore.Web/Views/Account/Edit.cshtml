@@ -13,21 +13,21 @@
 
 
                     <img id="imgDisplayArea" class="avatar img-circle img-thumbnail img-profile" src="@Model.Photo" />
-                    <h6>Upload a different photo...</h6>
-                    <input asp-for="Image" type="file" onchange="imagePreview(this)">
+                    <h3>Upload a different photo...</h3>
+                    <input asp-for="Image" type="file" onchange="imagePreview(this)"/>
                     <div class="form-group">
-                        <input asp-for="Photo" type="hidden" />
+                        <input asp-for="Photo" type="hidden"/>
                     </div>
                 </div>
             </div>
 
 
-            <div class="col-md-6 col-sm-6 col-xs-12 personal-info">
-                <h3>Personal info</h3>
+            <div class="col-md-8 col-sm-8 col-xs-12 personal-info fontsize">
+                <h2>Personal info</h2>
                 <div class="form-group ">
                     <label asp-for="FirstName" class="col-lg-3 control-label">First name:</label>
                     <div class="col-lg-7">
-                        <input border="0" type="text" class="form-control" asp-for="FirstName" />
+                        <input border="0" type="text" class="form-control fontsize" asp-for="FirstName" />
                     </div>
                     <span asp-validation-for="FirstName" class="field-validation-error error-msg "></span>
                 </div>
@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label asp-for="LastName" class="col-lg-3 control-label">Last name:</label>
                     <div class="col-lg-7">
-                        <input type="text" class="form-control" asp-for="LastName" />
+                        <input type="text" class="form-control fontsize" asp-for="LastName" />
                     </div>
                     <span asp-validation-for="LastName" class="field-validation-error error-msg "></span>
                 </div>
@@ -43,7 +43,7 @@
                 <div class="form-group">
                     <label asp-for="Email" class="col-lg-3 control-label">Email:</label>
                     <div class="col-lg-7">
-                        <input type="text" class="form-control" asp-for="Email" />
+                        <input type="text" class="form-control fontsize" asp-for="Email" />
                     </div>
                     <span asp-validation-for="Email" class="field-validation-error error-msg "></span>
                 </div>
@@ -51,7 +51,7 @@
                 <div class="form-group">
                     <label asp-for="Address1" class="col-lg-3 control-label">Address1:</label>
                     <div class="col-lg-7">
-                        <input type="text" class="form-control" asp-for="Address1" />
+                        <input type="text" class="form-control fontsize" asp-for="Address1" />
                     </div>
                     <span asp-validation-for="Address1" class="field-validation-error error-msg"></span>
                 </div>
@@ -60,14 +60,14 @@
                 <div class="form-group">
                     <label asp-for="Address2" class="col-lg-3 control-label">Address2:</label>
                     <div class="col-lg-7">
-                        <input type="text" class="form-control" asp-for="Address2" />
+                        <input type="text" class="form-control fontsize" asp-for="Address2" />
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label asp-for="PhoneNumber" class="col-lg-3 control-label">Phone Number:</label>
                     <div class="col-lg-7">
-                        <input type="text" class="form-control" asp-for="PhoneNumber" />
+                        <input type="text" class="form-control fontsize" asp-for="PhoneNumber" />
                     </div>
                     <span asp-validation-for="PhoneNumber" class="field-validation-error error-msg"></span>
                 </div>
@@ -75,8 +75,8 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label"></label>
                     <div class="col-md-7">
-                        <input class="btn btn-success" value="Save Changes" type="submit" asp-action="Edit" asp-controller="Account" formmethod="post" />
-                        <a class="btn btn-default" value="Cancel" asp-controller="Account" asp-action="Profile">Cancel</a>
+                        <input class="btn btn-success fontsize" value="Save Changes" type="submit" asp-action="Edit" asp-controller="Account" formmethod="post" />
+                        <a class="btn btn-default fontsize" value="Cancel" asp-controller="Account" asp-action="Profile">Cancel</a>
                     </div>
                 </div>
             </div>

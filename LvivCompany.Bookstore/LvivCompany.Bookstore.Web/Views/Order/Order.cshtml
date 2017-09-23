@@ -7,17 +7,16 @@
                 <div class="panel-heading">
                     <div class="panel-title">
                         <div class="row">
-                            <div class="col-xs-5 text-center">
-                                <h4><span>Item</span></h4>
+                            <div class="col-xs-8 text-center">
+                                <h4 class="fontsize"><span>Item</span></h4>
                             </div>
-                            <div class="col-xs-3">
-                                <span> </span>
-                            </div>
-                            <div class="col-xs-1 text-center">
-                                <h4><span>Quantity</span></h4>
-                            </div>
-                            <div class="col-xs-1 text-right">
-                                <h4><span>Price</span></h4>
+                            <div class="col-xs-4">
+                                <div class="col-xs-3">
+                                    <h4 class="fontsize"><span>Quantity</span></h4>
+                                </div>
+                                <div class="col-xs-4 text-right">
+                                    <h4 class="fontsize"><span>Price</span></h4>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -34,26 +33,26 @@
                     <form asp-controller="Order" asp-action="UpdateOrder" method="post">
                         @for (int i = 0; i < Model.Models.Count; i++)
                         {
-                            <div class="panel-body">
+                            <div class="panel-body panelbodypadding">
                                 <div class="row">
                                     <div class="col-xs-2">
                                         <img class="img-responsive" src="@Model.Models[i].ImageURL" />
 
                                     </div>
                                     <div class="col-xs-6">
-                                        <h4 class="product-name strong">@Model.Models[i].BookName</h4>
-                                        <h4><small>@Model.Models[i].Category</small></h4>
+                                        <h4 class="product-name strong fontsize">@Model.Models[i].BookName</h4>
+                                        <h4>@Model.Models[i].Category</h4>
                                     </div>
                                     <div class="col-xs-4">
                                         <div class="col-xs-3">
-                                            <input type="number" name="quantity" value="@Model.Models[i].Quantity" class="form-control input-group" />
+                                            <input type="number" name="quantity" value="@Model.Models[i].Quantity" class="form-control input-group fontsize" />
                                         </div>
-                                        <div class="col-xs-3 text-right">
-                                            <h6 class="strong">@Model.Models[i].Price.ToString(" 0.00")<span class="text-muted"> $</span></h6>
-                                            <input asp-for="@Model.Models[i].Price" type="hidden" class="form-control input-group" />
+                                        <div class="col-xs-4 text-right">
+                                            <h6 class="strong fontsize">@Model.Models[i].Price.ToString(" 0.00")<span class="text-muted fontsize"> $</span></h6>
+                                            <input asp-for="@Model.Models[i].Price" type="hidden" class="form-control input-group fontsize" />
                                         </div>
                                         <div class="col-xs-5">
-                                            <a class="btn btn-danger" asp-controller="Order" asp-action="RemoveFromOrder" asp-route-id="@Model.Models[i].BookId">Remove</a>
+                                            <a class="btn btn-danger fontsize" asp-controller="Order" asp-action="RemoveFromOrder" asp-route-id="@Model.Models[i].BookId">Remove</a>
                                         </div>
                                     </div>
                                 </div>
@@ -70,7 +69,7 @@
                                 <div class="col-xs-3">
                                     @if (Model.Models.Count != 0)
                                     {
-                                        <button type="submit" class="btn btn-default btn-block glyphicon glyphicon-refresh ">
+                                        <button type="submit" class="btn btn-default btn-block glyphicon glyphicon-refresh fontsize">
                                             Update
                                         </button>
                                     }
@@ -82,7 +81,7 @@
                                         Model.TotalPrice += item.TotalPrice;
                                     }
 
-                                    <h4 class="text-center strong">Total Price: @Model.TotalPrice.ToString(" 0.00") $</h4>
+                                    <h4 class="text-center strong fontsize">Total Price: @Model.TotalPrice.ToString(" 0.00") $</h4>
                                 </div>
                             </div>
                         </div>
@@ -96,7 +95,7 @@
                         </div>
 
                         <div class="col-xs-3">
-                            <a class="btn btn-default btn-block" asp-controller="Home" asp-action="Index">
+                            <a class="btn btn-default btn-block fontsize" asp-controller="Home" asp-action="Index">
                                 Continue Shopping
                                 <span class="glyphicon glyphicon-shopping-cart"></span>
                             </a>
@@ -104,7 +103,7 @@
                         <div class="col-xs-3">
                             @if (Model.Models.Count != 0)
                             {
-                                <a class="btn btn-success btn-block" asp-controller="Order" asp-action="SubmitOrder">
+                                <a class="btn btn-success btn-block fontsize" asp-controller="Order" asp-action="SubmitOrder">
                                     <i class="fa fa-circle-o-notch fa-spin"></i>
                                     Checkout
                                     <span class="glyphicon glyphicon-play"></span>

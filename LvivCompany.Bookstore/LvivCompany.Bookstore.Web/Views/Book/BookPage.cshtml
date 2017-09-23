@@ -2,68 +2,72 @@
 @section Styles {
     <link href="@Url.Content("~/css/BookDetailStyle.css")" rel="stylesheet" type="text/css" />
 }
-<form asp-controller="Book" asp-action="BookPage">
+<form asp-controller="Book" asp-action="BookPage" class="fontsize">
     <div class="container">
         <div class="row">
             <div class="col-xs-4 item-photo">
-                <img src="@Model.ImageUrl" alt="book cover" />
+                <img src="@Model.ImageUrl" alt="book cover" height="225" />
             </div>
-            <div class="col-xs-5">
+            <div class="col-xs-8">
                 <!-- Name -->
                 <h2>@Model.Name</h2>
 
                 <ul class="list-info">
                     <!-- Author -->
+                    @{
+                    string name;string semicolon;
+                    @if (@Model.Authors.Count == 1) { name = "Author:"; semicolon=""; } else { name = "Authors:"; semicolon = ";"; } 
+                    }
                     <li>
-                        <label class="title-items">Author   </label>
+                        <label class="title-items"> @name </label>
                         <ul>
                             @foreach (var author in @Model.Authors)
                             {
-                                <li> <span class="inf">@author.FullName</span></li>
+                                <span class="inf">@author.FullName@semicolon</span>
                             }
                         </ul>
                     </li>
 
                 <!-- Category -->
                 <li>
-                    <label class="title-items">Category   </label>
+                    <label class="title-items">Category:</label>
                     <span class="inf">@Model.Category</span>
                 </li>
                 <!-- NumberOfPages -->
                 <li>
-                    <label class="title-items">Number Of Pages   </label>
+                    <label class="title-items">Number of pages:</label>
                     <span class="inf">@Model.NumberOfPages</span>
                 </li>
                 <!-- PUBLISHER -->
                 <li>
-                    <label class="title-items">Publisher   </label>
+                    <label class="title-items">Publisher:</label>
                     <span class="inf">@Model.PublisherName</span>
                 </li>
                 <!-- Year -->
                 <li>
-                    <label class="title-items">Year   </label>
+                    <label class="title-items">Year:</label>
                     <span class="inf">@Model.Year</span>
                 </li>
                 <!-- Amount -->
                 <li>
-                    <label class="title-items">Amount   </label>
+                    <label class="title-items">Amount:</label>
                     <span class="inf">@Model.Amount<br></span>
                 </li>
                 <!-- Price -->
                 <li>
-                    <label class="title-items">Price</label>
+                    <label class="title-items">Price:</label>
                     <span class="inf">@(Model.Price + " $")</span>
                 </li>
                 </ul>
 
                 <!-- Add to Order -->
                 <div class="section amount">
-                    <a class="btn btn-success" asp-controller="Order" asp-action="Order" asp-route-id="@Model.Id"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Order </a>
+                    <a class="btn btn-success fontsize addtoorder" asp-controller="Order" asp-action="Order" asp-route-id="@Model.Id"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Order </a>
                 </div>
             </div>
 
             <div class="col-xs-9">
-                <label>Description</label>
+                <label>Description:</label>
                 <div class="description">
                     <p class="line">
                         <span class="inf">

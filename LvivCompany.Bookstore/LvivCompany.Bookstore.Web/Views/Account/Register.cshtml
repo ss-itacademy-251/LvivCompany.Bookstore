@@ -10,13 +10,13 @@
 
 <form method="post" asp-controller="Account" asp-action="Register">
 
-    <div class="main-login main-center ">
+    <div class="main-login main-center fontsize">
         <h2>Sign Up</h2>
         <div class="form-group">
             <label asp-for="Email"></label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-envelope " aria-hidden="true"></i></span>
-                <input asp-for="Email" class="form-control" placeholder="Your Mail" />
+                <input asp-for="Email" class="form-control fontsize" placeholder="Your Mail" />
 
             </div>
             <span asp-validation-for="Email" class="field-validation-error error-msg "></span>
@@ -26,7 +26,7 @@
             <label asp-for="FirstName"></label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-user " aria-hidden="true"></i></span>
-                <input asp-for="FirstName" class="form-control" placeholder="Your First Name" />
+                <input asp-for="FirstName" class="form-control fontsize" placeholder="Your First Name" />
             </div>
             <span asp-validation-for="FirstName" class="field-validation-error error-msg"></span>
         </div>
@@ -35,7 +35,7 @@
             <label asp-for="LastName"></label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-user " aria-hidden="true"></i></span>
-                <input asp-for="LastName" class="form-control" placeholder="Your Last Name" />
+                <input asp-for="LastName" class="form-control fontsize" placeholder="Your Last Name" />
 
             </div>
             <span asp-validation-for="LastName" class="field-validation-error error-msg"></span>
@@ -45,7 +45,7 @@
             <label asp-for="Address1"></label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-home " aria-hidden="true"></i></span>
-                <input asp-for="Address1" class="form-control" placeholder="Your Address1" />
+                <input asp-for="Address1" class="form-control fontsize" placeholder="Your Address1" />
 
             </div>
             <span asp-validation-for="Address1" class="field-validation-error error-msg"></span>
@@ -55,7 +55,7 @@
             <label asp-for="Address2"></label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-home " aria-hidden="true"></i></span>
-                <input asp-for="Address2" class="form-control" placeholder="Your Address2" />
+                <input asp-for="Address2" class="form-control fontsize" placeholder="Your Address2" />
             </div>
             <span asp-validation-for="Address2" class="field-validation-error error-msg"></span>
         </div>
@@ -64,7 +64,7 @@
             <label asp-for="PhoneNumber"></label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-phone " aria-hidden="true"></i></span>
-                <input asp-for="PhoneNumber" class="form-control" placeholder="Your Mobile" />
+                <input asp-for="PhoneNumber" class="form-control fontsize" placeholder="Your Mobile" />
             </div>
             <span asp-validation-for="PhoneNumber" class="field-validation-error error-msg"></span>
         </div>
@@ -73,7 +73,7 @@
             <label asp-for="AppRoleId"></label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-pawn " aria-hidden="true"></i></span>
-                <select asp-for="AppRoleId" asp-items="@Model.AppRoles" class="form-control">
+                <select asp-for="AppRoleId" asp-items="@Model.AppRoles" class="form-control fontsize">
                     <option>Please select</option>
 
                 </select>
@@ -86,7 +86,7 @@
             <label asp-for="Password"></label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-eye-open " aria-hidden="true"></i></span>
-                <input asp-for="Password" class="form-control" placeholder="Enter your password" />
+                <input asp-for="Password" class="form-control fontsize" placeholder="Enter your password" />
             </div>
             <span asp-validation-for="Password" class="field-validation-error error-msg"></span>
         </div>
@@ -95,7 +95,7 @@
             <label asp-for="PasswordConfirm"></label>
             <div class="input-group">
                 <span class="input-group-addon"><i class="glyphicon glyphicon-eye-open " aria-hidden="true"></i></span>
-                <input asp-for="PasswordConfirm" class="form-control" placeholder="Please confirm your password" />
+                <input asp-for="PasswordConfirm" class="form-control fontsize" placeholder="Please confirm your password" />
 
             </div>
             <span class="danger error-msg" asp-validation-for="PasswordConfirm"></span>
@@ -104,7 +104,7 @@
         <div asp-validation-summary="ModelOnly" class="field-validation-error error-msg"></div>
 
         <div>
-            <input type="submit" class="  btn-lg btn-success btn-block  " value="Submit" />
+            <input type="submit" class="fontsize btn-lg btn-success btn-block  "value="Submit" />
         </div>
     </div>
 </form>

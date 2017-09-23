@@ -10,22 +10,57 @@
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/SideBarrStyle.css" rel="stylesheet" />
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-    <link href="../Style/IconDown.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../Style/Carouselstyle.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,700&subset=latin-ext" rel="stylesheet">
     <style>
         h3 {
             font-size: 18px;
         }
-        .navbar .navbar-text
-        {
-            margin:0px;
-            padding:0px;
-            min-height:8px;
-            height:8px;
+
+        .paddingsubmenu {
+            padding-left: 15px;
         }
+
+        .searchbuttonmargin {
+            margin-top: -10px;
+        }
+
+        .navbar .navbar-text {
+            margin: 0px;
+            padding: 0px;
+            min-height: 8px;
+            height: 8px;
+        }
+
+        .navbar-inverse {
+            height: 12px;
+        }
+
+        .navbar-nav > li > a {
+            padding-top: 15px;
+            padding-bottom: 0px;
+        }
+
+        .nav > li > a {
+            padding-top: 15px;
+            padding-bottom: 0px;
+        }
+
+        .fontsize {
+            font-size: 18px;
+        }
+
+        .nav-side-menu > ul {
+            padding-top: 13px;
+        }
+
+        .navbar-brand {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        
     </style>
 </head>
 
@@ -37,24 +72,24 @@
                 <button type="button" class="navbar-toggle title-name" data-toggle="collapse" data-target="#myNavbar">
                     <span class="glyphicon glyphicon-th-large"></span>
                 </button>
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img src="~/lib/Images/LionsofLiterature – копія.png" width="250" height="60"></a>
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index"><img src="https://lv251bookstore.blob.core.windows.net/images/4eee7b09-2964-42fd-9474-86e32d0e2035.png" width="250" height="39"></a>
             </div>
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="container-fluid"><a asp-controller="Home" asp-action="Index"><h3>Home</h3></a></li>
-                    <li class="container-fluid"><a asp-controller="Home" asp-action="Delivery"><h3>Delivery</h3></a></li>
-                    <li class="container-fluid"><a asp-controller="Home" asp-action="Help"><h3>Help</h3></a></li>
-                    <li class="container-fluid"><a asp-controller="About" asp-action="About"><h3>About Us</h3></a></li>
+                    <li class="container-fluid"><a class="fontsize" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="container-fluid"><a class="fontsize" asp-controller="Home" asp-action="Delivery">Delivery</a></li>
+                    <li class="container-fluid"><a class="fontsize" asp-controller="Home" asp-action="Help">Help</a></li>
+                    <li class="container-fluid"><a class="fontsize" asp-controller="About" asp-action="About">About Us</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right ">
 
                     <li>
                         <form asp-controller="Search" asp-action="Index">
-                            <h3><input class="search-input" name="SearchText" /> <input type="submit" value="Search" /></h3>
+                            <input class="search-input fontsize" name="SearchText" /> <input class="btn btn-default fontsize searchbuttonmargin" type="submit" value="Search" />
                         </form>
                     </li>
-                    <li class="part-log-view"> <form class="form-inline" asp-controller="Account" asp-action="LogOff" method="post">@await Html.PartialAsync("_PartialLogin") </form></li>
+                    <li> <form class="form-inline" asp-controller="Account" asp-action="LogOff" method="post">@await Html.PartialAsync("_PartialLogin") </form></li>
                 </ul>
 
             </div>
@@ -65,52 +100,15 @@
             <i class="fa fa-bars fa-2x toggle-btn glyphicon glyphicon-chevron-down brand-logo" data-toggle="collapse" data-target="#menu-content"></i>
             <div class="menu-list">
                 <ul id="menu-content" class="menu-content collapse out">
-                    <li>
-                        <a href="#">
-                            <i class="fa fa-dashboard fa-lg"></i> <h4>Catalog</h4>
-                        </a>
-                    </li>
                     <li data-toggle="collapse" data-target="#products" class="collapsed active">
-                        <a href="#"><i class="fa fa-gift fa-lg"></i><h4>Genres<span class="arrow"></span></h4></a>
+                        <a class="fontsize" href="#"><i class="fa fa-gift fa-lg"></i>Catalogue of Genres<span class="arrow"></span></a>
                     </li>
-                    <li>
-                        <h4>
-                            <ul class="sub-menu collapse" id="products">
-                                <li><a href="#">Detectives</a></li>
-                                <li><a href="#">Historical</a></li>
-                                <li><a href="#">Thriller</a></li>
-                                <li><a href="#">Grief</a></li>
-                            </ul>
-                        </h4>
-                    </li>
-                    <li data-toggle="collapse" data-target="#service" class="collapsed">
-                        <a href="#"><i class="fa fa-globe fa-lg"></i><h3>Authors<span class="arrow"></span></h3></a>
-                    </li>
-                    <li>
-                        <h4>
-                            <ul class="sub-menu collapse" id="service">
-                                <li>A-E</li>
-                                <li>F-J</li>
-                                <li>K-O</li>
-                                <li>P-T</li>
-                                <li>U-Z</li>
-                            </ul>
-                        </h4>
-                    </li>
-                    <li data-toggle="collapse" data-target="#new" class="collapsed">
-                        <a href="#"><i class="fa fa-car fa-lg"></i><h4>Books<span class="arrow"></span></h4></a>
-                    </li>
-                    <li>
-                        <h4>
-                            <ul class="sub-menu collapse" id="new">
-                                <li>A-E</li>
-                                <li>F-J</li>
-                                <li>K-O</li>
-                                <li>P-T</li>
-                                <li>U-Z</li>
-                            </ul>
-                        </h4>
-                    </li>
+                    <ul class="sub-menu collapse" id="products">
+                        <li><a class="fontsize paddingsubmenu" href="#">Detectives</a></li>
+                        <li><a class="fontsize paddingsubmenu" href="#">Historical</a></li>
+                        <li><a class="fontsize paddingsubmenu" href="#">Thriller</a></li>
+                        <li><a class="fontsize paddingsubmenu" href="#">Grief</a></li>
+                    </ul>
                 </ul>
             </div>
         </div>
@@ -120,13 +118,13 @@
         @RenderBody()
     </div>
 
-    <div class="navbar  navbar-inverse navbar-fixed-bottom">
-        <div class="container">
-            <div class="navbar-text pull-right">
-                <h3> SoftServe IT Academy 2017</h3>
+    @*<div class="navbar  navbar-inverse navbar-fixed-bottom">
+            <div class="container">
+                <div class="navbar-text pull-right">
+                    <h3> SoftServe IT Academy 2017</h3>
+                </div>
             </div>
-        </div>
-    </div>
+        </div>*@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
