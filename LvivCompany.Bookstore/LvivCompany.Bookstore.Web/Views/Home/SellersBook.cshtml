@@ -1,4 +1,5 @@
 ﻿@model HomePageListViewModel
+@using LvivCompany.Bookstore.BusinessLogic
 
 <h1 class="text-center">My Books</h1>
 @Html.Partial("_BookList")
@@ -16,10 +17,16 @@
         }
     </li>
 </ul>
+
+@Html.Partial("_Modal", new BootstrapModel { ID = "modal-action-book", AreaLabeledId = "modal-action-book-label", Size = ModalSize.Medium })
 @section Styles
 
     {
 
     <link href="~/css/site.css" rel="stylesheet" type="text/css" />
 
+}
+@section Scripts
+    {
+    <script src="~/js/deletemodalwindow.js" asp-append-version="true"></script>
 }

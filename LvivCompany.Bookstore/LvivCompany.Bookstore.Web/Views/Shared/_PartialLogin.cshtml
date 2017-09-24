@@ -8,7 +8,7 @@
                 <span class="glyphicon glyphicon-shopping-cart"></span> My Order
         </a>
     }
-    <a class="btn btn-link btn-group iconpadding" asp-controller="Account" asp-action="Profile"><span class="glyphicon glyphicon-user"> @_UserManager.GetUserName(User).Remove(_UserManager.GetUserName(User).LastIndexOf("@"))</span></a>
+    <a class="btn btn-link btn-group iconpadding" asp-controller="Account" asp-action="Profile"><span class="glyphicon glyphicon-user">@_UserManager.GetUserName(User).Remove(_UserManager.GetUserName(User).LastIndexOf("@"))</span></a>
     <button class="btn btn-link btn-group iconpadding" asp-controller="Account" asp-action="LogOff" >
     <span class="glyphicon glyphicon-log-out"></span> Sign Out</button>}
 else

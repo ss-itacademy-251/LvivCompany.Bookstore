@@ -1,10 +1,4 @@
-﻿ul > li {
-    margin-right: 25px;
-    font-weight: lighter;
-    cursor: pointer
-}
-
-li.active {
+﻿li.active {
     border-bottom: 3px solid silver;
 }
 
@@ -23,7 +17,7 @@ li.active {
     margin-top: 20px
 }
 
-.btn-success {
+btn-success {
     width: 100%;
     border-radius: 0px;
     margin-right: 20px;

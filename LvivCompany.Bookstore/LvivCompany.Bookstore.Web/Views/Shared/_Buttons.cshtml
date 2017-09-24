@@ -1,4 +1,5 @@
 ﻿@model long
+    
 @if ((ViewContext.RouteData.Values["controller"].ToString() == "Home"
                 | ViewContext.RouteData.Values["controller"].ToString() == "Search") &
                                         ViewContext.RouteData.Values["action"].ToString() == "Index")
@@ -10,5 +11,5 @@
                                                  ViewContext.RouteData.Values["action"].ToString() == "SellersBook")
 {<div class="col-md-6 col-sm-6">
         <a class="btn btn-info btn-block fontsize" asp-controller="Book" asp-action="EditBook" asp-route-id="@Model">Edit</a>
-        @*<a class="btn btn-danger btn-block fontsize">Delete</a>*@
+        <a id="deleteBookModal" data-toggle="modal" asp-controller="Book" asp-action="DeleteBook" asp-route-id="@Model" data-target="#modal-action-book" class="btn btn-danger btn-block fontsize">Delete</a>
     </div>}

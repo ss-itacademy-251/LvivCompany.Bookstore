@@ -1,0 +1,9 @@
+﻿@model EditBookViewModel
+@using LvivCompany.Bookstore.BusinessLogic
+
+<form asp-controller="Book" asp-action="DeleteBook" asp-route-id="@Model.Id" method="post">
+    <div class="modal-body form-horizontal fontsize">
+        Are you want to delete the book @Model.Name?
+    </div>
+    @Html.Partial("_ModalWindow", new ModalWindow { SubmitButtonText = "Delete" })
+</form>
