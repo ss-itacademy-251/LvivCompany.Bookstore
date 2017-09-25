@@ -61,9 +61,10 @@
                 </ul>
 
                 <!-- Add to Order -->
-                <div class="section amount">
+                @if (!User.IsInRole("Seller"))
+                {<div class="section amount">
                     <a class="btn btn-success fontsize addtoorder" asp-controller="Order" asp-action="Order" asp-route-id="@Model.Id"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to Order </a>
-                </div>
+                </div>}
             </div>
 
             <div class="col-xs-9">
