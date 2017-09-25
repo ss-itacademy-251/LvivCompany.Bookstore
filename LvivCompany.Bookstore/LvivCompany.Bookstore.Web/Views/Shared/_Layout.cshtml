@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject LvivCompany.Bookstore.BusinessLogic.CategoryServices categoryList
+<!DOCTYPE html>
 <html>
 <head>
     @RenderSection("Styles", required: false)
@@ -60,6 +61,10 @@
             padding-top: 5px;
             padding-bottom: 5px;
         }
+
+        .genrebutton{
+            display:block;
+        }
     </style>
 </head>
 
@@ -99,10 +104,13 @@
                     <li class="fontsize text-center">
                         Genres
                     </li>
-                            <li><a class="fontsize paddingsubmenu" href="#">Detectives</a></li>
-                            <li><a class="fontsize paddingsubmenu" href="#">Historical</a></li>
-                            <li><a class="fontsize paddingsubmenu" href="#">Thriller</a></li>
-                            <li><a class="fontsize paddingsubmenu" href="#">Grief</a></li>
+                    @{
+                       var list = (await categoryList.GetCategory()).OrderBy(c=>c.Name).ToList();
+                        @foreach (var category in list)
+                        {
+                        <li class="fontsize"><a class="genrebutton" asp-controller="Category" asp-action="Index" asp-route-id="@category.Id">@category.Name</a></li>
+                    }
+                    }
                 </ul>
             </div>
         </div>
@@ -111,14 +119,6 @@
     <div class="render-body">
         @RenderBody()
     </div>
-
-    @*<div class="navbar  navbar-inverse navbar-fixed-bottom">
-            <div class="container">
-                <div class="navbar-text pull-right">
-                    <h3> SoftServe IT Academy 2017</h3>
-                </div>
-            </div>
-        </div>*@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -66,6 +66,7 @@ namespace LvivCompany.Bookstore.Web
             services.AddScoped<HomeServices>();
             services.AddScoped<SearchServices>();
             services.AddScoped<IEmailSender, AuthMessageSender>();
+            services.AddScoped<CategoryServices>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
