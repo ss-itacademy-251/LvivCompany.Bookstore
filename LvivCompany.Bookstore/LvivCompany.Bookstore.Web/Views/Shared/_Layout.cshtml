@@ -11,61 +11,11 @@
     <link rel="shortcut icon" href="https://lv251bookstore.blob.core.windows.net/images/LionsofLiterature_1_winner.png" type="image/x-icon" />
     <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/SideBarrStyle.css" rel="stylesheet" />
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,700&subset=latin-ext" rel="stylesheet">
-    <style>
-        h3 {
-            font-size: 18px;
-        }
-
-        .paddingsubmenu {
-            padding-left: 15px;
-        }
-
-        .searchbuttonmargin {
-            margin-top: -10px;
-        }
-
-        .navbar .navbar-text {
-            margin: 0px;
-            padding: 0px;
-            min-height: 8px;
-            height: 8px;
-        }
-
-        .navbar-inverse {
-            height: 12px;
-        }
-
-        .navbar-nav > li > a {
-            padding-top: 15px;
-            padding-bottom: 0px;
-        }
-
-        .nav > li > a {
-            padding-top: 15px;
-            padding-bottom: 0px;
-        }
-
-        .fontsize {
-            font-size: 18px;
-        }
-
-        .nav-side-menu > ul {
-            padding-top: 13px;
-        }
-
-        .navbar-brand {
-            padding-top: 5px;
-            padding-bottom: 5px;
-        }
-
-        .genrebutton{
-            display:block;
-        }
-    </style>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,400,700&subset=latin-ext" rel="stylesheet" />
+    <link href="~/css/layout.css" rel="stylesheet" />
 </head>
 
 <body class="bdy-main">
@@ -105,11 +55,11 @@
                         Genres
                     </li>
                     @{
-                       var list = (await categoryList.GetCategory()).OrderBy(c=>c.Name).ToList();
+                        var list = (await categoryList.GetCategory()).OrderBy(c => c.Name).ToList();
                         @foreach (var category in list)
                         {
-                        <li class="fontsize"><a class="genrebutton" asp-controller="Category" asp-action="Index" asp-route-id="@category.Id">@category.Name</a></li>
-                    }
+                            <li class="fontsize"><a class="genrebutton" asp-controller="Category" asp-action="Index" asp-route-id="@category.Id">@category.Name</a></li>
+                        }
                     }
                 </ul>
             </div>

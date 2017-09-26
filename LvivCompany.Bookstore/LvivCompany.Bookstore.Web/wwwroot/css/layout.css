@@ -1,0 +1,49 @@
+﻿h3 {
+    font-size: 18px;
+}
+
+.paddingsubmenu {
+    padding-left: 15px;
+}
+
+.searchbuttonmargin {
+    margin-top: -10px;
+}
+
+.navbar .navbar-text {
+    margin: 0px;
+    padding: 0px;
+    min-height: 8px;
+    height: 8px;
+}
+
+.navbar-inverse {
+    height: 12px;
+}
+
+.navbar-nav > li > a {
+    padding-top: 15px;
+    padding-bottom: 0px;
+}
+
+.nav > li > a {
+    padding-top: 15px;
+    padding-bottom: 0px;
+}
+
+.fontsize {
+    font-size: 18px;
+}
+
+.nav-side-menu > ul {
+    padding-top: 13px;
+}
+
+.navbar-brand {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.genrebutton {
+    display: block;
+}
