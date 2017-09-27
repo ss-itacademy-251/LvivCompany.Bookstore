@@ -1,7 +1,20 @@
 ﻿@model ListOrdersViewModel
 <div class="container">
-    <div class="row">
-        <h1> Success </h1>
+    <div class="row text-center">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="notify successbox">
+                <h1>Success!</h1>
+                <span class="alerticon"><img src="http://s22.postimg.org/i5iji9hv1/check.png" alt="checkmark" /></span>
+            </div>
+            <br>
+            <h2>Your order has been received.</h2>
+            <h3>Thank you for your purchase!</h3>
+            <br>
+            <a class="btn btn-default btn-block fontsize" asp-controller="Home" asp-action="Index">
+                Continue Shopping
+                <span class="glyphicon glyphicon-shopping-cart"></span>
+            </a>
+            <br><br>
+        </div>
     </div>
 </div>
-
